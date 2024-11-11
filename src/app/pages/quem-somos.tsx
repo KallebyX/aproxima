@@ -1,13 +1,6 @@
-"use client";
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-export default function PaginaInicial() {
-  const router = useRouter();
-
-  const handleNavigation = (path: string) => {
-    router.push(path);
-  };
-
+export default function QuemSomos() {
   return (
     <div style={{
       minHeight: '100vh',
@@ -15,6 +8,7 @@ export default function PaginaInicial() {
       color: '#FFB6F3',
       fontFamily: 'system-ui, sans-serif',
     }}>
+      {/* Desktop Header */}
       <header style={{
         display: 'flex',
         flexDirection: 'column',
@@ -69,8 +63,28 @@ export default function PaginaInicial() {
               </h2>
             </div>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button 
+            aria-label="Menu"
+            style={{
+              display: 'none',
+              background: 'none',
+              border: 'none',
+              padding: '0.5rem',
+              cursor: 'pointer',
+              '@media (max-width: 768px)': {
+                display: 'block',
+              }
+            }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFB6F3" strokeWidth="2">
+              <path d="M3 12h18M3 6h18M3 18h18" />
+            </svg>
+          </button>
         </div>
 
+        {/* Desktop Navigation */}
         <nav style={{
           width: '100%',
           backgroundColor: '#FFB6F3',
@@ -88,12 +102,22 @@ export default function PaginaInicial() {
             margin: 0,
             padding: 0,
           }}>
-            <li><button onClick={() => handleNavigation('/quem-somos')} style={{ color: '#2A1B5D', background: 'none', border: 'none', fontSize: '1.2rem' }}>Quem somos</button></li>
-            <li><button onClick={() => handleNavigation('/produtos-acessiveis')} style={{ color: '#2A1B5D', background: 'none', border: 'none', fontSize: '1.2rem' }}>Produtos acessíveis</button></li>
-            <li><button onClick={() => handleNavigation('/area-do-profissional')} style={{ color: '#2A1B5D', background: 'none', border: 'none', fontSize: '1.2rem' }}>Área do profissional</button></li>
-            <li><button onClick={() => handleNavigation('/contato')} style={{ color: '#2A1B5D', background: 'none', border: 'none', fontSize: '1.2rem' }}>Contato</button></li>
+            <li><Link href="/quem-somos" passHref style={{ color: '#2A1B5D', textDecoration: 'none', fontSize: '1.2rem' }}>Quem somos</Link></li>
+            <li><Link href="/produtos-acessiveis" passHref style={{ color: '#2A1B5D', textDecoration: 'none', fontSize: '1.2rem' }}>Produtos acessíveis</Link></li>
+            <li><Link href="/area-do-profissional" passHref style={{ color: '#2A1B5D', textDecoration: 'none', fontSize: '1.2rem' }}>Área do profissional</Link></li>
+            <li><Link href="/contato" passHref style={{ color: '#2A1B5D', textDecoration: 'none', fontSize: '1.2rem' }}>Contato</Link></li>
           </ul>
         </nav>
+
+        {/* Mobile Header Border */}
+        <div style={{
+          display: 'none',
+          width: '100%',
+          borderBottom: '2px solid #FFB6F3',
+          '@media (max-width: 768px)': {
+            display: 'block',
+          }
+        }} />
       </header>
 
       <main style={{
@@ -172,5 +196,5 @@ export default function PaginaInicial() {
         </div>
       </main>
     </div>
-  );
+  )
 }

@@ -1,0 +1,154 @@
+/* global.css */
+
+:root {
+    --background: #2A1B5D;
+    --text: #FFB6F3;
+    --accent: #FFB6F3;
+    --nav-background: #FFB6F3;
+    --nav-text: #2A1B5D;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  
+  a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 1rem;
+  }
+  
+  /* Header Styles */
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .site-title {
+    font-size: 2.5rem;
+    margin: 0;
+  }
+  
+  .site-subtitle {
+    font-size: 1.8rem;
+    margin: 0;
+  }
+  
+  nav {
+    width: 100%;
+    background-color: var(--nav-background);
+    padding: 1rem;
+  }
+  
+  nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    list-style: none;
+  }
+  
+  nav a {
+    color: var(--nav-text);
+    font-size: 1.2rem;
+  }
+  
+  /* Main Content Styles */
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  /* Button Styles */
+  button {
+    background-color: var(--accent);
+    color: var(--background);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  /* Form Styles */
+  input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--accent);
+    border-radius: 0.25rem;
+    background-color: var(--background);
+    color: var(--text);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .logo {
+      width: 40px;
+      height: 40px;
+    }
+  
+    .site-title {
+      font-size: 1.8rem;
+    }
+  
+    .site-subtitle {
+      font-size: 1.4rem;
+    }
+  
+    nav {
+      display: none; /* Hide desktop nav on mobile */
+    }
+  
+    .mobile-menu {
+      display: block;
+    }
+  
+    main {
+      text-align: left;
+      padding: 2rem 1.5rem;
+    }
+  
+    button {
+      font-size: 1rem;
+    }
+  }
+  
+  /* Utility Classes */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
