@@ -1,6 +1,6 @@
 module.exports = {
-    experimental: {
-      appDir: true,
+    rules: {
+      "@typescript-eslint/no-unused-vars": "off",
     },
   };
   
