@@ -38,7 +38,6 @@ const Paragraph = styled.p`
 `;
 
 const Textarea = styled.textarea`
-  width: 100%;
   height: 200px;
   padding: 1rem;
   border-radius: 0.5rem;

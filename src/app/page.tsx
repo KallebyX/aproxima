@@ -1,8 +1,8 @@
 // src/app/page.tsx
 'use client';
 
-import PaginaInicial from "./components/PaginaInicial/page";
+import AppRoutes from './routes';
 
-export default function HomePage() {
-  return <PaginaInicial />;
+export default function App() {
+  return <AppRoutes />;
 }
