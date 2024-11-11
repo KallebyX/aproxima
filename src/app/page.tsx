@@ -1,5 +1,7 @@
 // src/app/page.tsx
-import PaginaInicial from "./components/PaginaInicial";
+'use client';
+
+import PaginaInicial from "./components/PaginaInicial/page";
 
 export default function HomePage() {
   return <PaginaInicial />;
