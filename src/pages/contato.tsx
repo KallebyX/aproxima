@@ -1,10 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import logo from '../logo.png';
-import Link from 'next/link';
-import Header from '../Header/page';
+import Header from './Header';
 import styled from 'styled-components';
 
 const PageWrapper = styled.div`

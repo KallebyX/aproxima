@@ -1,6 +1,6 @@
 'use client';
 
-import Header from '../Header/page';
+import Header from './Header';
 import styled from 'styled-components';
 
 const PageWrapper = styled.div`

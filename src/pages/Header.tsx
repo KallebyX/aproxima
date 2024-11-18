@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Link } from 'react-router-dom';
-import logo from '../../logo.png';
+import Link from 'next/link';
 import styled from 'styled-components';
+import logo from './logo.png';
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -42,21 +42,16 @@ const LogoWrapper = styled.div`
   }
 `;
 
-const HeaderTitle = styled.h1`
-  font-size: 2.5rem;
-  margin: 0;
+const HamburgerButton = styled.button`
+  display: none;
+  background: none;
+  border: none;
+  color: #FFB6F3;
+  font-size: 2rem;
+  cursor: pointer;
 
   @media (max-width: 768px) {
-    font-size: 1.8rem;
-  }
-`;
-
-const HeaderSubtitle = styled.h2`
-  font-size: 1.8rem;
-  margin: 0;
-
-  @media (max-width: 768px) {
-    font-size: 1.4rem;
+    display: block;
   }
 `;
 
@@ -78,24 +73,17 @@ const NavList = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+  
 `;
 
-const NavLink = styled(Link)`
+const NavLink = styled.a`
   color: #2A1B5D;
   text-decoration: none;
   font-size: 1.2rem;
-`;
-
-const HamburgerButton = styled.button`
-  display: none;
-  background: none;
-  border: none;
-  color: #FFB6F3;
-  font-size: 2rem;
-  cursor: pointer;
-
-  @media (max-width: 768px) {
-    display: block;
+  text-decoration: none;
+  &:hover,
+  &:focus {
+    text-decoration: none;
   }
 `;
 
@@ -121,27 +109,6 @@ const MobileMenuContent = styled.div`
   max-width: 300px;
 `;
 
-const MobileMenuHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-`;
-
-const MobileMenuTitle = styled.h2`
-  color: #2A1B5D;
-  font-size: 1.5rem;
-  font-weight: bold;
-`;
-
-const CloseButton = styled.button`
-  background-color: transparent;
-  border: none;
-  color: #2A1B5D;
-  font-size: 1rem;
-  cursor: pointer;
-`;
-
 const MobileNavList = styled.ul`
   list-style: none;
   padding: 0;
@@ -152,11 +119,16 @@ const MobileNavItem = styled.li`
   margin-bottom: 1rem;
 `;
 
-const MobileNavLink = styled(Link)`
+const MobileNavLink = styled.a`
   color: #2A1B5D;
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
+  text-decoration: none;
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
 `;
 
 export default function Header() {
@@ -175,7 +147,7 @@ export default function Header() {
             alt="Aproxima Logo" 
             style={{
               width: '100%',
-              height: 'auto'
+              height: 'auto',
             }}
           />
         </LogoWrapper>
@@ -186,35 +158,37 @@ export default function Header() {
 
       <Navigation>
         <NavList>
-          <li><NavLink to="/quem-somos">Quem somos</NavLink></li>
-          <li><NavLink to="/produtos-acessiveis">Produtos acessíveis</NavLink></li>
-          <li><NavLink to="/area-do-profissional">Área do profissional</NavLink></li>
-          <li><NavLink to="/contato">Contato</NavLink></li>
+          <li><Link href="/quem-somos" passHref><NavLink>Quem Somos</NavLink></Link></li>
+          <li><Link href="/produtos-acessiveis" passHref><NavLink>Produtos Acessíveis</NavLink></Link></li>
+          <li><Link href="/area-do-profissional" passHref><NavLink>Área do Profissional</NavLink></Link></li>
+          <li><Link href="/contato" passHref><NavLink>Contato</NavLink></Link></li>
         </NavList>
       </Navigation>
 
       {isMobileMenuOpen && (
         <MobileMenuOverlay>
           <MobileMenuContent>
-            <MobileMenuHeader>
-              <MobileMenuTitle>Menu</MobileMenuTitle>
-              <CloseButton onClick={toggleMenu}>
-                Fechar X
-              </CloseButton>
-            </MobileMenuHeader>
             <nav>
               <MobileNavList>
                 <MobileNavItem>
-                  <MobileNavLink to="/quem-somos" onClick={toggleMenu}>Quem somos</MobileNavLink>
+                  <Link href="/quem-somos" passHref>
+                    <MobileNavLink onClick={toggleMenu}>Quem somos</MobileNavLink>
+                  </Link>
                 </MobileNavItem>
                 <MobileNavItem>
-                  <MobileNavLink to="/produtos-acessiveis" onClick={toggleMenu}>Produtos acessíveis</MobileNavLink>
+                  <Link href="/produtos-acessiveis" passHref>
+                    <MobileNavLink onClick={toggleMenu}>Produtos acessíveis</MobileNavLink>
+                  </Link>
                 </MobileNavItem>
                 <MobileNavItem>
-                  <MobileNavLink to="/area-do-profissional" onClick={toggleMenu}>Área do profissional</MobileNavLink>
+                  <Link href="/area-do-profissional" passHref>
+                    <MobileNavLink onClick={toggleMenu}>Área do profissional</MobileNavLink>
+                  </Link>
                 </MobileNavItem>
                 <MobileNavItem>
-                  <MobileNavLink to="/contato" onClick={toggleMenu}>Contato</MobileNavLink>
+                  <Link href="/contato" passHref>
+                    <MobileNavLink onClick={toggleMenu}>Contato</MobileNavLink>
+                  </Link>
                 </MobileNavItem>
               </MobileNavList>
             </nav>

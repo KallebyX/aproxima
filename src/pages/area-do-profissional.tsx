@@ -1,11 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import logo from '../logo.png';
-import Link from 'next/link';
-import Header from '../Header/page';
+import Header from './Header';
 import styled from 'styled-components';
+import { useEffect, useRef, useState } from 'react';
 
 const PageWrapper = styled.div`
   min-height: 100vh;
@@ -62,10 +59,20 @@ const CopyButton = styled.button`
 `;
 
 export default function AreaProfissional() {
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    // Garantir que o componente esteja montado antes de tentar acessar o document
+    setIsMounted(true);
+    if (textAreaRef.current) {
+      textAreaRef.current.focus();
+    }
+  }, []);
+
   const copyText = () => {
-    const textArea = document.querySelector('textarea');
-    if (textArea) {
-      navigator.clipboard.writeText(textArea.value);
+    if (isMounted && textAreaRef.current) {
+      navigator.clipboard.writeText(textAreaRef.current.value);
     }
   };
 
@@ -99,7 +106,7 @@ export default function AreaProfissional() {
             Ao final, copie o texto pelo botão abaixo, abra seu e-mail, coloque as informações e envie-as para o e-mail de seu paciente.
           </Paragraph>
 
-          <Textarea aria-label="Área de texto para informações do paciente" />
+          <Textarea ref={textAreaRef} aria-label="Área de texto para informações do paciente" />
 
           <CopyButton onClick={copyText}>Copiar dados</CopyButton>
         </ContentWrapper>
