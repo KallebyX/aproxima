@@ -144,7 +144,7 @@ export default function Header() {
         <LogoWrapper>
           <Image 
             src={logo} 
-            alt="Ilustração contendo um retângulo com fundo azul escuro. Do lado esquerdo temos um pássaro com asas abertas, sua cabeça está inclinada para cima. Ele está levantando voo. Do lado direito temos as palavras: aproxima saúde coletiva." 
+            alt="Ilustração contendo um retângulo com fundo azul escuro. Do lado esquerdo temos um pássaro com asas abertas, sua cabeça está inclinada para cima. Ele está levantando voo. Do lado direito temos as palavras: aproxima saúde inclusiva." 
             style={{
               width: '100%',
               height: 'auto',
