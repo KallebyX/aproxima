@@ -144,7 +144,7 @@ export default function Header() {
         <LogoWrapper>
           <Image 
             src={logo} 
-            alt="Aproxima Logo" 
+            alt="Logo" 
             style={{
               width: '100%',
               height: 'auto',
