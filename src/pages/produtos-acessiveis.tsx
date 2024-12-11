@@ -35,7 +35,7 @@ const Paragraph = styled.p`
   }
 `;
 
-const DownloadButton = styled.button`
+const DownloadButton = styled.a`
   background-color: #FFB6F3;
   color: #2A1B5D;
   border: none;
@@ -47,6 +47,8 @@ const DownloadButton = styled.button`
   max-width: 600px;
   margin: 0 auto;
   display: block;
+  text-align: center;
+  text-decoration: none;
 
   @media (max-width: 768px) {
     font-size: 1rem;
@@ -82,7 +84,7 @@ export default function ProdutosAcessiveis() {
         
         <Paragraph>Basta clicar em cima e baixar o conteúdo.</Paragraph>
 
-         <DownloadButton
+        <DownloadButton
           href="https://drive.google.com/uc?export=download&id=1vP46Q0xmR803P8eWWO0lIkJo4JCcLkeH"
           download
         >
