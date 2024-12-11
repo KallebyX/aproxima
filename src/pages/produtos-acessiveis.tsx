@@ -82,10 +82,13 @@ export default function ProdutosAcessiveis() {
         
         <Paragraph>Basta clicar em cima e baixar o conteúdo.</Paragraph>
 
-        <DownloadButton>
+         <DownloadButton
+          href="https://drive.google.com/uc?export=download&id=1vP46Q0xmR803P8eWWO0lIkJo4JCcLkeH"
+          download
+        >
           Caderneta da Gestante Acessível para Pessoas com Deficiência Visual
         </DownloadButton>
-
+  
         <ContactSection>
           <ContactParagraph>
             Você tem algum produto acessível que possa disponibilizar para a plataforma?
