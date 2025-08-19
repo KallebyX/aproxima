@@ -1,7 +1,14 @@
 'use client';
 
+import Head from 'next/head';
 import Header from './Header';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
+
+// Dynamically import VLibras to prevent SSR issues
+const VLibras = dynamic(() => import('../components/VLibras'), { 
+  ssr: false 
+});
 
 const PageWrapper = styled.div`
   min-height: 100vh;
@@ -87,44 +94,100 @@ const StyledLink = styled.a`
 
 export default function CadernetaPage() {
   return (
-    <PageWrapper>
-      <Header />
+    <>
+      <Head>
+        <title>Aproxima - Caderneta da Gestante Acessível | Saúde Inclusiva</title>
+        <meta name="description" content="Plataforma digital para saúde inclusiva, conectando gestantes e profissionais com acessibilidade. Caderneta da gestante acessível para pessoas com deficiência visual." />
+        <meta name="keywords" content="caderneta gestante, acessibilidade, deficiência visual, saúde inclusiva, V Libras, gestação, pré-natal" />
+        <meta name="author" content="Kalleby Evangelho Mota" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Aproxima - Caderneta da Gestante Acessível" />
+        <meta property="og:description" content="Plataforma digital para saúde inclusiva com foco em acessibilidade para gestantes" />
+        <meta property="og:locale" content="pt_BR" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Aproxima - Caderneta da Gestante Acessível" />
+        <meta name="twitter:description" content="Plataforma digital para saúde inclusiva com foco em acessibilidade para gestantes" />
+        
+        {/* V Libras and accessibility */}
+        <script src="https://vlibras.gov.br/app/vlibras-plugin.js" async />
+        
+        {/* Structured data for SEO */}
+        <script 
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "Aproxima - Caderneta da Gestante Acessível",
+              "description": "Plataforma digital para saúde inclusiva, conectando gestantes e profissionais com acessibilidade",
+              "url": "https://aproxima-six.vercel.app",
+              "applicationCategory": "HealthApplication",
+              "operatingSystem": "Any",
+              "accessibilityFeature": [
+                "screenReaderSupport",
+                "keyboardNavigation",
+                "highContrastDisplay",
+                "signLanguageVideo"
+              ],
+              "accessibilityAPI": "ARIA",
+              "author": {
+                "@type": "Person",
+                "name": "Kalleby Evangelho Mota",
+                "email": "kalleby.mota@ufn.edu.br"
+              },
+              "provider": {
+                "@type": "Organization",
+                "name": "Universidade Franciscana (UFN)"
+              }
+            })
+          }}
+        />
+      </Head>
       
-      <MainContent role="main" id="main-content">
-        <h1 style={{
-          fontSize: '2rem',
-          textAlign: 'center',
-          maxWidth: '800px',
-          margin: '0 auto',
-        }}>
-          Caderneta da Gestante Acessível para Pessoas com Deficiência Visual
-        </h1>
+      <PageWrapper>
+        <Header />
+        
+        <MainContent role="main" id="main-content">
+          <h1 style={{
+            fontSize: '2rem',
+            textAlign: 'center',
+            maxWidth: '800px',
+            margin: '0 auto',
+          }}>
+            Caderneta da Gestante Acessível para Pessoas com Deficiência Visual
+          </h1>
 
-        <nav aria-label="Seções principais da plataforma" style={{
-          display: 'flex',
-          gap: '2rem',
-          justifyContent: 'center',
-          width: '100%',
-          maxWidth: '800px',
-          flexDirection: 'row',
-        }} className="main-navigation">
-          <StyledLink 
-            href="/area-do-profissional"
-            aria-label="Acessar seção destinada aos profissionais de saúde"
-            role="button"
-          >
-            Seção dos profissionais
-          </StyledLink>
-          
-          <StyledLink 
-            href="/gestante"
-            aria-label="Acessar seção destinada às gestantes"
-            role="button"
-          >
-            Seção da gestante
-          </StyledLink>
-        </nav>
-      </MainContent>
-    </PageWrapper>
+          <nav aria-label="Seções principais da plataforma" style={{
+            display: 'flex',
+            gap: '2rem',
+            justifyContent: 'center',
+            width: '100%',
+            maxWidth: '800px',
+            flexDirection: 'row',
+          }} className="main-navigation">
+            <StyledLink 
+              href="/area-do-profissional"
+              aria-label="Acessar seção destinada aos profissionais de saúde"
+              role="button"
+            >
+              Seção dos profissionais
+            </StyledLink>
+            
+            <StyledLink 
+              href="/gestante"
+              aria-label="Acessar seção destinada às gestantes"
+              role="button"
+            >
+              Seção da gestante
+            </StyledLink>
+          </nav>
+        </MainContent>
+        <VLibras />
+      </PageWrapper>
+    </>
   );
 }
