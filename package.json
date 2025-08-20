@@ -15,7 +15,7 @@
     "react-router-dom": "^6.30.1",
     "router": "^2.0.0",
     "routerr": "^1.0.0",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.19"
   },
   "devDependencies": {
     "@types/node": "^20.19.8",
