@@ -14,7 +14,7 @@
 
 ## 🔧 Opções de Deploy
 
-### Opção 1: Deploy via SSH (Recomendado)
+### Opção 1: Deploy via SSH (Recomendado para resolver erro do Portainer)
 
 1. **Conectar ao servidor via SSH**
 2. **Clonar o repositório**:
@@ -23,8 +23,15 @@
    cd aproxima
    ```
 
-3. **Executar o deploy**:
+3. **Executar o deploy** (escolha uma opção):
    ```bash
+   # Opção A: Script robusto com verificações
+   ./deploy-manual.sh
+   
+   # Opção B: Script simples e rápido
+   ./deploy-simple.sh
+   
+   # Opção C: Script original (pode dar erro no Portainer)
    ./deploy.sh
    ```
 
