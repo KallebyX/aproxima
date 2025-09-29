@@ -78,8 +78,6 @@ export default function Header() {
         </div>
         
         <div className="flex items-center gap-2 xs:gap-3">
-          <ThemeSwitcher />
-          
           <div className="relative">
             <button
               onClick={toggleAccessibility}
@@ -250,6 +248,11 @@ export default function Header() {
             </li>
           </ul>
         </nav>
+      </div>
+
+      {/* Theme Switcher - Posicionado no canto inferior direito */}
+      <div className="fixed bottom-4 right-4 z-30">
+        <ThemeSwitcher />
       </div>
     </header>
   );

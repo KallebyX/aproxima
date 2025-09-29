@@ -39,28 +39,28 @@ const ThemeSwitcher = () => {
   // Don't render anything until mounted to prevent hydration mismatch
   if (!mounted) {
     return (
-      <button 
-        className="w-10 h-10 xs:w-12 xs:h-12 rounded-lg bg-white/30 text-white border border-white/40 flex items-center justify-center shadow-lg"
-        disabled
-        aria-label="Carregando tema..."
-      >
-        <span className="text-lg xs:text-xl drop-shadow-sm">🌙</span>
-      </button>
+      <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full px-3 py-2 shadow-lg border border-gray-200">
+        <span className="text-sm text-gray-500">🌙</span>
+        <span className="text-xs text-gray-500 font-medium">Carregando...</span>
+      </div>
     );
   }
 
   return (
     <button
       onClick={toggleTheme}
-      className="w-10 h-10 xs:w-12 xs:h-12 rounded-lg bg-white text-primary-600 border-2 border-primary-600 hover:bg-primary-600 hover:text-white focus:ring-4 focus:ring-white/50 focus:outline-none transition-all duration-200 flex items-center justify-center touch-manipulation active:scale-95 shadow-lg"
+      className="group flex items-center gap-2 bg-white/90 backdrop-blur-sm hover:bg-white transition-all duration-200 rounded-full px-3 py-2 shadow-lg border border-gray-200 hover:shadow-xl focus:ring-2 focus:ring-primary-500 focus:outline-none active:scale-95"
       aria-label={`Trocar para modo ${theme === 'light' ? 'escuro' : 'claro'}`}
-      title={`Modo ${theme === 'light' ? 'escuro' : 'claro'}`}
+      title={`Alternar para modo ${theme === 'light' ? 'escuro' : 'claro'}`}
     >
+      <span className="text-sm transition-transform duration-200 group-hover:scale-110">
+        {theme === 'light' ? '🌙' : '☀️'}
+      </span>
+      <span className="text-xs font-medium text-gray-700 group-hover:text-primary-600 transition-colors duration-200">
+        {theme === 'light' ? 'Escuro' : 'Claro'}
+      </span>
       <span className="sr-only">
         {theme === 'light' ? 'Ativar modo escuro' : 'Ativar modo claro'}
-      </span>
-      <span className="text-lg xs:text-xl font-bold">
-        {theme === 'light' ? '🌙' : '☀️'}
       </span>
     </button>
   );

@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
 import { useEffect } from 'react';
+import Head from 'next/head';
 import SkipLinks from '../components/SkipLinks';
 import KeyboardNavigation from '../components/KeyboardNavigation';
 import { LiveRegionManager } from '../components/LiveRegion';
@@ -25,11 +26,16 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <KeyboardNavigation>
-      <div className={`${inter.variable} font-sans`}>
-        <SkipLinks />
-        <Component {...pageProps} />
-      </div>
-    </KeyboardNavigation>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover" />
+      </Head>
+      <KeyboardNavigation>
+        <div className={`${inter.variable} font-sans`}>
+          <SkipLinks />
+          <Component {...pageProps} />
+        </div>
+      </KeyboardNavigation>
+    </>
   );
 }

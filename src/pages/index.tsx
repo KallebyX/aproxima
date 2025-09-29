@@ -99,21 +99,74 @@ export default function HomePage() {
   return (
     <>
       <Head>
-        <title>Aproxima - Saúde Inclusiva para Gestantes</title>
-        <meta name="description" content="Plataforma de saúde inclusiva focada no cuidado materno-infantil com recursos de acessibilidade e suporte especializado para gestantes." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="keywords" content="saúde, gestante, inclusiva, materna, infantil, acessibilidade, WCAG, UFN, pós-graduação" />
-        <meta name="author" content="Aproxima - Oryum Tech" />
-        <meta name="robots" content="index,follow" />
-        <meta property="og:title" content="Aproxima - Saúde Inclusiva para Gestantes" />
-        <meta property="og:description" content="Plataforma de saúde inclusiva focada no cuidado materno-infantil com acessibilidade WCAG 2.1 AAA" />
+        <title>Aproxima - Saúde Inclusiva e Acessível | Plataforma para Gestantes e Profissionais</title>
+        <meta name="description" content="Plataforma de saúde inclusiva com conformidade WCAG 2.1 AAA. Cuidado humanizado para gestantes e profissionais de saúde com recursos de acessibilidade completos, incluindo Libras e tecnologias assistivas." />
+        <meta name="keywords" content="saúde inclusiva, gestantes, acessibilidade WCAG, libras, profissionais saúde, cuidado humanizado, telemedicina acessível, saúde materna, inclusão digital, tecnologias assistivas, VLibras, alto contraste, leitores de tela" />
+        <meta name="author" content="Aproxima - Saúde Inclusiva" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
+        
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="Aproxima - Saúde Inclusiva e Acessível" />
+        <meta property="og:description" content="Plataforma líder em saúde inclusiva com conformidade WCAG 2.1 AAA. Cuidado humanizado para gestantes e profissionais com tecnologias assistivas completas." />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Aproxima" />
+        <meta property="og:url" content="https://aproxima.com.br/" />
+        <meta property="og:site_name" content="Aproxima - Saúde Inclusiva" />
+        <meta property="og:image" content="https://aproxima.com.br/favicon.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Aproxima - Plataforma de Saúde Inclusiva" />
+        <meta property="og:locale" content="pt_BR" />
+        
+        {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Aproxima - Saúde Inclusiva para Gestantes" />
-        <meta name="twitter:description" content="Primeira plataforma digital de saúde materna totalmente acessível do Brasil" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="canonical" href="https://aproxima.oryumtech.com.br/" />
+        <meta name="twitter:title" content="Aproxima - Saúde Inclusiva e Acessível" />
+        <meta name="twitter:description" content="Plataforma líder em saúde inclusiva com conformidade WCAG 2.1 AAA para gestantes e profissionais de saúde." />
+        <meta name="twitter:image" content="https://aproxima.com.br/favicon.png" />
+        <meta name="twitter:image:alt" content="Aproxima - Saúde Inclusiva" />
+        
+        {/* Additional SEO Meta Tags */}
+        <meta name="application-name" content="Aproxima" />
+        <meta name="apple-mobile-web-app-title" content="Aproxima" />
+        <meta name="msapplication-TileColor" content="#2A1B5D" />
+        <meta name="theme-color" content="#2A1B5D" />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://aproxima.com.br/" />
+        
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Aproxima - Saúde Inclusiva",
+              "description": "Plataforma de saúde inclusiva com conformidade WCAG 2.1 AAA para gestantes e profissionais de saúde",
+              "url": "https://aproxima.com.br",
+              "inLanguage": "pt-BR",
+              "publisher": {
+                "@type": "Organization",
+                "name": "Aproxima",
+                "url": "https://aproxima.com.br"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://aproxima.com.br/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              },
+              "mainEntity": {
+                "@type": "HealthAndBeautyBusiness",
+                "name": "Aproxima - Saúde Inclusiva",
+                "description": "Plataforma de saúde inclusiva especializada em cuidado para gestantes e profissionais de saúde",
+                "url": "https://aproxima.com.br",
+                "serviceType": "Saúde Inclusiva e Acessível",
+                "areaServed": "Brasil",
+                "availableLanguage": ["pt-BR", "Libras"]
+              }
+            })
+          }}
+        />
       </Head>
       
       <div className="min-h-screen bg-gradient-to-br from-secondary-50 to-primary-50 flex flex-col">

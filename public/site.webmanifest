@@ -1,38 +1,28 @@
 {
-  "name": "Aproxima - Caderneta da Gestante Acessível",
+  "name": "Aproxima - Saúde Inclusiva e Acessível",
   "short_name": "Aproxima",
-  "description": "Plataforma digital para saúde inclusiva com foco em acessibilidade para gestantes",
+  "description": "Plataforma de saúde inclusiva com conformidade WCAG 2.1 AAA para gestantes e profissionais de saúde",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#2A1B5D",
   "theme_color": "#2A1B5D",
   "orientation": "portrait-primary",
-  "categories": ["health", "medical", "accessibility"],
+  "categories": ["health", "medical", "accessibility", "productivity"],
   "lang": "pt-BR",
   "dir": "ltr",
   "scope": "/",
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "16x16 32x32 48x48",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
+      "src": "/favicon.png",
+      "sizes": "16x16 32x32 48x48 192x192 512x512",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/icon-512.png", 
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/apple-touch-icon.png",
+      "src": "/favicon.png",
       "sizes": "180x180",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "apple touch icon"
     }
   ],
   "screenshots": [

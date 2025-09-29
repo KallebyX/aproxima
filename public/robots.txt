@@ -1,42 +1,57 @@
-# Robots.txt - Aproxima
+# Robots.txt otimizado para SEO máximo - Aproxima
 # Plataforma de Saúde Inclusiva
 
-# Allow all web crawlers access to all content
+# Permitir todos os bots principais
 User-agent: *
 Allow: /
 
-# Specific instructions for major search engines
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
 
-User-agent: Bingbot  
+User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
 User-agent: Slurp
 Allow: /
-Crawl-delay: 2
 
-# Disallow access to sensitive areas
-Disallow: /api/
-Disallow: /_next/
-Disallow: /admin/
-Disallow: /*.json$
+User-agent: DuckDuckBot
+Allow: /
 
-# Allow access to important files
-Allow: /sitemap.xml
-Allow: /site.webmanifest
-Allow: /favicon.ico
-Allow: /*.css
-Allow: /*.js
+User-agent: Baiduspider
+Allow: /
 
-# Sitemap location
-Sitemap: https://aproxima-six.vercel.app/sitemap.xml
+User-agent: facebookexternalhit
+Allow: /
 
-# Additional information
-# Website: https://aproxima-six.vercel.app
-# Contact: kalleby.mota@ufn.edu.br
-# Focus: Accessible healthcare for pregnant women
-# Languages: Portuguese (Brazil)
-# Accessibility: WCAG 2.1 AAA compliant
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# Bloquear crawlers maliciosos e agressivos
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: dotbot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+# Sitemap principal
+Sitemap: https://aproxima.com.br/sitemap.xml
+
+# Host principal (para evitar duplicação)
+Host: aproxima.com.br
