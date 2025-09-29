@@ -1,5 +1,45 @@
 // utils/seo.ts - Utilities para SEO dinâmico
-import { NextSeoProps } from 'next-seo';
+
+// Interface local para substituir NextSeoProps
+export interface NextSeoProps {
+  title?: string;
+  titleTemplate?: string;
+  defaultTitle?: string;
+  description?: string;
+  canonical?: string;
+  openGraph?: {
+    type?: string;
+    title?: string;
+    description?: string;
+    url?: string;
+    locale?: string;
+    siteName?: string;
+    images?: Array<{
+      url: string;
+      width?: number;
+      height?: number;
+      alt?: string;
+      type?: string;
+    }>;
+  };
+  twitter?: {
+    handle?: string;
+    site?: string;
+    cardType?: string;
+  };
+  additionalMetaTags?: Array<{
+    name?: string;
+    property?: string;
+    content: string;
+  }>;
+  additionalLinkTags?: Array<{
+    rel: string;
+    href: string;
+    type?: string;
+    media?: string;
+    sizes?: string;
+  }>;
+}
 
 export interface SEOData {
   title: string;

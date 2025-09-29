@@ -96,16 +96,6 @@ const nextConfig: NextConfig = {
     scrollRestoration: true,
   },
   
-  // Turbopack configuration (migrado do experimental.turbo)
-  turbo: {
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js'
-      }
-    }
-  },
-  
   // Webpack optimization
   webpack: (config, { dev, isServer }) => {
     // Otimizações para produção
