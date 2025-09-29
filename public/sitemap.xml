@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://aproxima-six.vercel.app/</loc>
+    <lastmod>2024-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://aproxima-six.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://aproxima-six.vercel.app/"/>
+  </url>
+
+  <!-- Seção da Gestante -->
+  <url>
+    <loc>https://aproxima-six.vercel.app/gestante</loc>
+    <lastmod>2024-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://aproxima-six.vercel.app/gestante"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://aproxima-six.vercel.app/gestante"/>
+  </url>
+
+  <!-- Área do Profissional -->
+  <url>
+    <loc>https://aproxima-six.vercel.app/area-do-profissional</loc>
+    <lastmod>2024-12-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://aproxima-six.vercel.app/area-do-profissional"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://aproxima-six.vercel.app/area-do-profissional"/>
+  </url>
+
+  <!-- Quem Somos -->
+  <url>
+    <loc>https://aproxima-six.vercel.app/quem-somos</loc>
+    <lastmod>2024-12-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://aproxima-six.vercel.app/quem-somos"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://aproxima-six.vercel.app/quem-somos"/>
+  </url>
+
+  <!-- Contato -->
+  <url>
+    <loc>https://aproxima-six.vercel.app/contato</loc>
+    <lastmod>2024-12-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://aproxima-six.vercel.app/contato"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://aproxima-six.vercel.app/contato"/>
+  </url>
+
+  <!-- Produtos Acessíveis -->
+  <url>
+    <loc>https://aproxima-six.vercel.app/produtos-acessiveis</loc>
+    <lastmod>2024-12-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://aproxima-six.vercel.app/produtos-acessiveis"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://aproxima-six.vercel.app/produtos-acessiveis"/>
+  </url>
+
+</urlset>

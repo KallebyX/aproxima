@@ -1,0 +1,42 @@
+# Robots.txt - Aproxima
+# Plataforma de Saúde Inclusiva
+
+# Allow all web crawlers access to all content
+User-agent: *
+Allow: /
+
+# Specific instructions for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot  
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+# Disallow access to sensitive areas
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /*.json$
+
+# Allow access to important files
+Allow: /sitemap.xml
+Allow: /site.webmanifest
+Allow: /favicon.ico
+Allow: /*.css
+Allow: /*.js
+
+# Sitemap location
+Sitemap: https://aproxima-six.vercel.app/sitemap.xml
+
+# Additional information
+# Website: https://aproxima-six.vercel.app
+# Contact: kalleby.mota@ufn.edu.br
+# Focus: Accessible healthcare for pregnant women
+# Languages: Portuguese (Brazil)
+# Accessibility: WCAG 2.1 AAA compliant

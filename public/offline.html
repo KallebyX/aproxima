@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - Aproxima</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #2A1B5D 0%, #1f1447 100%);
+      color: #FFB6F3;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .container {
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      border: 1px solid rgba(255, 182, 243, 0.3);
+    }
+    
+    .icon {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+    
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .retry-btn {
+      background: #FFB6F3;
+      color: #2A1B5D;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 0.5rem;
+    }
+    
+    .retry-btn:hover {
+      background: #ff9fee;
+      transform: translateY(-2px);
+    }
+    
+    .retry-btn:focus {
+      outline: 2px solid #FFB6F3;
+      outline-offset: 2px;
+    }
+    
+    .features {
+      margin-top: 2rem;
+      text-align: left;
+    }
+    
+    .features h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .features ul {
+      list-style: none;
+    }
+    
+    .features li {
+      padding: 0.5rem 0;
+      opacity: 0.8;
+    }
+    
+    .features li::before {
+      content: "✓ ";
+      color: #FFB6F3;
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .icon {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon" role="img" aria-label="Ícone de desconectado">📱💔</div>
+    
+    <h1>Você está offline</h1>
+    
+    <p>
+      Não foi possível conectar-se à internet. Verifique sua conexão e tente novamente.
+    </p>
+    
+    <button class="retry-btn" onclick="window.location.reload()" aria-label="Tentar reconectar">
+      🔄 Tentar novamente
+    </button>
+    
+    <button class="retry-btn" onclick="window.history.back()" aria-label="Voltar página anterior">
+      ← Voltar
+    </button>
+    
+    <div class="features">
+      <h2>Recursos offline disponíveis:</h2>
+      <ul>
+        <li>Páginas visitadas recentemente ficam em cache</li>
+        <li>Funcionalidades básicas continuam disponíveis</li>
+        <li>Dados salvos localmente são preservados</li>
+        <li>Sincronização automática quando voltar online</li>
+      </ul>
+    </div>
+  </div>
+  
+  <script>
+    // Verifica status de conectividade
+    function checkOnlineStatus() {
+      if (navigator.onLine) {
+        window.location.reload();
+      }
+    }
+    
+    // Escuta mudanças de conectividade
+    window.addEventListener('online', checkOnlineStatus);
+    
+    // Verifica a cada 5 segundos
+    setInterval(checkOnlineStatus, 5000);
+    
+    // Acessibilidade: anuncia status
+    const announcement = document.createElement('div');
+    announcement.setAttribute('aria-live', 'polite');
+    announcement.setAttribute('aria-atomic', 'true');
+    announcement.className = 'sr-only';
+    announcement.textContent = 'Você está offline. A página será recarregada automaticamente quando a conexão for restaurada.';
+    document.body.appendChild(announcement);
+  </script>
+</body>
+</html>

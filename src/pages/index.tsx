@@ -1,8 +1,10 @@
 'use client';
 
 import Head from 'next/head';
+import Link from 'next/link';
 import Header from './Header';
-import styled from 'styled-components';
+import Footer from '../components/Footer';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 
 // Dynamically import VLibras to prevent SSR issues
@@ -10,184 +12,258 @@ const VLibras = dynamic(() => import('../components/VLibras'), {
   ssr: false 
 });
 
-const PageWrapper = styled.div`
-  min-height: 100vh;
-  background-color: #2A1B5D;
-  color: #FFB6F3;
-  font-family: system-ui, sans-serif;
-  display: flex;
-  flex-direction: column;
-`;
+interface NavigationCardProps {
+  title: string;
+  description: string;
+  href: string;
+  icon: string;
+  ariaLabel: string;
+  delay?: number;
+}
 
-const MainContent = styled.main`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+function NavigationCard({ title, description, href, icon, ariaLabel, delay = 0 }: NavigationCardProps) {
+  const [isVisible, setIsVisible] = useState(false);
 
-  .main-navigation {
-    @media (max-width: 480px) {
-      flex-direction: column !important;
-      gap: 1rem !important;
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  return (
+    <Link
+      href={href}
+      className={`group block w-full max-w-md mx-auto transform transition-all duration-500 ease-out ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      } hover:scale-105 focus:scale-105 active:scale-95`}
+      aria-label={ariaLabel}
+    >
+      <div className="bg-gradient-to-br from-secondary-300 to-secondary-400 dark:from-secondary-600 dark:to-secondary-700 rounded-xl xs:rounded-2xl p-4 xs:p-6 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-transparent group-hover:border-secondary-500 group-focus:border-secondary-500 group-focus:ring-4 group-focus:ring-secondary-300/50 h-full min-h-[280px] xs:min-h-[320px] flex flex-col">
+        <div className="flex flex-col items-center text-center space-y-3 xs:space-y-4 h-full justify-between">
+          <div className="text-4xl xs:text-5xl md:text-6xl mb-1 xs:mb-2 flex-shrink-0" role="img" aria-label={`Ícone: ${icon}`}>
+            {icon}
+          </div>
+          <h2 className="text-lg xs:text-xl md:text-2xl lg:text-3xl font-bold text-primary-600 dark:text-primary-300 group-hover:text-primary-700 dark:group-hover:text-primary-200 transition-colors flex-shrink-0">
+            {title}
+          </h2>
+          <p className="text-primary-500 dark:text-primary-200 text-sm xs:text-base md:text-lg leading-relaxed flex-grow flex items-center justify-center text-center">
+            {description}
+          </p>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+export default function HomePage() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  const navigationCards = [
+    {
+      title: "Área da Gestante",
+      description: "Caderneta digital acessível com recursos exclusivos para gestantes e acompanhamento completo da gravidez",
+      href: "/gestante",
+      icon: "🤱",
+      ariaLabel: "Acessar seção destinada às gestantes com recursos de acessibilidade",
+      delay: 200
+    },
+    {
+      title: "Área do Profissional",
+      description: "Ferramentas especializadas para profissionais de saúde com recursos de acessibilidade e inclusão",
+      href: "/area-do-profissional", 
+      icon: "👩‍⚕️",
+      ariaLabel: "Acessar seção para profissionais de saúde com recursos especializados",
+      delay: 400
+    },
+    {
+      title: "Produtos Acessíveis",
+      description: "Catálogo de produtos de saúde desenvolvidos com foco em acessibilidade e inclusão",
+      href: "/produtos-acessiveis",
+      icon: "🧸", 
+      ariaLabel: "Explorar produtos de saúde com recursos de acessibilidade",
+      delay: 600
+    },
+    {
+      title: "Quem Somos",
+      description: "Conheça nossa equipe e a missão de promover saúde inclusiva para todas as pessoas",
+      href: "/quem-somos",
+      icon: "👥",
+      ariaLabel: "Conhecer a equipe e missão do projeto de saúde inclusiva",
+      delay: 800
     }
-  }
+  ];
 
-  @media (max-width: 768px) {
-    padding: 1rem;
-    gap: 3rem;
-  }
-`;
-
-const StyledLink = styled.a`
-  background-color: #FFB6F3;
-  color: #2A1B5D;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: bold;
-  flex: 1;
-  text-align: center;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-  border: 2px solid transparent;
-  min-width: 200px;
-
-  &:hover {
-    opacity: 0.9;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-
-  &:focus {
-    outline: none;
-    border-color: #2A1B5D;
-    box-shadow: 0 0 0 3px rgba(255, 182, 243, 0.5);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-
-  @media (max-width: 768px) {
-    padding: 1rem;
-    font-size: 1rem;
-    min-width: 150px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 0.8rem;
-    font-size: 0.9rem;
-    min-width: 120px;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-    &:hover {
-      transform: none;
-    }
-  }
-`;
-
-export default function CadernetaPage() {
   return (
     <>
       <Head>
-        <title>Aproxima - Caderneta da Gestante Acessível | Saúde Inclusiva</title>
-        <meta name="description" content="Plataforma digital para saúde inclusiva, conectando gestantes e profissionais com acessibilidade. Caderneta da gestante acessível para pessoas com deficiência visual." />
-        <meta name="keywords" content="caderneta gestante, acessibilidade, deficiência visual, saúde inclusiva, V Libras, gestação, pré-natal" />
-        <meta name="author" content="Kalleby Evangelho Mota" />
-        
-        {/* Open Graph / Facebook */}
+        <title>Aproxima - Saúde Inclusiva para Gestantes</title>
+        <meta name="description" content="Plataforma de saúde inclusiva focada no cuidado materno-infantil com recursos de acessibilidade e suporte especializado para gestantes." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="keywords" content="saúde, gestante, inclusiva, materna, infantil, acessibilidade, WCAG, UFN, pós-graduação" />
+        <meta name="author" content="Aproxima - Oryum Tech" />
+        <meta name="robots" content="index,follow" />
+        <meta property="og:title" content="Aproxima - Saúde Inclusiva para Gestantes" />
+        <meta property="og:description" content="Plataforma de saúde inclusiva focada no cuidado materno-infantil com acessibilidade WCAG 2.1 AAA" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Aproxima - Caderneta da Gestante Acessível" />
-        <meta property="og:description" content="Plataforma digital para saúde inclusiva com foco em acessibilidade para gestantes" />
-        <meta property="og:locale" content="pt_BR" />
-        
-        {/* Twitter */}
+        <meta property="og:site_name" content="Aproxima" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Aproxima - Caderneta da Gestante Acessível" />
-        <meta name="twitter:description" content="Plataforma digital para saúde inclusiva com foco em acessibilidade para gestantes" />
-        
-        {/* V Libras and accessibility */}
-        <script src="https://vlibras.gov.br/app/vlibras-plugin.js" async />
-        
-        {/* Structured data for SEO */}
-        <script 
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              "name": "Aproxima - Caderneta da Gestante Acessível",
-              "description": "Plataforma digital para saúde inclusiva, conectando gestantes e profissionais com acessibilidade",
-              "url": "https://aproxima-six.vercel.app",
-              "applicationCategory": "HealthApplication",
-              "operatingSystem": "Any",
-              "accessibilityFeature": [
-                "screenReaderSupport",
-                "keyboardNavigation",
-                "highContrastDisplay",
-                "signLanguageVideo"
-              ],
-              "accessibilityAPI": "ARIA",
-              "author": {
-                "@type": "Person",
-                "name": "Kalleby Evangelho Mota",
-                "email": "kalleby.mota@ufn.edu.br"
-              },
-              "provider": {
-                "@type": "Organization",
-                "name": "Universidade Franciscana (UFN)"
-              }
-            })
-          }}
-        />
+        <meta name="twitter:title" content="Aproxima - Saúde Inclusiva para Gestantes" />
+        <meta name="twitter:description" content="Primeira plataforma digital de saúde materna totalmente acessível do Brasil" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://aproxima.oryumtech.com.br/" />
       </Head>
       
-      <PageWrapper>
+      <div className="min-h-screen bg-gradient-to-br from-secondary-50 to-primary-50 flex flex-col">
         <Header />
         
-        <MainContent role="main" id="main-content">
-          <h1 style={{
-            fontSize: '2rem',
-            textAlign: 'center',
-            maxWidth: '800px',
-            margin: '0 auto',
-          }}>
-            Caderneta da Gestante Acessível para Pessoas com Deficiência Visual
-          </h1>
+        <main 
+          id="main-content" 
+          className="flex-grow"
+          role="main"
+          tabIndex={-1}
+        >
+          {/* Hero Section */}
+          <section 
+            id="hero-section"
+            className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 text-center"
+            aria-labelledby="hero-heading"
+          >
+            <div className="max-w-7xl mx-auto">
+              <div className="space-y-6 sm:space-y-8">
+                <h1 
+                  id="hero-heading"
+                  className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight"
+                >
+                  <span className="block text-primary-600">Caderneta da Gestante</span>
+                  <span className="block text-secondary-500 mt-1 sm:mt-2">100% Acessível</span>
+                </h1>
+                
+                <p className="text-lg xs:text-xl sm:text-2xl md:text-3xl text-gray-700 leading-relaxed mb-6 sm:mb-8 max-w-4xl mx-auto px-2 sm:px-0">
+                  A primeira plataforma digital de saúde materna totalmente inclusiva do Brasil
+                </p>
 
-          <nav aria-label="Seções principais da plataforma" style={{
-            display: 'flex',
-            gap: '2rem',
-            justifyContent: 'center',
-            width: '100%',
-            maxWidth: '800px',
-            flexDirection: 'row',
-          }} className="main-navigation">
-            <StyledLink 
-              href="/area-do-profissional"
-              aria-label="Acessar seção destinada aos profissionais de saúde"
-              role="button"
-            >
-              Seção dos profissionais
-            </StyledLink>
-            
-            <StyledLink 
-              href="/gestante"
-              aria-label="Acessar seção destinada às gestantes"
-              role="button"
-            >
-              Seção da gestante
-            </StyledLink>
-          </nav>
-        </MainContent>
-        <VLibras />
-      </PageWrapper>
+                <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed mb-8 sm:mb-12 max-w-5xl mx-auto px-2 sm:px-0">
+                  Desenvolvida para conectar gestantes e profissionais de saúde através de tecnologia acessível, 
+                  oferecendo recursos completos de acompanhamento pré-natal com foco na inclusão de pessoas 
+                  com deficiência visual, auditiva e motora.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Navigation Cards */}
+          <section 
+            id="navigation-section"
+            className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
+            aria-labelledby="navigation-heading"
+          >
+            <div className="max-w-7xl mx-auto">
+              <h2 
+                id="navigation-heading" 
+                className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 text-primary-600 px-2 sm:px-0"
+              >
+                Escolha sua área de interesse
+              </h2>
+              
+              <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+                {navigationCards.map((card, index) => (
+                  <NavigationCard
+                    key={index}
+                    {...card}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Features Section */}
+          <section 
+            id="features-section"
+            className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white/50 dark:bg-gray-800/50"
+            aria-labelledby="features-heading"
+            role="region"
+          >
+            <div className="max-w-7xl mx-auto">
+              <h2 
+                id="features-heading"
+                className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 text-primary-600 dark:text-primary-400 px-2 sm:px-0"
+              >
+                Recursos de Acessibilidade
+              </h2>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8" role="list">
+                <article className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 h-full min-h-[220px] flex flex-col" role="listitem">
+                  <div className="text-4xl mb-4 flex-shrink-0" role="img" aria-label="Ícone de leitor de tela">🔊</div>
+                  <h3 className="text-lg md:text-xl font-bold text-primary-600 dark:text-primary-400 mb-4 flex-shrink-0">Compatível com Leitores de Tela</h3>
+                  <p className="text-gray-600 dark:text-gray-300 flex-grow text-sm md:text-base leading-relaxed">Totalmente otimizado para NVDA, JAWS e VoiceOver com navegação por teclas de atalho.</p>
+                </article>
+                
+                <article className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 h-full min-h-[220px] flex flex-col" role="listitem">
+                  <div className="text-4xl mb-4 flex-shrink-0" role="img" aria-label="Ícone de alto contraste">🌗</div>
+                  <h3 className="text-lg md:text-xl font-bold text-primary-600 dark:text-primary-400 mb-4 flex-shrink-0">Alto Contraste</h3>
+                  <p className="text-gray-600 dark:text-gray-300 flex-grow text-sm md:text-base leading-relaxed">Temas com contraste otimizado seguindo diretrizes WCAG 2.1 AAA para máxima legibilidade.</p>
+                </article>
+                
+                <article className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 h-full min-h-[220px] flex flex-col md:col-span-2 lg:col-span-1" role="listitem">
+                  <div className="text-4xl mb-4 flex-shrink-0" role="img" aria-label="Ícone de Libras">🤟</div>
+                  <h3 className="text-lg md:text-xl font-bold text-primary-600 dark:text-primary-400 mb-4 flex-shrink-0">Tradução em Libras</h3>
+                  <p className="text-gray-600 dark:text-gray-300 flex-grow text-sm md:text-base leading-relaxed">Interface com tradução automática para Língua Brasileira de Sinais através do VLibras.</p>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          {/* Contact Section */}
+          <section 
+            id="contact-section"
+            className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
+            aria-labelledby="contact-heading"
+            role="region"
+          >
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 
+                id="contact-heading"
+                className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8 text-primary-600 dark:text-primary-400 px-2 sm:px-0"
+              >
+                Entre em Contato
+              </h2>
+              
+              <p className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 px-2 sm:px-0 leading-relaxed">
+                Tem dúvidas sobre nossos recursos de acessibilidade? Nossa equipe está pronta para ajudar!
+              </p>
+              
+              <Link 
+                href="/contato"
+                className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-primary-600 text-white text-base sm:text-lg font-semibold rounded-lg hover:bg-primary-700 focus:outline-2 focus:outline-primary-600 focus:outline-offset-2 transition-all duration-200 transform hover:scale-105 active:scale-95 touch-manipulation"
+                aria-label="Ir para página de contato"
+              >
+                Fale Conosco
+                <span className="ml-2" aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </section>
+        </main>
+
+        {/* Enhanced VLibras */}
+        <VLibras 
+          position="bottom-right"
+          avatar="icaro" 
+          opacity={0.95}
+        />
+        
+        {/* Live region for screen reader announcements */}
+        <div 
+          id="live-region"
+          aria-live="polite" 
+          aria-atomic="true"
+          className="sr-only"
+        />
+        
+        <Footer />
+      </div>
     </>
   );
 }

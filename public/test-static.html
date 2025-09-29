@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste CSS Básico</title>
+    <style>
+        body {
+            background-color: red;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            padding: 20px;
+            margin: 0;
+        }
+        .test-box {
+            background-color: blue;
+            color: yellow;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid white;
+        }
+        .green-box {
+            background-color: green;
+            color: white;
+            padding: 20px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔴 TESTE HTML ESTÁTICO</h1>
+    <p>Se você vê esta página com fundo vermelho e texto branco, o CSS básico funciona!</p>
+    
+    <div class="test-box">
+        <h2>🔵 CAIXA AZUL</h2>
+        <p>Este texto deve aparecer em amarelo sobre fundo azul.</p>
+    </div>
+    
+    <div class="green-box">
+        <h2>🟢 CAIXA VERDE</h2>
+        <p>Este texto deve aparecer em branco sobre fundo verde.</p>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 JavaScript está funcionando!');
+            alert('Se você vê este alerta, JavaScript está funcionando!');
+        });
+    </script>
+</body>
+</html>

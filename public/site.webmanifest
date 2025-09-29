@@ -1,0 +1,88 @@
+{
+  "name": "Aproxima - Caderneta da Gestante Acessível",
+  "short_name": "Aproxima",
+  "description": "Plataforma digital para saúde inclusiva com foco em acessibilidade para gestantes",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2A1B5D",
+  "theme_color": "#2A1B5D",
+  "orientation": "portrait-primary",
+  "categories": ["health", "medical", "accessibility"],
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile.jpg",
+      "sizes": "400x800",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Tela inicial no mobile"
+    },
+    {
+      "src": "/screenshot-desktop.jpg", 
+      "sizes": "1200x800",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Tela inicial no desktop"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Seção da Gestante",
+      "short_name": "Gestante", 
+      "description": "Acesso rápido à área da gestante",
+      "url": "/gestante",
+      "icons": [
+        {
+          "src": "/icon-gestante-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Área do Profissional",
+      "short_name": "Profissional",
+      "description": "Acesso rápido à área do profissional",
+      "url": "/area-do-profissional", 
+      "icons": [
+        {
+          "src": "/icon-profissional-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": ["focus-existing", "auto"]
+  }
+}
