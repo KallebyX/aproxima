@@ -102,6 +102,33 @@ http://localhost:3000/
 
 ---
 
+## 🚀 Deploy
+
+### Deploy Local com Docker
+
+```bash
+# Build e execução
+docker-compose -f docker-compose.simple.yml up -d --build
+
+# Ou usando o script
+./deploy.sh
+```
+
+### Deploy no Servidor UFN
+
+Consulte os arquivos de documentação específicos:
+
+- [`DEPLOY_UFN.md`](./DEPLOY_UFN.md) - Guia completo para deploy no servidor
+- [`DEPLOY.md`](./DEPLOY.md) - Instruções gerais de deploy
+
+**URLs de produção:**
+
+- **Site**: <https://aproxima.ufn.edu.br> (após configuração)
+- **Portainer**: <https://app.ufn.edu.br>
+- **Proxy Manager**: <https://proxy.app.ufn.edu.br>
+
+---
+
 ## 📝 Contribuindo
 
 Contribuições são bem-vindas! Siga os passos abaixo para contribuir:

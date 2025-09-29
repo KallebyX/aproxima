@@ -1,0 +1,24 @@
+services:
+  aproxima:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aproxima-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.aproxima.rule=Host(`aproxima.ufn.edu.br`)"
+      - "traefik.http.routers.aproxima.tls=true"
+      - "traefik.http.routers.aproxima.tls.certresolver=letsencrypt"
+      - "traefik.http.services.aproxima.loadbalancer.server.port=3000"
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
