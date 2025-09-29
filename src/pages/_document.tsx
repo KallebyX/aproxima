@@ -48,15 +48,6 @@ export default function Document() {
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="referrer" content="origin-when-cross-origin" />
         
-        {/* Preload recursos críticos */}
-        <link 
-          rel="preload" 
-          href="/fonts/inter-var.woff2" 
-          as="font" 
-          type="font/woff2" 
-          crossOrigin="anonymous" 
-        />
-        
         {/* Favicon otimizado */}
         <link rel="icon" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/favicon.png" />
