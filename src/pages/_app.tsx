@@ -5,6 +5,9 @@ import { useEffect } from 'react';
 import Head from 'next/head';
 import SkipLinks from '../components/SkipLinks';
 import KeyboardNavigation from '../components/KeyboardNavigation';
+import AccessibilityToggle from '../components/AccessibilityToggle';
+import ThemeSwitcher from '../components/ThemeSwitcher';
+import { FeedbackContainer } from '../components/FeedbackSystem';
 import { LiveRegionManager } from '../components/LiveRegion';
 
 const inter = Inter({ 
@@ -34,6 +37,12 @@ export default function App({ Component, pageProps }: AppProps) {
         <div className={`${inter.variable} font-sans`}>
           <SkipLinks />
           <Component {...pageProps} />
+          <AccessibilityToggle />
+          {/* Theme Switcher - Posicionado no canto inferior direito */}
+          <div className="fixed bottom-4 right-4 z-30">
+            <ThemeSwitcher />
+          </div>
+          <FeedbackContainer />
         </div>
       </KeyboardNavigation>
     </>
