@@ -1,0 +1,62 @@
+MIT License
+
+Copyright (c) 2024 Universidade Franciscana (UFN) - Projeto Aproxima
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Accessibility Commitment
+
+This project is committed to providing an inclusive experience for all users.
+The software implements WCAG 2.1 AAA standards and follows accessibility
+best practices. Any accessibility issues found should be reported as bugs
+and will be prioritized for immediate resolution.
+
+## Data Privacy & LGPD Compliance
+
+This software respects user privacy and complies with Brazilian LGPD
+(Lei Geral de Proteção de Dados) requirements. Personal data handling
+follows privacy-by-design principles and user consent mechanisms.
+
+## Academic Use
+
+This project was developed as part of academic research at Universidade
+Franciscana (UFN). Academic use, research, and educational implementations
+are especially encouraged. Please cite appropriately if used in academic work:
+
+```
+Projeto Aproxima - Plataforma de Acompanhamento Pré-natal Acessível
+Universidade Franciscana (UFN), 2024
+Available at: https://github.com/KallebyX/aproxima
+```
+
+## Healthcare Disclaimer
+
+This software is intended for educational and informational purposes related
+to prenatal care. It is not intended to replace professional medical advice,
+diagnosis, or treatment. Always seek the advice of qualified healthcare
+providers with any questions regarding medical conditions or treatments.
+
+## Support
+
+For questions about licensing or usage rights:
+- Technical Support: dev@aproxima.com
+- Legal Inquiries: legal@ufn.edu.br
+- Academic Partnerships: pesquisa@ufn.edu.br
