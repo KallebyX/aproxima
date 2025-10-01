@@ -1596,3 +1596,177 @@ a.button,
   background-size: 200% 100%;
   animation: accessibility-shimmer 3s infinite;
 }
+
+/* ====== ACCESSIBILITY FEATURES STYLES ====== */
+
+/* High Contrast Mode */
+.high-contrast {
+  filter: contrast(150%) !important;
+}
+
+.high-contrast * {
+  background-color: var(--bg-color, inherit) !important;
+  color: var(--text-color, inherit) !important;
+  border-color: var(--border-color, currentColor) !important;
+}
+
+.high-contrast a {
+  color: var(--link-color, #0000ff) !important;
+  text-decoration: underline !important;
+}
+
+.high-contrast button {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+
+.high-contrast input, .high-contrast textarea, .high-contrast select {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+
+/* Large Text Mode */
+.large-text {
+  font-size: calc(1em * var(--font-size-multiplier, 1.25)) !important;
+}
+
+.large-text * {
+  font-size: inherit !important;
+  line-height: 1.6 !important;
+}
+
+.large-text h1 { font-size: calc(2.5rem * var(--font-size-multiplier, 1.25)) !important; }
+.large-text h2 { font-size: calc(2rem * var(--font-size-multiplier, 1.25)) !important; }
+.large-text h3 { font-size: calc(1.75rem * var(--font-size-multiplier, 1.25)) !important; }
+.large-text h4 { font-size: calc(1.5rem * var(--font-size-multiplier, 1.25)) !important; }
+.large-text h5 { font-size: calc(1.25rem * var(--font-size-multiplier, 1.25)) !important; }
+.large-text h6 { font-size: calc(1.125rem * var(--font-size-multiplier, 1.25)) !important; }
+
+/* Underlined Links */
+.underline-links a {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+}
+
+.underline-links a:hover {
+  text-decoration-thickness: 3px !important;
+}
+
+/* Reduced Motion */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: var(--animation-duration, 0.01ms) !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: var(--transition-duration, 0.01ms) !important;
+  scroll-behavior: auto !important;
+}
+
+.reduce-motion {
+  scroll-behavior: auto !important;
+}
+
+/* Enhanced Focus Indicators */
+.enhanced-focus *:focus {
+  outline: var(--focus-ring-width, 4px) solid var(--focus-ring-color, #3b82f6) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 var(--focus-ring-width, 4px) rgba(59, 130, 246, 0.3) !important;
+}
+
+.enhanced-focus *:focus-visible {
+  outline: var(--focus-ring-width, 4px) solid var(--focus-ring-color, #3b82f6) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 var(--focus-ring-width, 4px) rgba(59, 130, 246, 0.3) !important;
+}
+
+.enhanced-focus button:focus,
+.enhanced-focus a:focus,
+.enhanced-focus input:focus,
+.enhanced-focus textarea:focus,
+.enhanced-focus select:focus {
+  border-radius: 8px !important;
+  background-color: rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Sound Feedback Visual Indicators */
+.sound-feedback *:hover::after {
+  content: "🔊";
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Skip Links (already exists but enhanced) */
+.skip-links a {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  background: #000000;
+  color: #ffffff;
+  padding: 8px 16px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  z-index: 999999;
+}
+
+.skip-links a:focus {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  outline: 3px solid #ffff00;
+  outline-offset: 2px;
+}
+
+/* Keyboard Navigation Enhancements */
+[tabindex="0"]:focus,
+[tabindex="-1"]:focus {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Media Query for Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Media Query for High Contrast Preference */
+@media (prefers-contrast: high) {
+  * {
+    border-color: currentColor;
+  }
+  
+  button, input, textarea, select {
+    border-width: 2px;
+  }
+}
+
+/* Media Query for Color Scheme Preference */
+@media (prefers-color-scheme: dark) {
+  .high-contrast {
+    --text-color: #ffffff;
+    --bg-color: #000000;
+    --link-color: #00ffff;
+    --border-color: #ffffff;
+  }
+}

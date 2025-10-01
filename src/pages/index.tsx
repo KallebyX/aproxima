@@ -37,15 +37,15 @@ function NavigationCard({ title, description, href, icon, ariaLabel, delay = 0 }
       } hover:scale-105 focus:scale-105 active:scale-95`}
       aria-label={ariaLabel}
     >
-      <div className="bg-gradient-to-br from-secondary-300 to-secondary-400 dark:from-secondary-600 dark:to-secondary-700 rounded-xl xs:rounded-2xl p-4 xs:p-6 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-transparent group-hover:border-secondary-500 group-focus:border-secondary-500 group-focus:ring-4 group-focus:ring-secondary-300/50 h-full min-h-[280px] xs:min-h-[320px] flex flex-col">
+      <div className="bg-gradient-to-br from-secondary-300 to-secondary-400 rounded-xl xs:rounded-2xl p-4 xs:p-6 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-transparent group-hover:border-secondary-500 group-focus:border-secondary-500 group-focus:ring-4 group-focus:ring-secondary-300/50 h-full min-h-[280px] xs:min-h-[320px] flex flex-col">
         <div className="flex flex-col items-center text-center space-y-3 xs:space-y-4 h-full justify-between">
           <div className="text-4xl xs:text-5xl md:text-6xl mb-1 xs:mb-2 flex-shrink-0" role="img" aria-label={`Ícone: ${icon}`}>
             {icon}
           </div>
-          <h2 className="text-lg xs:text-xl md:text-2xl lg:text-3xl font-bold text-primary-600 dark:text-primary-300 group-hover:text-primary-700 dark:group-hover:text-primary-200 transition-colors flex-shrink-0">
+          <h2 className="text-lg xs:text-xl md:text-2xl lg:text-3xl font-bold text-primary-600 group-hover:text-primary-700 transition-colors flex-shrink-0">
             {title}
           </h2>
-          <p className="text-primary-500 dark:text-primary-200 text-sm xs:text-base md:text-lg leading-relaxed flex-grow flex items-center justify-center text-center">
+          <p className="text-primary-500 text-sm xs:text-base md:text-lg leading-relaxed flex-grow flex items-center justify-center text-center">
             {description}
           </p>
         </div>
@@ -235,35 +235,35 @@ export default function HomePage() {
           {/* Features Section */}
           <section 
             id="features-section"
-            className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white/50 dark:bg-gray-800/50"
+            className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white/50"
             aria-labelledby="features-heading"
             role="region"
           >
             <div className="max-w-7xl mx-auto">
               <h2 
                 id="features-heading"
-                className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 text-primary-600 dark:text-primary-400 px-2 sm:px-0"
+                className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 text-primary-600 px-2 sm:px-0"
               >
                 Recursos de Acessibilidade
               </h2>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8" role="list">
-                <article className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 h-full min-h-[220px] flex flex-col" role="listitem">
+                <article className="bg-white p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 h-full min-h-[220px] flex flex-col" role="listitem">
                   <div className="text-4xl mb-4 flex-shrink-0" role="img" aria-label="Ícone de leitor de tela">🔊</div>
-                  <h3 className="text-lg md:text-xl font-bold text-primary-600 dark:text-primary-400 mb-4 flex-shrink-0">Compatível com Leitores de Tela</h3>
-                  <p className="text-gray-600 dark:text-gray-300 flex-grow text-sm md:text-base leading-relaxed">Totalmente otimizado para NVDA, JAWS e VoiceOver com navegação por teclas de atalho.</p>
+                  <h3 className="text-lg md:text-xl font-bold text-primary-600 mb-4 flex-shrink-0">Compatível com Leitores de Tela</h3>
+                  <p className="text-gray-600 flex-grow text-sm md:text-base leading-relaxed">Totalmente otimizado para NVDA, JAWS e VoiceOver com navegação por teclas de atalho.</p>
                 </article>
                 
-                <article className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 h-full min-h-[220px] flex flex-col" role="listitem">
+                <article className="bg-white p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 h-full min-h-[220px] flex flex-col" role="listitem">
                   <div className="text-4xl mb-4 flex-shrink-0" role="img" aria-label="Ícone de alto contraste">🌗</div>
-                  <h3 className="text-lg md:text-xl font-bold text-primary-600 dark:text-primary-400 mb-4 flex-shrink-0">Alto Contraste</h3>
-                  <p className="text-gray-600 dark:text-gray-300 flex-grow text-sm md:text-base leading-relaxed">Temas com contraste otimizado seguindo diretrizes WCAG 2.1 AAA para máxima legibilidade.</p>
+                  <h3 className="text-lg md:text-xl font-bold text-primary-600 mb-4 flex-shrink-0">Alto Contraste</h3>
+                  <p className="text-gray-600 flex-grow text-sm md:text-base leading-relaxed">Temas com contraste otimizado seguindo diretrizes WCAG 2.1 AAA para máxima legibilidade.</p>
                 </article>
                 
-                <article className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 h-full min-h-[220px] flex flex-col md:col-span-2 lg:col-span-1" role="listitem">
+                <article className="bg-white p-6 md:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 h-full min-h-[220px] flex flex-col md:col-span-2 lg:col-span-1" role="listitem">
                   <div className="text-4xl mb-4 flex-shrink-0" role="img" aria-label="Ícone de Libras">🤟</div>
-                  <h3 className="text-lg md:text-xl font-bold text-primary-600 dark:text-primary-400 mb-4 flex-shrink-0">Tradução em Libras</h3>
-                  <p className="text-gray-600 dark:text-gray-300 flex-grow text-sm md:text-base leading-relaxed">Interface com tradução automática para Língua Brasileira de Sinais através do VLibras.</p>
+                  <h3 className="text-lg md:text-xl font-bold text-primary-600 mb-4 flex-shrink-0">Tradução em Libras</h3>
+                  <p className="text-gray-600 flex-grow text-sm md:text-base leading-relaxed">Interface com tradução automática para Língua Brasileira de Sinais através do VLibras.</p>
                 </article>
               </div>
             </div>
@@ -279,12 +279,12 @@ export default function HomePage() {
             <div className="max-w-4xl mx-auto text-center">
               <h2 
                 id="contact-heading"
-                className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8 text-primary-600 dark:text-primary-400 px-2 sm:px-0"
+                className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8 text-primary-600 px-2 sm:px-0"
               >
                 Entre em Contato
               </h2>
               
-              <p className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 px-2 sm:px-0 leading-relaxed">
+              <p className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-6 sm:mb-8 px-2 sm:px-0 leading-relaxed">
                 Tem dúvidas sobre nossos recursos de acessibilidade? Nossa equipe está pronta para ajudar!
               </p>
               
