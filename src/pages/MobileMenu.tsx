@@ -81,19 +81,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               { label: 'Contato', link: '/contato' },
             ].map((item, index) => (
               <li key={index} style={{ marginBottom: '1rem' }}>
-                <Link href={item.link}>
-                  <a
-                    onClick={onClose}
-                    style={{
-                      color: '#2A1B5D',
-                      textDecoration: 'none',
-                      fontSize: '1.2rem',
-                      fontWeight: 'bold',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    {item.label}
-                  </a>
+                <Link 
+                  href={item.link}
+                  onClick={() => onClose()}
+                  className="text-white hover:text-gray-300 block p-2"
+                  aria-label={`Navegar para ${item.label}`}
+                >
+                  {item.label}
                 </Link>
               </li>
             ))}

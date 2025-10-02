@@ -178,7 +178,7 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
             </header>
 
             {/* Tabs */}
-            <nav className="flex border-b border-gray-200 bg-gray-50" role="tablist">
+            <div className="flex border-b border-gray-200 bg-gray-50" role="tablist">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
@@ -199,7 +199,7 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
                   {tab.label}
                 </button>
               ))}
-            </nav>
+            </div>
 
             {/* Content */}
             <main className="flex-1 overflow-auto p-6">

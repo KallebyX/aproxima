@@ -1,0 +1,39 @@
+# ZAP Rules Configuration for OWASP Security Testing
+
+# Ignore false positives and adjust rules for the application
+
+# Content Security Policy
+10055	IGNORE	# CSP header is implemented via middleware
+
+# X-Frame-Options
+10020	IGNORE	# Implemented via security headers
+
+# Information Disclosure
+10109	IGNORE	# Modern browser features are intentionally used
+
+# Cookie Security
+10054	WARN	# Review cookie security settings
+
+# SSL/TLS Configuration
+10047	FAIL	# Ensure HTTPS is properly configured
+
+# Authentication
+10105	WARN	# Review authentication mechanisms if applicable
+
+# Session Management
+10112	WARN	# Review session handling
+
+# Input Validation
+40012	FAIL	# Cross-site scripting vulnerabilities
+40014	FAIL	# SQL injection vulnerabilities
+40016	FAIL	# Cross-site request forgery
+
+# Access Control
+40013	FAIL	# Directory browsing
+40018	FAIL	# Insecure direct object references
+
+# Error Handling
+40023	WARN	# Information disclosure in error messages
+
+# Logging and Monitoring
+40024	INFO	# Logging configuration review

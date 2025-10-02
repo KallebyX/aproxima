@@ -1,53 +1,6 @@
-// Service Worker para PWA - Aproxima
-const CACHE_NAME = 'aproxima-v1.0.0';
-const STATIC_CACHE = 'aproxima-static-v1';
-const RUNTIME_CACHE = 'aproxima-runtime-v1';
-
-// Assets estáticos para cache
-const STATIC_ASSETS = [
-  '/',
-  '/gestante',
-  '/area-do-profissional', 
-  '/produtos-acessiveis',
-  '/quem-somos',
-  '/contato',
-  '/favicon.ico',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/site.webmanifest'
-];
-
-// Assets críticos que devem ser sempre cached
-const CRITICAL_ASSETS = [
-  '/',
-  '/offline.html'
-];
-
-// Instalação do Service Worker
-self.addEventListener('install', (event) => {
-  console.log('[SW] Installing Service Worker');
-  
-  event.waitUntil(
-    (async () => {
-      try {
-        // Cache assets estáticos
-        const staticCache = await caches.open(STATIC_CACHE);
-        await staticCache.addAll(STATIC_ASSETS);
-        
-        // Cache assets críticos
-        const mainCache = await caches.open(CACHE_NAME);
-        await mainCache.addAll(CRITICAL_ASSETS);
-        
-        console.log('[SW] Assets cached successfully');
-      } catch (error) {
-        console.error('[SW] Failed to cache assets:', error);
-      }
-    })()
-  );
-  
-  // Força ativação imediata
-  self.skipWaiting();
-});
+// 🚀 APROXIMA - Enterprise Service Worker Loader
+// Redirects to advanced service worker implementation
+importScripts('/sw-advanced.js');
 
 // Ativação do Service Worker
 self.addEventListener('activate', (event) => {

@@ -22,6 +22,10 @@ export default function VLibras({
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [isRetrying, setIsRetrying] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
 
   const getPositionStyles = useCallback(() => {
     const baseStyles: React.CSSProperties = {
@@ -184,12 +188,10 @@ export default function VLibras({
               cursor: 'pointer',
               transition: 'background-color 0.2s',
             }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-            }}
+            onMouseOver={handleMouseEnter}
+            onFocus={handleMouseEnter}
+            onMouseOut={handleMouseLeave}
+            onBlur={handleMouseLeave}
             disabled={isRetrying}
             aria-label="Tentar carregar VLibras novamente"
           >

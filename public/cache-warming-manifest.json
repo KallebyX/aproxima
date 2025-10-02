@@ -1,0 +1,301 @@
+{
+  "version": "2.1.0",
+  "timestamp": "2025-10-01T21:49:52.685Z",
+  "resources": {
+    "critical": [
+      {
+        "url": "/_next/static/chunks/main-da79613d505decc4.js",
+        "type": "script",
+        "size": 122,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/pages/_app-6bf5fe8ef0d84059.js",
+        "type": "script",
+        "size": 45101,
+        "cache": true
+      },
+      {
+        "url": "/",
+        "type": "document",
+        "cache": true,
+        "preload": true
+      },
+      {
+        "url": "/gestante",
+        "type": "document",
+        "cache": true,
+        "preload": true
+      },
+      {
+        "url": "/area-do-profissional",
+        "type": "document",
+        "cache": true,
+        "preload": true
+      },
+      {
+        "url": "/contato",
+        "type": "document",
+        "cache": true,
+        "preload": true
+      },
+      {
+        "url": "/quem-somos",
+        "type": "document",
+        "cache": true,
+        "preload": true
+      },
+      {
+        "url": "/produtos-acessiveis",
+        "type": "document",
+        "cache": true,
+        "preload": true
+      }
+    ],
+    "important": [
+      {
+        "url": "/_next/static/chunks/vendors-649546beb1f8df53.js",
+        "type": "script",
+        "size": 295848,
+        "cache": true
+      }
+    ],
+    "background": [
+      {
+        "url": "/_next/static/3EDV64NpvZz4VCXAatOwK/_buildManifest.js",
+        "type": "script",
+        "size": 1592,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/3EDV64NpvZz4VCXAatOwK/_ssgManifest.js",
+        "type": "script",
+        "size": 77,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/388.39effe65d0f11591.js",
+        "type": "script",
+        "size": 4005,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/426-a3a2d9ad9aaef0fd.js",
+        "type": "script",
+        "size": 9284,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/pages/Header-39e90a98eec8d467.js",
+        "type": "script",
+        "size": 7331,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/pages/MobileMenu-3469643ab12137d8.js",
+        "type": "script",
+        "size": 1615,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/pages/_error-f4534cdf9bf92db7.js",
+        "type": "script",
+        "size": 217,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/pages/area-do-profissional-711f629763e671ef.js",
+        "type": "script",
+        "size": 16062,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/pages/central-privacidade-ca214707d4bb7b67.js",
+        "type": "script",
+        "size": 9265,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/pages/contato-d17bd5fc84d3ac65.js",
+        "type": "script",
+        "size": 11050,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/pages/declaracao-acessibilidade-7ac197705dbe7095.js",
+        "type": "script",
+        "size": 15310,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/pages/gestante-37afdba96a25b9e3.js",
+        "type": "script",
+        "size": 12158,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/pages/index-f3f312af3c60aabc.js",
+        "type": "script",
+        "size": 12766,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/pages/politica-privacidade-e40173e93b952df9.js",
+        "type": "script",
+        "size": 16561,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/pages/produtos-acessiveis-56b031f357c7063d.js",
+        "type": "script",
+        "size": 14592,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/pages/quem-somos-dbc1607e80e90148.js",
+        "type": "script",
+        "size": 12641,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/pages/termos-de-uso-f4b94d669f60d397.js",
+        "type": "script",
+        "size": 14354,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/polyfills-42372ed130431b0a.js",
+        "type": "script",
+        "size": 112594,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/chunks/webpack-e664a07974eef642.js",
+        "type": "script",
+        "size": 2990,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/css/419427b494544152.css",
+        "type": "style",
+        "size": 96574,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/media/19cfc7226ec3afaa-s.woff2",
+        "type": "font",
+        "size": 19044,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/media/21350d82a1f187e9-s.woff2",
+        "type": "font",
+        "size": 18744,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/media/8e9860b6e62d6359-s.woff2",
+        "type": "font",
+        "size": 85272,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/media/ba9851c3c22cd980-s.woff2",
+        "type": "font",
+        "size": 25844,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/media/c5fe6dc8356a8c31-s.woff2",
+        "type": "font",
+        "size": 11272,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/media/df0a9ae256c0569c-s.woff2",
+        "type": "font",
+        "size": 10280,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/media/e4af272ccee01ff0-s.p.woff2",
+        "type": "font",
+        "size": 48432,
+        "cache": true
+      },
+      {
+        "url": "/_next/static/media/logo.0dab9274.png",
+        "type": "image",
+        "size": 18252,
+        "cache": true
+      }
+    ]
+  },
+  "strategies": {
+    "serviceWorker": {
+      "enabled": true,
+      "caches": {
+        "static": {
+          "strategy": "cache-first",
+          "maxAge": 604800000,
+          "resources": [
+            "/_next/static/**"
+          ]
+        },
+        "pages": {
+          "strategy": "network-first",
+          "maxAge": 86400000,
+          "resources": [
+            "/",
+            "/gestante",
+            "/area-do-profissional"
+          ]
+        },
+        "api": {
+          "strategy": "stale-while-revalidate",
+          "maxAge": 300000,
+          "resources": [
+            "/api/**"
+          ]
+        }
+      }
+    },
+    "preload": {
+      "enabled": true,
+      "resources": [
+        {
+          "url": "/_next/static/css/app.css",
+          "as": "style"
+        },
+        {
+          "url": "/_next/static/js/app.js",
+          "as": "script"
+        },
+        {
+          "url": "/favicon.png",
+          "as": "image"
+        }
+      ],
+      "dns": [
+        "fonts.googleapis.com",
+        "fonts.gstatic.com"
+      ]
+    },
+    "prefetch": {
+      "enabled": true,
+      "routes": [
+        "/",
+        "/gestante",
+        "/area-do-profissional",
+        "/contato",
+        "/quem-somos",
+        "/produtos-acessiveis"
+      ],
+      "intersection": {
+        "enabled": true,
+        "threshold": 0.1,
+        "rootMargin": "50px"
+      }
+    }
+  }
+}

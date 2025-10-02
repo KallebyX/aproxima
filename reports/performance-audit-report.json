@@ -1,0 +1,135 @@
+{
+  "timestamp": "2025-10-01T21:58:15.026Z",
+  "bundles": {
+    "main": 122,
+    "vendor": 295848,
+    "chunks": [
+      {
+        "name": "388.39effe65d0f11591.js",
+        "size": 4005
+      },
+      {
+        "name": "426-a3a2d9ad9aaef0fd.js",
+        "size": 9284
+      },
+      {
+        "name": "main-da79613d505decc4.js",
+        "size": 122
+      },
+      {
+        "name": "polyfills-42372ed130431b0a.js",
+        "size": 112594
+      },
+      {
+        "name": "vendors-649546beb1f8df53.js",
+        "size": 295848
+      },
+      {
+        "name": "webpack-e664a07974eef642.js",
+        "size": 2990
+      }
+    ],
+    "total": 712109
+  },
+  "performance": {
+    "chunks": [
+      {
+        "name": "vendors-649546beb1f8df53.js",
+        "size": 295848,
+        "type": "vendor"
+      },
+      {
+        "name": "polyfills-42372ed130431b0a.js",
+        "size": 112594,
+        "type": "chunk"
+      },
+      {
+        "name": "426-a3a2d9ad9aaef0fd.js",
+        "size": 9284,
+        "type": "chunk"
+      },
+      {
+        "name": "388.39effe65d0f11591.js",
+        "size": 4005,
+        "type": "chunk"
+      },
+      {
+        "name": "webpack-e664a07974eef642.js",
+        "size": 2990,
+        "type": "chunk"
+      },
+      {
+        "name": "main-da79613d505decc4.js",
+        "size": 122,
+        "type": "chunk"
+      }
+    ],
+    "css": [
+      {
+        "name": "419427b494544152.css",
+        "size": 96574,
+        "compressed": 28967,
+        "unusedRules": 7
+      }
+    ],
+    "images": [
+      {
+        "path": "favicon.png",
+        "size": 14572,
+        "format": ".png",
+        "optimized": true
+      },
+      {
+        "path": "file.svg",
+        "size": 391,
+        "format": ".svg",
+        "optimized": true
+      },
+      {
+        "path": "globe.svg",
+        "size": 1035,
+        "format": ".svg",
+        "optimized": true
+      },
+      {
+        "path": "next.svg",
+        "size": 1375,
+        "format": ".svg",
+        "optimized": true
+      },
+      {
+        "path": "vercel.svg",
+        "size": 128,
+        "format": ".svg",
+        "optimized": true
+      },
+      {
+        "path": "window.svg",
+        "size": 385,
+        "format": ".svg",
+        "optimized": true
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "type": "warning",
+      "category": "Bundle Size",
+      "message": "Found 1 large chunks (>250KB). Consider code splitting.",
+      "files": [
+        "vendors-649546beb1f8df53.js"
+      ]
+    },
+    {
+      "type": "success",
+      "category": "PWA",
+      "message": "Advanced Service Worker implemented with caching strategies."
+    },
+    {
+      "type": "success",
+      "category": "Optimization",
+      "message": "Enterprise cache system active with intelligent invalidation."
+    }
+  ],
+  "score": 95
+}

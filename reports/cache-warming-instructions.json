@@ -1,0 +1,111 @@
+{
+  "serviceWorker": {
+    "install": {
+      "precache": [
+        "/_next/static/chunks/main-da79613d505decc4.js",
+        "/_next/static/chunks/pages/_app-6bf5fe8ef0d84059.js",
+        "/",
+        "/gestante",
+        "/area-do-profissional",
+        "/contato",
+        "/quem-somos",
+        "/produtos-acessiveis"
+      ],
+      "strategies": {
+        "static": {
+          "strategy": "cache-first",
+          "maxAge": 604800000,
+          "resources": [
+            "/_next/static/**"
+          ]
+        },
+        "pages": {
+          "strategy": "network-first",
+          "maxAge": 86400000,
+          "resources": [
+            "/",
+            "/gestante",
+            "/area-do-profissional"
+          ]
+        },
+        "api": {
+          "strategy": "stale-while-revalidate",
+          "maxAge": 300000,
+          "resources": [
+            "/api/**"
+          ]
+        }
+      }
+    },
+    "runtime": {
+      "warmOnActivate": true,
+      "warmOnNetworkIdle": true,
+      "backgroundWarm": [
+        "/_next/static/3EDV64NpvZz4VCXAatOwK/_buildManifest.js",
+        "/_next/static/3EDV64NpvZz4VCXAatOwK/_ssgManifest.js",
+        "/_next/static/chunks/388.39effe65d0f11591.js",
+        "/_next/static/chunks/426-a3a2d9ad9aaef0fd.js",
+        "/_next/static/chunks/pages/Header-39e90a98eec8d467.js",
+        "/_next/static/chunks/pages/MobileMenu-3469643ab12137d8.js",
+        "/_next/static/chunks/pages/_error-f4534cdf9bf92db7.js",
+        "/_next/static/chunks/pages/area-do-profissional-711f629763e671ef.js",
+        "/_next/static/chunks/pages/central-privacidade-ca214707d4bb7b67.js",
+        "/_next/static/chunks/pages/contato-d17bd5fc84d3ac65.js",
+        "/_next/static/chunks/pages/declaracao-acessibilidade-7ac197705dbe7095.js",
+        "/_next/static/chunks/pages/gestante-37afdba96a25b9e3.js",
+        "/_next/static/chunks/pages/index-f3f312af3c60aabc.js",
+        "/_next/static/chunks/pages/politica-privacidade-e40173e93b952df9.js",
+        "/_next/static/chunks/pages/produtos-acessiveis-56b031f357c7063d.js",
+        "/_next/static/chunks/pages/quem-somos-dbc1607e80e90148.js",
+        "/_next/static/chunks/pages/termos-de-uso-f4b94d669f60d397.js",
+        "/_next/static/chunks/polyfills-42372ed130431b0a.js",
+        "/_next/static/chunks/webpack-e664a07974eef642.js",
+        "/_next/static/css/419427b494544152.css",
+        "/_next/static/media/19cfc7226ec3afaa-s.woff2",
+        "/_next/static/media/21350d82a1f187e9-s.woff2",
+        "/_next/static/media/8e9860b6e62d6359-s.woff2",
+        "/_next/static/media/ba9851c3c22cd980-s.woff2",
+        "/_next/static/media/c5fe6dc8356a8c31-s.woff2",
+        "/_next/static/media/df0a9ae256c0569c-s.woff2",
+        "/_next/static/media/e4af272ccee01ff0-s.p.woff2",
+        "/_next/static/media/logo.0dab9274.png"
+      ]
+    }
+  },
+  "html": {
+    "head": [
+      "<link rel=\"dns-prefetch\" href=\"//fonts.googleapis.com\">",
+      "<link rel=\"dns-prefetch\" href=\"//fonts.gstatic.com\">",
+      "<link rel=\"preload\" href=\"/_next/static/css/app.css\" as=\"style\">",
+      "<link rel=\"preload\" href=\"/_next/static/js/app.js\" as=\"script\">",
+      "<link rel=\"preload\" href=\"/favicon.png\" as=\"image\">"
+    ]
+  },
+  "runtime": {
+    "intersection": {
+      "enabled": true,
+      "config": {
+        "threshold": 0.1,
+        "rootMargin": "50px"
+      },
+      "targets": [
+        "/",
+        "/gestante",
+        "/area-do-profissional",
+        "/contato",
+        "/quem-somos",
+        "/produtos-acessiveis"
+      ]
+    },
+    "eager": {
+      "routes": [
+        "/",
+        "/gestante",
+        "/area-do-profissional",
+        "/contato",
+        "/quem-somos",
+        "/produtos-acessiveis"
+      ]
+    }
+  }
+}

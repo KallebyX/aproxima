@@ -1,12 +1,38 @@
 {
   "name": "aproxima",
-  "version": "0.1.0",
+  "version": "2.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:optimize": "node scripts/build-optimizer.js",
+    "build:analyze": "ANALYZE=true next build",
+    "build:production": "NODE_ENV=production npm run build:optimize && npm run cache:warm",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --watchAll=false",
+    "test:a11y": "jest --testNamePattern=\"accessibility\"",
+    "test:e2e": "playwright test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky install",
+    "commit": "cz",
+    "analyze": "npm run build:analyze",
+    "bundle:analyze": "npx @next/bundle-analyzer",
+    "perf:audit": "node scripts/performance-audit.js",
+    "cache:warm": "node scripts/cache-warming.js",
+    "cache:generate-sw": "node scripts/cache-warming.js --generate-sw",
+    "bundle:size": "npx size-limit",
+    "optimize:all": "npm run perf:audit && npm run build:optimize",
+    "analyze:bundle": "ANALYZE=true npm run build",
+    "validate:comprehensive": "node scripts/comprehensive-validation.js",
+    "validate:all": "npm run build && npm run validate:comprehensive",
+    "optimize:images": "next-optimized-images",
+    "check:types": "tsc --noEmit",
+    "optimize": "npm run build && npm run analyze && npm run audit"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
@@ -18,20 +44,51 @@
     "next": "^15.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.30.1",
-    "router": "^2.0.0",
-    "routerr": "^1.0.0"
+    "react-router-dom": "^6.30.1"
   },
   "devDependencies": {
+    "@axe-core/react": "^4.8.2",
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@next/bundle-analyzer": "^15.5.4",
+    "@playwright/test": "^1.55.1",
     "@svgr/webpack": "^8.1.0",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/jest": "^29.5.8",
     "@types/node": "^20.19.12",
     "@types/react": "^18.3.24",
     "@types/react-dom": "^18.3.7",
     "autoprefixer": "^10.4.21",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.34.0",
     "eslint-config-next": "15.5.2",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "jest-axe": "^8.0.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^15.1.0",
+    "node-mocks-http": "^1.13.0",
     "postcss": "^8.5.6",
+    "prettier": "^3.1.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }

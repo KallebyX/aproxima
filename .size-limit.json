@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Main Bundle",
+    "path": ".next/static/js/pages/_app-*.js",
+    "limit": "100 KB",
+    "webpack": false
+  },
+  {
+    "name": "Home Page",
+    "path": ".next/static/js/pages/index-*.js",
+    "limit": "50 KB",
+    "webpack": false
+  },
+  {
+    "name": "Critical CSS",
+    "path": ".next/static/css/*.css",
+    "limit": "20 KB",
+    "webpack": false
+  },
+  {
+    "name": "Total JavaScript",
+    "path": [
+      ".next/static/js/**/*.js",
+      "!.next/static/js/**/*.map"
+    ],
+    "limit": "500 KB",
+    "webpack": false
+  },
+  {
+    "name": "Service Worker",
+    "path": "public/sw-advanced.js",
+    "limit": "15 KB",
+    "webpack": false
+  }
+]

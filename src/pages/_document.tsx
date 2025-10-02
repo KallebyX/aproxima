@@ -122,6 +122,37 @@ export default function Document() {
         <Main />
         <NextScript />
         
+        {/* Service Worker Registration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw-advanced.js')
+                    .then(function(registration) {
+                      console.log('✅ SW registered successfully:', registration.scope);
+                      
+                      // Update notification
+                      registration.addEventListener('updatefound', () => {
+                        const newWorker = registration.installing;
+                        if (newWorker) {
+                          newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                              console.log('🔄 New SW available, refresh page for update');
+                            }
+                          });
+                        }
+                      });
+                    })
+                    .catch(function(error) {
+                      console.log('❌ SW registration failed:', error);
+                    });
+                });
+              }
+            `,
+          }}
+        />
+        
         {/* No-JS fallback message */}
         <noscript>
           <div 

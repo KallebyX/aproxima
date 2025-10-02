@@ -280,7 +280,6 @@ export const AccessibleForm: React.FC<AccessibleFormProps> = ({
       onSubmit={handleSubmit}
       noValidate={noValidate}
       className={`space-y-6 ${className}`}
-      role="form"
       aria-label={title}
     >
       {title && (

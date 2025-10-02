@@ -237,7 +237,6 @@ export default function HomePage() {
             id="features-section"
             className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white/50"
             aria-labelledby="features-heading"
-            role="region"
           >
             <div className="max-w-7xl mx-auto">
               <h2 
@@ -274,7 +273,6 @@ export default function HomePage() {
             id="contact-section"
             className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
             aria-labelledby="contact-heading"
-            role="region"
           >
             <div className="max-w-4xl mx-auto text-center">
               <h2 
