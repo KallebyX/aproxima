@@ -51,7 +51,7 @@
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@next/bundle-analyzer": "^15.5.5",
-    "@playwright/test": "^1.56.0",
+    "@playwright/test": "^1.56.1",
     "@svgr/webpack": "^8.1.0",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.1.2",
