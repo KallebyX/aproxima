@@ -25,9 +25,14 @@ services:
           cd /tmp/aproxima &&
           git pull;
         fi &&
-        echo '🚀 Iniciando aplicação...' &&
-        cd /tmp/aproxima/.next/standalone &&
-        PORT=3010 node server.js
+        echo '� Preparando arquivos...' &&
+        cd /tmp/aproxima &&
+        cp -r public .next/standalone/ &&
+        mkdir -p .next/standalone/.next &&
+        cp -r .next/static .next/standalone/.next/ &&
+        echo '🚀 Iniciando aplicação na porta 3010...' &&
+        cd .next/standalone &&
+        HOSTNAME=0.0.0.0 PORT=3010 node server.js
       "
     restart: unless-stopped # Reinicia o container se ele parar
 
