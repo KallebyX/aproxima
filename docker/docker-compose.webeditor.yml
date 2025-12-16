@@ -21,7 +21,7 @@ services:
         git clone https://github.com/KallebyX/aproxima.git &&
         cd aproxima &&
         echo '📦 Instalando dependências...' &&
-        npm ci --ignore-scripts &&
+        npm ci --include=dev --ignore-scripts &&
         echo '🔨 Fazendo build...' &&
         npm run build &&
         echo '✅ Iniciando aplicação...' &&
