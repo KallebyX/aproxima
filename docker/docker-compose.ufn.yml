@@ -98,5 +98,5 @@ volumes:
 # ═══════════════════════════════════════════════════════════════
 networks:
   aproxima-network:
-    name: ${WP_NAME:-aproxima}_net
+    name: ${APP_NAME:-aproxima}_net
     driver: bridge
