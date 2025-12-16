@@ -1,8 +1,58 @@
-# 🐳 Deploy no Portainer - 2 Métodos
+# 🐳 Deploy no Portainer - Método Definitivo
+
+## ⚡ MÉTODO RECOMENDADO: Repository (Build Automático)
+
+### Passo a Passo:
+
+1. **Portainer > Stacks > Add Stack**
+
+2. **Configuração:**
+   - **Name:** `aproxima`
+   - **Build method:** Repository ⭐
+
+3. **Repository settings:**
+   - **Repository URL:** `https://github.com/KallebyX/aproxima`
+   - **Repository reference:** `refs/heads/main`
+   - **Compose path:** `docker/docker-compose.yml`
+
+4. **Authentication (se repositório privado):**
+   - **Username:** `KallebyX`
+   - **Personal Access Token:** [Criar token](https://github.com/settings/tokens)
+   - Permissões necessárias: `repo`
+
+5. **Environment variables:** Deixe vazio
+
+6. **Deploy the stack** 🚀
 
 ---
 
-## MÉTODO 1: Web Editor (Mais Simples) ⭐ RECOMENDADO
+## 🎯 O que acontece:
+
+1. ✅ Portainer clona do GitHub
+2. ✅ Lê `docker/docker-compose.yml`
+3. ✅ Executa build do Dockerfile
+4. ✅ Inicia o container na porta 3010
+
+---
+
+## 🔄 Para atualizar o código:
+
+1. Faça commit/push no GitHub
+2. No Portainer: **Stacks > aproxima > Pull and redeploy**
+3. Portainer vai:
+   - Git pull
+   - Rebuild
+   - Restart container
+
+---
+
+## ⚠️ Se der erro "failed to list workers":
+
+Use o **MÉTODO 2** abaixo (Web Editor).
+
+---
+
+## MÉTODO 2: Web Editor (Clone em Runtime)
 
 ### Passo a Passo:
 
@@ -65,38 +115,11 @@ services:
 
 ---
 
-## MÉTODO 2: Repository (Build via Git)
+## MÉTODO 2: Web Editor (Clone em Runtime)
+
+**Use se o Método 1 der erro de build.**
 
 ### Passo a Passo:
-
-1. **Portainer > Stacks > Add Stack**
-
-2. **Name:** `aproxima`
-
-3. **Build method:** Selecione **"Repository"** (não Web editor!)
-
-4. **Configuração do Repository:**
-
-**Repository URL:**
-```
-https://github.com/KallebyX/aproxima
-```
-
-**Repository reference:**
-```
-refs/heads/main
-```
-
-**Compose path:**
-```
-docker/docker-compose.yml
-```
-
-5. **Authentication (se repositório privado):**
-
-Se o repositório for privado:
-- **Username:** `KallebyX`
-- **Personal Access Token:** [Criar token](https://github.com/settings/tokens)
   - Permissões necessárias: `repo` (acesso ao código)
 
 ### 5. Environment variables:
