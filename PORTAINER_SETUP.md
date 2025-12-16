@@ -25,13 +25,12 @@ services:
     image: node:18-alpine
     container_name: aproxima
     restart: unless-stopped
+    network_mode: host
     working_dir: /app
-    ports:
-      - "3010:3000"
     environment:
       - NODE_ENV=production
       - HOSTNAME=0.0.0.0
-      - PORT=3000
+      - PORT=3010
     command: >
       sh -c "
         echo '🚀 Clonando repositório...' &&
@@ -44,12 +43,12 @@ services:
         npm ci --include=dev --ignore-scripts &&
         echo '🔨 Fazendo build...' &&
         npm run build &&
-        echo '✅ Iniciando aplicação...' &&
+        echo '✅ Iniciando aplicação na porta 3010...' &&
         cd /tmp/aproxima &&
-        node .next/standalone/server.js
+        PORT=3010 node .next/standalone/server.js
       "
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:3000/api/health"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:3010/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
