@@ -1,13 +1,77 @@
-Dockerfile
-.dockerignore
-node_modules
-npm-debug.log
-README.md
-.env
-.env.local
-.env.production.local
-.env.staging.local
+# Git
 .git
 .gitignore
+.husky
+
+# Docker
+Dockerfile
+.dockerignore
+docker
+
+# Dependencies
+node_modules
+
+# Next.js
 .next
+out
+
+# Testing
+coverage
+.nyc_output
+e2e
+__tests__
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+
+# Build artifacts
+reports
+*.log
+npm-debug.log*
+
+# Environment
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode
+.idea
+
+# Documentation
+*.md
+!README.md
+docs
+
+# Scripts desnecessários em produção
+scripts
+
+# Linter configs (não necessários em produção)
+.eslintrc*
+.prettierrc*
+.prettierignore
+
+# Test configs
+jest.config.js
+jest.setup.js
+playwright.config.ts
+
+# Commit configs  
+commitlint.config.js
+.commitlintrc*
+
+# Size limit
+.size-limit.json
+
+# Deploy configs
 .vercel
+DEPLOY.md
+TROUBLESHOOTING.md
+SECURITY.md
+CHANGELOG.md
+DOCKER_CHANGES.md
+LICENSE
+
+# ZAP scanner
+.zap

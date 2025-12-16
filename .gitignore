@@ -38,3 +38,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Reports e arquivos gerados
+/reports
+*.json.report
+comprehensive-validation-report.json
+performance-audit-report.json
+cache-warming-instructions.json
+
+# ZAP security scanner
+.zap
