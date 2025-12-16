@@ -1,8 +1,8 @@
+version: '3.8'
+
 services:
   aproxima:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
+    image: aproxima:latest
     container_name: aproxima
     restart: unless-stopped
     ports:

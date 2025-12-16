@@ -2,43 +2,92 @@
 
 ## 🚀 Deploy Rápido
 
-### Via Portainer (Recomendado)
+### IMPORTANTE: Build Local + Upload de Imagem
 
-1. **Acesse seu Portainer**
-2. **Stacks > Add Stack**
-3. **Configure:**
-   - Name: `aproxima`
-   - Build method: **Repository**
-   - Repository URL: `seu-repositorio-git`
-   - Repository reference: `refs/heads/main`
-   - Compose path: `docker/docker-compose.yml`
-4. **Deploy the stack**
+O Portainer pode ter problemas com build via Git. **Recomendado fazer build local:**
 
-### Via Docker Compose Manual
-
+#### 1. Build da Imagem Localmente
 ```bash
-cd docker
-docker-compose up -d
+cd /workspaces/aproxima
+docker build -f docker/Dockerfile -t aproxima:latest .
+```
+
+#### 2. Opções de Deploy
+
+**OPÇÃO A - Portainer no mesmo servidor (dev container):**
+```bash
+# A imagem já está disponível localmente
+# No Portainer:
+# 1. Stacks > Add Stack
+# 2. Name: aproxima
+# 3. Web editor: cole o conteúdo de docker-compose.portainer.yml
+# 4. Deploy
+```
+
+**OPÇÃO B - Portainer em servidor remoto:**
+```bash
+# 1. Salvar imagem
+docker save aproxima:latest -o aproxima.tar
+
+# 2. Transferir para servidor
+scp aproxima.tar user@SEU_SERVIDOR_IP:/tmp/
+
+# 3. No servidor, carregar imagem
+ssh user@SEU_SERVIDOR_IP
+docker load -i /tmp/aproxima.tar
+
+# 4. No Portainer do servidor:
+# Stacks > Add Stack > Web editor
+# Cole o conteúdo de docker-compose.portainer.yml
+```
+
+**OPÇÃO C - Docker Registry (produção):**
+```bash
+# 1. Tag para seu registry
+docker tag aproxima:latest seu-registry.com/aproxima:latest
+
+# 2. Push
+docker push seu-registry.com/aproxima:latest
+
+# 3. Atualize docker-compose.portainer.yml:
+#    image: seu-registry.com/aproxima:latest
 ```
 
 ## 🔧 Configuração
 
-- **Porta externa**: 3010
-- **Porta interna**: 3000
-- **Healthcheck**: `/api/health`
-- **Container**: `aproxima`
+### Variáveis de Ambiente Importantes
+```yaml
+environment:
+  - NODE_ENV=production
+  - HOSTNAME=0.0.0.0    # Escuta em todas interfaces
+  - PORT=3000           # Porta interna
+```
+
+### Porta
+- **Externa (host)**: 3010
+- **Interna (container)**: 3000  
+- **Mapeamento**: `3010:3000`
+
+### Healthcheck
+- Endpoint: `/api/health`
+- Verifica a cada 30s
+- Timeout: 10s
+- Start period: 40s (tempo para app iniciar)
 
 ## 🌐 Nginx Proxy Reverso
 
-Adicione ao seu nginx:
+**Se seu servidor tem IP público (ex: 192.168.1.100):**
 
 ```nginx
 server {
     listen 80;
-    server_name seu-dominio.com;
+    server_name seu-dominio.com;  # ou IP público
 
     location / {
-        proxy_pass http://localhost:3010;
+        # Aponta para o IP do servidor + porta externa
+        proxy_pass http://127.0.0.1:3010;
+        
+        # Headers necessários
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -58,21 +107,47 @@ server {
 docker ps | grep aproxima
 ```
 
-**Logs:**
+**Logs em tempo real:**
 ```bash
 docker logs aproxima -f
 ```
 
-**Health check:**
+**Testar localmente:**
 ```bash
-curl http://localhost:3010/api/health
+curl http://127.0.0.1:3010/api/health
+```
+
+**Testar do servidor:**
+```bash
+curl http://SEU_IP_SERVIDOR:3010/api/health
+```
+
+## ⚠️ Solução de Problemas
+
+### Erro "failed to list workers"
+- **Causa**: Portainer tentando build via Git
+- **Solução**: Fazer build local e usar imagem pré-construída
+
+### Container não inicia
+```bash
+docker logs aproxima
+```
+
+### Healthcheck failing
+```bash
+# Entrar no container
+docker exec -it aproxima sh
+
+# Testar internamente
+wget -qO- http://127.0.0.1:3000/api/health
 ```
 
 ## 🎯 Características
 
-- ✅ Build otimizado Next.js standalone
-- ✅ Imagem Alpine (~150MB)
-- ✅ Usuário não-root (segurança)
+- ✅ Next.js standalone (otimizado)
+- ✅ Escuta em 0.0.0.0 (todas interfaces)
+- ✅ Porta 3010:3000
 - ✅ Healthcheck automático
 - ✅ Auto-restart
-- ✅ Apenas dependências de produção
+- ✅ Usuário não-root
+- ✅ Imagem Alpine (~150MB)
