@@ -16,15 +16,22 @@ services:
     restart: always
     
     ports:
-      - "3000:3000"
-      # Porta externa (host): 3000
-      # Porta interna (container): 3000 (padrão Next.js)
-      # Acesso externo via Nginx Proxy Manager
+      - "${PORT:-3000}:3000"
+      # Porta externa configurável via .env (padrão: 3000)
+    
+    extra_hosts:
+      - "${SITE_URL:-aproxima.app.ufn.edu.br}:${PROXY_IP:-10.21.19.45}"
+      # Permite que o container resolva o domínio público internamente
     
     environment:
+      - TZ=America/Sao_Paulo
       - NODE_ENV=production
       - NEXT_TELEMETRY_DISABLED=1
       - PORT=3000
+      - HOSTNAME=0.0.0.0
+      # URL base da aplicação (importante para Next.js)
+      - NEXTAUTH_URL=https://${SITE_URL:-aproxima.app.ufn.edu.br}
+      - NEXT_PUBLIC_SITE_URL=https://${SITE_URL:-aproxima.app.ufn.edu.br}
       # Adicione outras variáveis conforme necessário:
       # - DATABASE_URL=${DATABASE_URL}
       # - API_SECRET=${API_SECRET}
@@ -91,4 +98,5 @@ volumes:
 # ═══════════════════════════════════════════════════════════════
 networks:
   aproxima-network:
+    name: ${WP_NAME:-aproxima}_net
     driver: bridge
