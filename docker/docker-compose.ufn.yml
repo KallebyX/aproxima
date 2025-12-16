@@ -1,0 +1,45 @@
+version: '3.8'
+
+# ═══════════════════════════════════════════════════════════════
+# Stack: aproxima - Plataforma de Aproximação Acadêmica UFN
+# Ambiente: Produção UFN (app.ufn.edu.br)
+# ═══════════════════════════════════════════════════════════════
+
+services:
+  app:
+    build:
+      context: https://github.com/KallebyX/aproxima.git
+      dockerfile: docker/Dockerfile
+    container_name: aproxima-app
+    restart: always
+    
+    ports:
+      - "3000:3000"
+      # Porta externa (host): 3000
+      # Porta interna (container): 3000 (padrão Next.js)
+      # Acesso externo via Nginx Proxy Manager
+    
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      - PORT=3000
+      # Adicione outras variáveis conforme necessário:
+      # - DATABASE_URL=${DATABASE_URL}
+      # - API_SECRET=${API_SECRET}
+    
+    networks:
+      - aproxima-network
+    
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+# ═══════════════════════════════════════════════════════════════
+# REDE ISOLADA
+# ═══════════════════════════════════════════════════════════════
+networks:
+  aproxima-network:
+    driver: bridge

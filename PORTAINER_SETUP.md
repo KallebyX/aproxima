@@ -1,8 +1,26 @@
-# 🐳 Deploy no Portainer - Método Definitivo
+# 🐳 Deploy no Portainer - Guia Completo
 
-## ⚡ MÉTODO RECOMENDADO: Repository (Build Automático)
+## 🎓 Para Ambiente UFN (Universidade Franciscana)
 
-### Passo a Passo:
+### ⚡ GUIA RÁPIDO - Deploy UFN
+
+➡️ **Consulte a documentação completa para ambiente UFN:**
+
+📚 **[Guia de Deploy UFN](docs/deployment/README_UFN.md)**
+
+🌐 **[Configuração Nginx Proxy Manager](docs/deployment/NGINX_PROXY_MANAGER_UFN.md)**
+
+#### Arquivos de Configuração UFN:
+- [`docker-compose.ufn.yml`](docker/docker-compose.ufn.yml) - Stack otimizada para UFN
+- [`.env.example`](.env.example) - Variáveis de ambiente
+
+---
+
+## 🌍 Para Outros Ambientes (Portainer Genérico)
+
+### ⚡ MÉTODO RECOMENDADO: Repository (Build Automático)
+
+#### Passo a Passo:
 
 1. **Portainer > Stacks > Add Stack**
 
@@ -26,16 +44,16 @@
 
 ---
 
-## 🎯 O que acontece:
+### 🎯 O que acontece:
 
 1. ✅ Portainer clona do GitHub
 2. ✅ Lê `docker/docker-compose.yml`
 3. ✅ Executa build do Dockerfile
-4. ✅ Inicia o container na porta 3010
+4. ✅ Inicia o container
 
 ---
 
-## 🔄 Para atualizar o código:
+### 🔄 Para atualizar o código:
 
 1. Faça commit/push no GitHub
 2. No Portainer: **Stacks > aproxima > Pull and redeploy**
@@ -46,7 +64,7 @@
 
 ---
 
-## ⚠️ Se der erro "failed to list workers":
+### ⚠️ Se der erro "failed to list workers":
 
 Use o **MÉTODO 2** abaixo (Web Editor).
 
