@@ -12,7 +12,3 @@ services:
       - PORT=3000
     networks:
       - web
-
-networks:
-  web:
-    external: true
