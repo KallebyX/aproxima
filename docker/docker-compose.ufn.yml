@@ -54,9 +54,15 @@ services:
           npm run build &&
           echo '📁 Preparando estrutura standalone...' &&
           cd /tmp/aproxima &&
+          rm -rf .next/standalone/public 2>/dev/null || true &&
+          rm -rf .next/standalone/.next/static 2>/dev/null || true &&
           cp -r public .next/standalone/public &&
+          mkdir -p .next/standalone/.next &&
           cp -r .next/static .next/standalone/.next/static &&
+          echo '🔍 Verificando estrutura...' &&
           ls -la .next/standalone/ &&
+          ls -la .next/standalone/public/ &&
+          ls -la .next/standalone/.next/static/ &&
           echo '✅ Arquivos copiados com sucesso';
         else
           echo '✅ Repositório já existe, atualizando...' &&
@@ -68,9 +74,15 @@ services:
           npm run build &&
           echo '📁 Atualizando estrutura standalone...' &&
           cd /tmp/aproxima &&
+          rm -rf .next/standalone/public 2>/dev/null || true &&
+          rm -rf .next/standalone/.next/static 2>/dev/null || true &&
           cp -r public .next/standalone/public &&
+          mkdir -p .next/standalone/.next &&
           cp -r .next/static .next/standalone/.next/static &&
+          echo '🔍 Verificando estrutura...' &&
           ls -la .next/standalone/ &&
+          ls -la .next/standalone/public/ &&
+          ls -la .next/standalone/.next/static/ &&
           echo '✅ Arquivos atualizados com sucesso';
         fi &&
         echo '🌐 Iniciando servidor Next.js na porta 3000...' &&
