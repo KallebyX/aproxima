@@ -52,10 +52,12 @@ services:
           npm ci --include=dev --ignore-scripts &&
           echo '🔨 Fazendo build da aplicação...' &&
           npm run build &&
-          echo '📁 Copiando arquivos estáticos...' &&
-          cp -r public .next/standalone/ &&
-          mkdir -p .next/standalone/.next &&
-          cp -r .next/static .next/standalone/.next/;
+          echo '📁 Preparando estrutura standalone...' &&
+          cd /tmp/aproxima &&
+          cp -r public .next/standalone/public &&
+          cp -r .next/static .next/standalone/.next/static &&
+          ls -la .next/standalone/ &&
+          echo '✅ Arquivos copiados com sucesso';
         else
           echo '✅ Repositório já existe, atualizando...' &&
           cd /tmp/aproxima &&
@@ -64,10 +66,12 @@ services:
           npm ci --include=dev --ignore-scripts &&
           echo '🔨 Reconstruindo aplicação...' &&
           npm run build &&
-          echo '📁 Atualizando arquivos estáticos...' &&
-          cp -r public .next/standalone/ &&
-          mkdir -p .next/standalone/.next &&
-          cp -r .next/static .next/standalone/.next/;
+          echo '📁 Atualizando estrutura standalone...' &&
+          cd /tmp/aproxima &&
+          cp -r public .next/standalone/public &&
+          cp -r .next/static .next/standalone/.next/static &&
+          ls -la .next/standalone/ &&
+          echo '✅ Arquivos atualizados com sucesso';
         fi &&
         echo '🌐 Iniciando servidor Next.js na porta 3000...' &&
         cd /tmp/aproxima/.next/standalone &&
