@@ -4,12 +4,14 @@ version: '3.8'
 # Stack: aproxima - Plataforma de Aproximação Acadêmica UFN
 # Ambiente: Produção UFN (app.ufn.edu.br)
 # ═══════════════════════════════════════════════════════════════
+# 
+# MÉTODO: Web Editor com clone em runtime
+# MOTIVO: Portainer BuildKit tem problemas com build direto do GitHub
+# ═══════════════════════════════════════════════════════════════
 
 services:
   app:
-    build:
-      context: https://github.com/KallebyX/aproxima.git
-      dockerfile: docker/Dockerfile
+    image: node:18-alpine
     container_name: aproxima-app
     restart: always
     
@@ -27,6 +29,44 @@ services:
       # - DATABASE_URL=${DATABASE_URL}
       # - API_SECRET=${API_SECRET}
     
+    volumes:
+      - aproxima-data:/tmp/aproxima
+      # Volume para persistir código clonado e evitar re-clone a cada restart
+    
+    command: >
+      sh -c "
+        echo '🚀 [APROXIMA UFN] Iniciando deploy...' &&
+        apk add --no-cache git wget &&
+        if [ ! -d /tmp/aproxima/.git ]; then
+          echo '📥 Clonando repositório do GitHub...' &&
+          git clone https://github.com/KallebyX/aproxima.git /tmp/aproxima &&
+          cd /tmp/aproxima &&
+          echo '📦 Instalando dependências...' &&
+          npm ci --include=dev --ignore-scripts &&
+          echo '🔨 Fazendo build da aplicação...' &&
+          npm run build &&
+          echo '📁 Copiando arquivos estáticos...' &&
+          cp -r public .next/standalone/ &&
+          mkdir -p .next/standalone/.next &&
+          cp -r .next/static .next/standalone/.next/;
+        else
+          echo '✅ Repositório já existe, atualizando...' &&
+          cd /tmp/aproxima &&
+          git pull &&
+          echo '📦 Atualizando dependências...' &&
+          npm ci --include=dev --ignore-scripts &&
+          echo '🔨 Reconstruindo aplicação...' &&
+          npm run build &&
+          echo '📁 Atualizando arquivos estáticos...' &&
+          cp -r public .next/standalone/ &&
+          mkdir -p .next/standalone/.next &&
+          cp -r .next/static .next/standalone/.next/;
+        fi &&
+        echo '🌐 Iniciando servidor Next.js na porta 3000...' &&
+        cd /tmp/aproxima/.next/standalone &&
+        HOSTNAME=0.0.0.0 PORT=3000 node server.js
+      "
+    
     networks:
       - aproxima-network
     
@@ -35,7 +75,16 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 60s
+      # start_period aumentado para 60s devido ao tempo de clone+build inicial
+
+# ═══════════════════════════════════════════════════════════════
+# VOLUMES PERSISTENTES
+# ═══════════════════════════════════════════════════════════════
+volumes:
+  aproxima-data:
+    # Persiste o código clonado entre restarts do container
+    # Para forçar re-clone: delete o volume no Portainer
 
 # ═══════════════════════════════════════════════════════════════
 # REDE ISOLADA
