@@ -2,14 +2,34 @@ version: '3.8'
 
 services:
   aproxima:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
-    image: aproxima:latest
+    image: node:18-alpine
     container_name: aproxima
-    restart: unless-stopped
-    network_mode: host
+    ports:
+      - "3010:3010" # Mapeia a porta 3010 do host para a porta 3010 do container
     environment:
-      - NODE_ENV=production
-      - HOSTNAME=0.0.0.0
-      - PORT=3010
+      NODE_ENV: production
+      PORT: 3010
+    volumes:
+      - app_data:/tmp/aproxima # Persiste o código clonado
+    command: >
+      sh -c "
+        apk add --no-cache git &&
+        if [ ! -d /tmp/aproxima/.git ]; then
+          echo '📥 Clonando repositório...' &&
+          git clone https://github.com/KallebyX/aproxima.git /tmp/aproxima &&
+          cd /tmp/aproxima &&
+          npm ci --include=dev --ignore-scripts &&
+          npm run build;
+        else
+          echo '✅ Repositório já existe, atualizando...' &&
+          cd /tmp/aproxima &&
+          git pull;
+        fi &&
+        echo '🚀 Iniciando aplicação...' &&
+        cd /tmp/aproxima/.next/standalone &&
+        PORT=3010 node server.js
+      "
+    restart: unless-stopped # Reinicia o container se ele parar
+
+volumes:
+  app_data: # Define o volume para persistir o código
