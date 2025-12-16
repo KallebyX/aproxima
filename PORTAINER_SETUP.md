@@ -1,19 +1,82 @@
-# 🐳 Deploy no Portainer via GitHub
+# 🐳 Deploy no Portainer - 2 Métodos
 
-## Configuração Passo a Passo
+---
 
-### 1. No Portainer, vá em: **Stacks > Add Stack**
+## MÉTODO 1: Web Editor (Mais Simples) ⭐ RECOMENDADO
 
-### 2. Preencha os campos:
+### Passo a Passo:
 
-**Name:**
+1. **Portainer > Stacks > Add Stack**
+
+2. **Name:**
+   ```
+   aproxima
+   ```
+
+3. **Build method:** Selecione **"Web editor"**
+
+4. **Cole este código no editor:**
+
+```yaml
+version: '3.8'
+
+services:
+  aproxima:
+    image: node:18-alpine
+    container_name: aproxima
+    restart: unless-stopped
+    working_dir: /app
+    ports:
+      - "3010:3000"
+    environment:
+      - NODE_ENV=production
+      - HOSTNAME=0.0.0.0
+      - PORT=3000
+    command: >
+      sh -c "
+        echo '🚀 Clonando repositório...' &&
+        apk add --no-cache git &&
+        cd /tmp &&
+        rm -rf aproxima 2>/dev/null || true &&
+        git clone https://github.com/KallebyX/aproxima.git &&
+        cd aproxima &&
+        echo '📦 Instalando dependências...' &&
+        npm ci --ignore-scripts &&
+        echo '🔨 Fazendo build...' &&
+        npm run build &&
+        echo '✅ Iniciando aplicação...' &&
+        cd /tmp/aproxima &&
+        node .next/standalone/server.js
+      "
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
 ```
-aproxima
-```
 
-**Build method:** Selecione **"Repository"**
+5. **Environment variables:** Deixe vazio
 
-### 3. Configuração do Repository:
+6. **Deploy the stack** 🚀
+
+### ⏱️ Tempo de Deploy:
+- Primeira vez: ~3-5 minutos (clona, instala, builda)
+- Próximas vezes: ~3-5 minutos (sempre rebuilda)
+
+---
+
+## MÉTODO 2: Repository (Build via Git)
+
+### Passo a Passo:
+
+1. **Portainer > Stacks > Add Stack**
+
+2. **Name:** `aproxima`
+
+3. **Build method:** Selecione **"Repository"** (não Web editor!)
+
+4. **Configuração do Repository:**
 
 **Repository URL:**
 ```
@@ -30,11 +93,11 @@ refs/heads/main
 docker/docker-compose.yml
 ```
 
-### 4. Authentication (se repositório privado):
+5. **Authentication (se repositório privado):**
 
-Se o repositório for privado, configure:
-- **Username:** seu-usuario-github
-- **Personal Access Token:** [crie em https://github.com/settings/tokens]
+Se o repositório for privado:
+- **Username:** `KallebyX`
+- **Personal Access Token:** [Criar token](https://github.com/settings/tokens)
   - Permissões necessárias: `repo` (acesso ao código)
 
 ### 5. Environment variables:
