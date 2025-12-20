@@ -1,24 +1,39 @@
+version: '3.8'
+
 services:
   aproxima:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: aproxima-app
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
+    image: node:18-alpine
+    container_name: aproxima
+    network_mode: host
     environment:
-      - NODE_ENV=production
-      - PORT=3000
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.aproxima.rule=Host(`aproxima.ufn.edu.br`)"
-      - "traefik.http.routers.aproxima.tls=true"
-      - "traefik.http.routers.aproxima.tls.certresolver=letsencrypt"
-      - "traefik.http.services.aproxima.loadbalancer.server.port=3000"
-    networks:
-      - web
+      NODE_ENV: production
+      PORT: 3010
+    volumes:
+      - app_data:/tmp/aproxima
+    command: >
+      sh -c "
+        apk add --no-cache git &&
+        if [ ! -d /tmp/aproxima/.git ]; then
+          echo '📥 Clonando repositório...' &&
+          git clone https://github.com/KallebyX/aproxima.git /tmp/aproxima &&
+          cd /tmp/aproxima &&
+          npm ci --include=dev --ignore-scripts &&
+          npm run build;
+        else
+          echo '✅ Repositório já existe, atualizando...' &&
+          cd /tmp/aproxima &&
+          git pull;
+        fi &&
+        echo '� Preparando arquivos...' &&
+        cd /tmp/aproxima &&
+        cp -r public .next/standalone/ &&
+        mkdir -p .next/standalone/.next &&
+        cp -r .next/static .next/standalone/.next/ &&
+        echo '🚀 Iniciando aplicação na porta 3010...' &&
+        cd .next/standalone &&
+        HOSTNAME=0.0.0.0 PORT=3010 node server.js
+      "
+    restart: unless-stopped # Reinicia o container se ele parar
 
-networks:
-  web:
-    external: true
+volumes:
+  app_data: # Define o volume para persistir o código
