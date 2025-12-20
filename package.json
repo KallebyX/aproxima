@@ -40,8 +40,8 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.10",
     "critters": "^0.0.25",
-    "lucide-react": "^0.544.0",
-    "next": "^15.5.9",
+    "lucide-react": "^0.548.0",
+    "next": "^15.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.30.1"
