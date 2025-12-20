@@ -2,13 +2,11 @@
 FROM node:18-alpine AS builder
 WORKDIR /app
 
-# Copiar arquivos de dependências
+# Copiar package files e instalar dependências
 COPY package*.json ./
+RUN npm ci --include=dev --ignore-scripts
 
-# Instalar dependências ignorando scripts do Husky
-RUN npm ci --ignore-scripts
-
-# Copiar código fonte e build
+# Copiar código e buildar
 COPY . .
 RUN npm run build
 
@@ -18,20 +16,18 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV HOSTNAME=0.0.0.0
-ENV PORT=3000
 
 # Criar usuário não-root
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
-# Copiar apenas arquivos necessários
+# Copiar apenas o necessário
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
-EXPOSE 3000
+EXPOSE 3010
 
 CMD ["node", "server.js"]
