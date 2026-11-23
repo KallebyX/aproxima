@@ -3,6 +3,7 @@
 services:
   app:
     image: ${APROXIMA_IMAGE:?Set APROXIMA_IMAGE to the tested image digest}
+    pull_policy: never
     container_name: aproxima-app
     restart: unless-stopped
     ports:
@@ -16,6 +17,8 @@ services:
       NEXT_PUBLIC_SITE_URL: https://aproxima.app.ufn.edu.br
       DATA_DIR: /app/data
       ENCRYPTION_KEY: ${ENCRYPTION_KEY:?Set the persistent production encryption key}
+      API_SECRET_KEY: ${API_SECRET_KEY:?Set the private staff API key}
+      APP_REVISION: ${APP_REVISION:-unknown}
     volumes:
       - aproxima-runtime-data:/app/data
     networks:

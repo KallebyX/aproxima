@@ -7,6 +7,7 @@ test('opens and navigates with legacy browser storage corrupted', async ({ page 
     localStorage.setItem('preloader-behavior-patterns', '{invalid');
     localStorage.setItem('preloader-route-predictions', 'null');
   });
+  await page.clock.setFixedTime(new Date('2030-01-01T12:00:00Z'));
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await expect(page.getByRole('button', { name: 'Abrir menu de navegação' })).toBeVisible();
@@ -15,6 +16,10 @@ test('opens and navigates with legacy browser storage corrupted', async ({ page 
   await expect(page).toHaveURL(/\/gestante$/);
   await page.reload();
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+  await expect(page.locator('footer')).toContainText('2030');
+  await page.getByRole('button', { name: 'Abrir painel de acessibilidade' }).click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await page.keyboard.press('Escape');
   expect(errors).toEqual([]);
 });
 
@@ -31,4 +36,16 @@ test('privacy center opens without prompts and looks up only a private protocol'
   await expect(page.getByText('Referência: LGPD-TEST')).toBeVisible();
   await expect.poll(() => page.evaluate(() => localStorage.getItem('aproxima-data-request-ids'))).toContain(id);
   expect(dialogs).toEqual([]);
+});
+
+test('legal pages use stable editorial dates after the build year', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.clock.setFixedTime(new Date('2030-01-01T12:00:00Z'));
+  for (const path of ['/politica-privacidade', '/termos-de-uso', '/declaracao-acessibilidade']) {
+    await page.goto(path);
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(page.getByText('Última atualização:', { exact: false })).toContainText('02/10/2025');
+  }
+  expect(errors).toEqual([]);
 });

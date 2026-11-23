@@ -11,6 +11,9 @@ RUN npm run build
 
 FROM node:24-bookworm-slim AS runner
 WORKDIR /app
+ARG VCS_REF=unknown
+LABEL org.opencontainers.image.source="https://github.com/KallebyX/aproxima" \
+    org.opencontainers.image.revision=$VCS_REF
 
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \

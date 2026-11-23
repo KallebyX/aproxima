@@ -47,10 +47,9 @@ describe('Home Page', () => {
     expect(screen.getByRole('main')).toBeInTheDocument();
     
     // Check for navigation (if present)
-    const nav = screen.queryByRole('navigation');
-    if (nav) {
-      expect(nav).toBeInTheDocument();
-    }
+    const navigation = screen.getAllByRole('navigation');
+    expect(navigation.length).toBeGreaterThan(0);
+    navigation.forEach(nav => expect(nav).toHaveAccessibleName());
   });
 
   it('meets WCAG accessibility standards', async () => {

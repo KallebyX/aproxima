@@ -1,3 +1,4 @@
+import { ChartNoAxesCombined, Gauge, Package, Settings, CheckCircle2, X } from 'lucide-react';
 // 🚀 APROXIMA - Performance Dashboard Component
 // FASE 3: Real-time Performance Monitoring Dashboard
 
@@ -61,7 +62,7 @@ export const PerformanceDashboard: React.FC<PerformanceDashboardProps> = ({
     <div className="fixed bottom-4 right-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-2xl p-6 w-96 max-h-[600px] overflow-y-auto z-50">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          📊 Performance Monitor
+          <ChartNoAxesCombined className="mr-2 inline h-5 w-5" aria-hidden="true" /> Performance Monitor
         </h3>
         {onClose && (
           <button
@@ -69,7 +70,7 @@ export const PerformanceDashboard: React.FC<PerformanceDashboardProps> = ({
             className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
             aria-label="Close performance dashboard"
           >
-            ✕
+            <X className="h-5 w-5" aria-hidden="true" />
           </button>
         )}
       </div>
@@ -98,7 +99,7 @@ export const PerformanceDashboard: React.FC<PerformanceDashboardProps> = ({
       {/* Web Vitals */}
       <div className="mb-6">
         <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-3">
-          🚀 Core Web Vitals
+          <Gauge className="mr-2 inline h-4 w-4" aria-hidden="true" /> Core Web Vitals
         </h4>
         <div className="space-y-3">
           <div className="flex justify-between items-center">
@@ -132,7 +133,7 @@ export const PerformanceDashboard: React.FC<PerformanceDashboardProps> = ({
       {bundleAnalysis && (
         <div className="mb-6">
           <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-3">
-            📦 Bundle Analysis
+            <Package className="mr-2 inline h-4 w-4" aria-hidden="true" /> Bundle Analysis
           </h4>
           <div className="space-y-2">
             <div className="flex justify-between items-center">
@@ -166,7 +167,7 @@ export const PerformanceDashboard: React.FC<PerformanceDashboardProps> = ({
       {/* Service Worker Status */}
       <div className="mb-6">
         <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-3">
-          ⚙️ Service Worker
+          <Settings className="mr-2 inline h-4 w-4" aria-hidden="true" /> Service Worker
         </h4>
         <div className="space-y-2">
           <div className="flex justify-between items-center">
@@ -199,7 +200,7 @@ export const PerformanceDashboard: React.FC<PerformanceDashboardProps> = ({
               : 'bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100 hover:bg-blue-200 dark:hover:bg-blue-700'
           }`}
         >
-          {reportGenerated ? '✅ Report Generated' : '📊 Generate Report'}
+          <CheckCircle2 className="mr-2 inline h-4 w-4" aria-hidden="true" /> {reportGenerated ? 'Report Generated' : 'Generate Report'}
         </button>
       </div>
     </div>
