@@ -190,7 +190,7 @@ const AccessibilityStatement: React.FC = () => {
             </p>
 
             <div className="space-y-2">
-              <p className="text-gray-700"><strong>Email de Acessibilidade:</strong> acessibilidade@aproxima.com.br</p>
+              <p className="text-gray-700"><strong>Email de Acessibilidade:</strong> rejanecassol@hotmail.com</p>
               <p className="text-gray-700"><strong>Telefone:</strong> [A ser definido]</p>
               <p className="text-gray-700"><strong>Formulário:</strong> <Link href="/contato" className="text-blue-600 hover:underline">Formulário de Contato Acessível</Link></p>
               <p className="text-gray-700"><strong>Tempo de Resposta:</strong> Até 5 dias úteis</p>

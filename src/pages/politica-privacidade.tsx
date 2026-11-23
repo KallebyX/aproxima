@@ -28,8 +28,8 @@ const PrivacyPolicy: React.FC = () => {
             <p className="text-gray-700 mb-2"><strong>Razão Social:</strong> Aproxima Tecnologia e Acessibilidade Ltda.</p>
             <p className="text-gray-700 mb-2"><strong>CNPJ:</strong> [A ser definido]</p>
             <p className="text-gray-700 mb-2"><strong>Endereço:</strong> [A ser definido]</p>
-            <p className="text-gray-700 mb-2"><strong>Email de Contato:</strong> privacidade@aproxima.com.br</p>
-            <p className="text-gray-700"><strong>Encarregado de Dados (DPO):</strong> dpo@aproxima.com.br</p>
+            <p className="text-gray-700 mb-2"><strong>Email de Contato:</strong> rejanecassol@hotmail.com</p>
+            <p className="text-gray-700"><strong>Solicitações sobre dados:</strong> utilize a Central de Privacidade</p>
           </div>
         </section>
 
@@ -299,8 +299,8 @@ const PrivacyPolicy: React.FC = () => {
             </p>
 
             <div className="space-y-2">
-              <p className="text-gray-700"><strong>Email:</strong> privacidade@aproxima.com.br</p>
-              <p className="text-gray-700"><strong>Encarregado de Dados:</strong> dpo@aproxima.com.br</p>
+              <p className="text-gray-700"><strong>Email:</strong> rejanecassol@hotmail.com</p>
+              <p className="text-gray-700"><strong>Solicitações sobre dados:</strong> utilize a Central de Privacidade</p>
               <p className="text-gray-700"><strong>Central de Privacidade:</strong> <Link href="/central-privacidade" className="text-blue-600 hover:underline">Acesse aqui</Link></p>
             </div>
           </div>
