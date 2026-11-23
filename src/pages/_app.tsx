@@ -8,6 +8,7 @@ import KeyboardNavigation from '../components/KeyboardNavigation';
 import AccessibilityToggle from '../components/AccessibilityToggle';
 import { FeedbackContainer } from '../components/FeedbackSystem';
 import { LiveRegionManager } from '../components/LiveRegion';
+import { useAccessibility } from '../hooks/useAccessibility';
 
 
 const inter = Inter({ 
@@ -18,6 +19,7 @@ const inter = Inter({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  useAccessibility();
 
   useEffect(() => {
     // Initialize global live regions for screen reader announcements

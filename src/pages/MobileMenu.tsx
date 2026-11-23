@@ -25,7 +25,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     return () => { document.body.style.overflow = previous; document.removeEventListener('keydown', onKey); };
   }, [isOpen, onClose]);
   if (!isOpen) return null;
-  return <div className="fixed inset-0 z-[10001] bg-slate-950/40" onClick={onClose}><section role="dialog" aria-modal="true" aria-labelledby="mobile-menu-heading" className="ml-auto flex h-full w-full max-w-sm flex-col bg-white p-5 shadow-xl" onClick={event => event.stopPropagation()}>
+  return <div className="fixed inset-0 z-[10001] bg-slate-950/40"><button type="button" aria-label="Fechar menu" tabIndex={-1} onClick={onClose} className="absolute inset-0 h-full w-full" /><section role="dialog" aria-modal="true" aria-labelledby="mobile-menu-heading" className="relative ml-auto flex h-full w-full max-w-sm flex-col bg-white p-5 shadow-xl">
     <div className="mb-6 flex items-center justify-between"><h2 id="mobile-menu-heading" className="text-lg font-semibold text-slate-900">Explore o Aproxima</h2><button ref={closeRef} onClick={onClose} aria-label="Fechar menu" className="rounded-lg p-3 text-slate-600 hover:bg-slate-100"><X size={22} aria-hidden="true" /></button></div>
     <nav aria-label="Navegação móvel" className="overflow-y-auto"><ul className="space-y-1">{links.map(item => <li key={item.href}><Link href={item.href} onClick={onClose} className="flex items-center gap-3 rounded-xl px-3 py-4 text-sm font-medium text-slate-800 hover:bg-[#f1ecf7]"><item.icon size={20} className="text-[#65428f]" aria-hidden="true" />{item.label}</Link></li>)}</ul></nav>
   </section></div>;
