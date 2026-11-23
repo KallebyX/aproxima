@@ -24,72 +24,88 @@ const defaultSettings: AccessibilitySettings = {
   autoplay: true
 };
 
+function normalizeSettings(values: Record<string, unknown>): Partial<AccessibilitySettings> {
+  const normalized: Partial<AccessibilitySettings> = {};
+  const booleanKeys = ['highContrast', 'largeText', 'underlinkText', 'reducedMotion', 'focusIndicator', 'soundFeedback', 'autoplay'] as const;
+  for (const key of booleanKeys) {
+    if (typeof values[key] === 'boolean') normalized[key] = values[key];
+  }
+  if (typeof values.magnification === 'number' && [75, 100, 125, 150, 175, 200].includes(values.magnification)) {
+    normalized.magnification = values.magnification;
+  }
+  return normalized;
+}
+
 export const useAccessibility = () => {
   const [settings, setSettings] = useState<AccessibilitySettings>(defaultSettings);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    
-    // Load settings from localStorage
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('accessibility-settings');
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          setSettings({ ...defaultSettings, ...parsed });
-        } catch (error) {
-          console.warn('Failed to parse accessibility settings:', error);
+    let saved: Partial<AccessibilitySettings> | null = null;
+    try {
+      const raw = localStorage.getItem('accessibility-settings');
+      if (raw) {
+        const parsed: unknown = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+          saved = normalizeSettings(parsed as Record<string, unknown>);
         }
       }
-
-      // Detect system preferences
-      const detectSystemPreferences = () => {
-        const mediaQueries = {
-          reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)'),
-          highContrast: window.matchMedia('(prefers-contrast: high)'),
-          colorScheme: window.matchMedia('(prefers-color-scheme: dark)')
-        };
-
-        // Apply system preferences if no user settings exist
-        if (!saved) {
-          setSettings(prev => ({
-            ...prev,
-            reducedMotion: mediaQueries.reducedMotion.matches,
-            highContrast: mediaQueries.highContrast.matches
-          }));
-        }
-
-        // Listen for changes in system preferences
-        Object.entries(mediaQueries).forEach(([key, mq]) => {
-          mq.addEventListener('change', () => {
-            if (key === 'reducedMotion') {
-              setSettings(prev => ({ ...prev, reducedMotion: mq.matches }));
-            } else if (key === 'highContrast') {
-              setSettings(prev => ({ ...prev, highContrast: mq.matches }));
-            }
-          });
-        });
-      };
-
-      detectSystemPreferences();
+    } catch {
+      // A blocked or invalid browser store must not stop the panel from opening.
     }
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const highContrast = window.matchMedia('(prefers-contrast: high)');
+    setSettings({
+      ...defaultSettings,
+      reducedMotion: reducedMotion.matches,
+      highContrast: highContrast.matches,
+      ...saved,
+    });
+
+    const onMotionChange = () => setSettings(previous => ({ ...previous, reducedMotion: reducedMotion.matches }));
+    const onContrastChange = () => setSettings(previous => ({ ...previous, highContrast: highContrast.matches }));
+    const onSettingsChange = (event: Event) => {
+      const values: unknown = (event as CustomEvent).detail;
+      if (values && typeof values === 'object' && !Array.isArray(values)) {
+        setSettings({ ...defaultSettings, ...normalizeSettings(values as Record<string, unknown>) });
+      }
+    };
+    const onStorageChange = (event: StorageEvent) => {
+      if (event.key !== 'accessibility-settings') return;
+      try {
+        const values: unknown = event.newValue ? JSON.parse(event.newValue) : {};
+        if (values && typeof values === 'object' && !Array.isArray(values)) {
+          setSettings({ ...defaultSettings, ...normalizeSettings(values as Record<string, unknown>) });
+        }
+      } catch { /* Ignore malformed changes from another tab. */ }
+    };
+    reducedMotion.addEventListener('change', onMotionChange);
+    highContrast.addEventListener('change', onContrastChange);
+    window.addEventListener('aproxima-accessibility-change', onSettingsChange);
+    window.addEventListener('storage', onStorageChange);
+    return () => {
+      reducedMotion.removeEventListener('change', onMotionChange);
+      highContrast.removeEventListener('change', onContrastChange);
+      window.removeEventListener('aproxima-accessibility-change', onSettingsChange);
+      window.removeEventListener('storage', onStorageChange);
+    };
   }, []);
 
   const updateSettings = (newSettings: Partial<AccessibilitySettings>) => {
-    const updated = { ...settings, ...newSettings };
+    const updated = { ...settings, ...normalizeSettings(newSettings) };
     setSettings(updated);
-    
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('accessibility-settings', JSON.stringify(updated));
-    }
+    try { localStorage.setItem('accessibility-settings', JSON.stringify(updated)); }
+    catch { /* The current page still applies preferences if storage is unavailable. */ }
+    window.dispatchEvent(new CustomEvent('aproxima-accessibility-change', { detail: updated }));
   };
 
   const resetSettings = () => {
     setSettings(defaultSettings);
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('accessibility-settings');
-    }
+    try { localStorage.removeItem('accessibility-settings'); }
+    catch { /* Reset also works when persistent browser storage is unavailable. */ }
+    window.dispatchEvent(new CustomEvent('aproxima-accessibility-change', { detail: defaultSettings }));
   };
 
   // Apply settings to DOM

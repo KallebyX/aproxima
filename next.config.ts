@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   generateEtags: true,
   reactStrictMode: true,
+  devIndicators: false,
   
   experimental: {
     optimizeCss: true,

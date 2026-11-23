@@ -1,5 +1,22 @@
 import { test, expect } from '@playwright/test';
 
+test('accessibility panel supports keyboard and invalid saved preferences', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('accessibility-settings', '{invalid'));
+  await page.goto('/');
+  const trigger = page.getByRole('button', { name: 'Abrir painel de acessibilidade' });
+  await trigger.click();
+  const dialog = page.getByRole('dialog', { name: 'Acessibilidade' });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole('button', { name: 'Fechar painel de acessibilidade' })).toBeFocused();
+  await page.keyboard.press('Shift+Tab');
+  await expect.poll(() => dialog.evaluate(element => element.contains(document.activeElement))).toBe(true);
+  await page.keyboard.press('Escape');
+  await expect(dialog).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+  await expect(page.locator('footer').getByRole('link', { name: 'Oryum Tech', exact: true })).toHaveAttribute('href', 'https://www.oryumtech.com.br/');
+  await expect(page.locator('footer').getByRole('link', { name: 'Universidade Franciscana', exact: true })).toHaveAttribute('href', 'https://site.ufn.edu.br/');
+});
+
 test('opens and navigates with legacy browser storage corrupted', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
