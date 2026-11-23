@@ -1,101 +1,32 @@
 'use client';
 
-import React from 'react';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { Baby, BookOpen, HeartHandshake, MessageCircle, Stethoscope, X } from 'lucide-react';
 
-interface MobileMenuProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+interface MobileMenuProps { isOpen: boolean; onClose: () => void }
+const links = [
+  { label: 'Área da Gestante', href: '/gestante', icon: Baby },
+  { label: 'Área do Profissional', href: '/area-do-profissional', icon: Stethoscope },
+  { label: 'Produtos Acessíveis', href: '/produtos-acessiveis', icon: BookOpen },
+  { label: 'Quem Somos', href: '/quem-somos', icon: HeartHandshake },
+  { label: 'Contato', href: '/contato', icon: MessageCircle },
+];
 
-const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
+export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+  const closeRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!isOpen) return;
+    closeRef.current?.focus();
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    return () => { document.body.style.overflow = previous; document.removeEventListener('keydown', onKey); };
+  }, [isOpen, onClose]);
   if (!isOpen) return null;
-
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        padding: '2rem',
-        zIndex: 1000,
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: '#FFB6F3',
-          borderRadius: '1rem',
-          padding: '2rem',
-          width: '100%',
-          maxWidth: '300px',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '1.5rem',
-          }}
-        >
-          <h2
-            style={{
-              color: '#2A1B5D',
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
-            }}
-          >
-            Menu
-          </h2>
-          <button
-            onClick={onClose}
-            style={{
-              backgroundColor: 'transparent',
-              border: 'none',
-              color: '#2A1B5D',
-              fontSize: '1rem',
-              cursor: 'pointer',
-            }}
-          >
-            Fechar X
-          </button>
-        </div>
-        <nav>
-          <ul
-            style={{
-              listStyle: 'none',
-              padding: 0,
-              margin: 0,
-            }}
-          >
-            {[
-              { label: 'Quem somos', link: '/quem-somos' },
-              { label: 'Produtos acessíveis', link: '/produtos-acessiveis' },
-              { label: 'Área do profissional', link: '/area-do-profissional' },
-              { label: 'Contato', link: '/contato' },
-            ].map((item, index) => (
-              <li key={index} style={{ marginBottom: '1rem' }}>
-                <Link 
-                  href={item.link}
-                  onClick={() => onClose()}
-                  className="text-white hover:text-gray-300 block p-2"
-                  aria-label={`Navegar para ${item.label}`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-    </div>
-  );
-};
-
-export default MobileMenu;
+  return <div className="fixed inset-0 z-[10001] bg-slate-950/40" onClick={onClose}><section role="dialog" aria-modal="true" aria-labelledby="mobile-menu-heading" className="ml-auto flex h-full w-full max-w-sm flex-col bg-white p-5 shadow-xl" onClick={event => event.stopPropagation()}>
+    <div className="mb-6 flex items-center justify-between"><h2 id="mobile-menu-heading" className="text-lg font-semibold text-slate-900">Explore o Aproxima</h2><button ref={closeRef} onClick={onClose} aria-label="Fechar menu" className="rounded-lg p-3 text-slate-600 hover:bg-slate-100"><X size={22} aria-hidden="true" /></button></div>
+    <nav aria-label="Navegação móvel" className="overflow-y-auto"><ul className="space-y-1">{links.map(item => <li key={item.href}><Link href={item.href} onClick={onClose} className="flex items-center gap-3 rounded-xl px-3 py-4 text-sm font-medium text-slate-800 hover:bg-[#f1ecf7]"><item.icon size={20} className="text-[#65428f]" aria-hidden="true" />{item.label}</Link></li>)}</ul></nav>
+  </section></div>;
+}

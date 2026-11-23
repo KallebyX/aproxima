@@ -1,5 +1,7 @@
 'use client';
 
+import { Accessibility, X } from 'lucide-react';
+
 import { useState, useEffect, useRef } from 'react';
 import AdvancedAccessibility from './AdvancedAccessibility';
 
@@ -51,10 +53,10 @@ export default function AccessibilityToggle() {
 
   return (
     <>
-      <div className="fixed right-3 sm:right-4 lg:right-6 top-1/2 -translate-y-1/2 z-40">
+      <div className="fixed left-3 sm:left-4 lg:left-6 bottom-6 z-40">
         <div className="relative group">
           {!showAccessibility && (
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/30 to-purple-400/30 animate-ping" />
+            <div className="absolute inset-0 rounded-full bg-blue-100/50" />
           )}
           
           <button
@@ -67,7 +69,7 @@ export default function AccessibilityToggle() {
               w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16
               ${showAccessibility 
                 ? 'bg-gradient-to-br from-blue-600 to-purple-600 text-white border-blue-400 scale-105 shadow-blue-500/25' 
-                : 'bg-white/95 text-blue-600 border-blue-500/30 hover:scale-110 hover:bg-gradient-to-br hover:from-blue-600 hover:to-purple-600 hover:text-white hover:border-blue-400'
+                : 'bg-white/95 text-blue-600 border-blue-500/30 hover:bg-blue-600 hover:text-white hover:border-blue-400'
               }
             `}
             aria-label={showAccessibility ? "Fechar painel de acessibilidade" : "Abrir painel de acessibilidade"}
@@ -82,7 +84,7 @@ export default function AccessibilityToggle() {
               `}
               aria-hidden="true"
             >
-              ♿
+              <Accessibility className="h-6 w-6 sm:h-7 sm:w-7" aria-hidden="true" />
             </span>
             
             <div className={`
@@ -103,7 +105,7 @@ export default function AccessibilityToggle() {
       {showAccessibility && (
         <div 
           ref={accessibilityRef}
-          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 lg:p-6"
+          className="fixed inset-0 z-[10001] flex items-center justify-center p-2 sm:p-4 lg:p-6"
           role="dialog"
           aria-modal="true"
           aria-labelledby="accessibility-title"
@@ -114,11 +116,11 @@ export default function AccessibilityToggle() {
             aria-hidden="true"
           />
           
-          <div className="relative w-full h-full sm:h-auto sm:max-h-[90vh] max-w-xs sm:max-w-2xl lg:max-w-4xl xl:max-w-6xl bg-white rounded-none sm:rounded-2xl shadow-2xl border-0 sm:border border-gray-200 overflow-hidden flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-300">
+          <div className="relative w-full h-full sm:h-auto sm:max-h-[90vh] max-w-full sm:max-w-2xl lg:max-w-4xl xl:max-w-6xl bg-white rounded-none sm:rounded-2xl shadow-2xl border-0 sm:border border-gray-200 overflow-hidden flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-300">
             <div className="flex items-center justify-between gap-4 p-3 sm:p-4 lg:p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-purple-50 flex-shrink-0">
               <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg flex-shrink-0">
-                  <span className="text-white text-sm sm:text-lg lg:text-xl font-bold">♿</span>
+                  <Accessibility className="h-5 w-5 text-white sm:h-6 sm:w-6" aria-hidden="true" />
                 </div>
                 <div className="min-w-0">
                   <h2 
@@ -138,7 +140,7 @@ export default function AccessibilityToggle() {
                 className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex-shrink-0 bg-gray-100 text-gray-500 hover:bg-red-50 hover:text-red-500 transition-colors duration-200 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-red-500/50"
                 aria-label="Fechar painel de acessibilidade"
               >
-                <span className="text-lg sm:text-xl font-bold">×</span>
+                <X className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
             
@@ -150,7 +152,7 @@ export default function AccessibilityToggle() {
               <div className="flex items-center justify-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse flex-shrink-0" />
                 <span className="text-xs sm:text-sm text-gray-600 text-center">
-                  WCAG 2.1 AAA • Aproxima Saúde
+                  Recursos de acessibilidade • Aproxima Saúde
                 </span>
               </div>
             </div>

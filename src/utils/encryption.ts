@@ -1,29 +1,28 @@
 import crypto from 'crypto';
 import { logger } from './logger';
 
-// Encryption configuration
 const ALGORITHM = 'aes-256-gcm';
-const KEY_LENGTH = 32; // 256 bits
-const IV_LENGTH = 16; // 128 bits
+const KEY_LENGTH = 32;
+const IV_LENGTH = 12;
+let developmentKey: Buffer | undefined;
 
-// Get encryption key from environment or generate one
 function getEncryptionKey(): Buffer {
-  const keyFromEnv = process.env.ENCRYPTION_KEY;
-  
-  if (keyFromEnv) {
-    return Buffer.from(keyFromEnv, 'hex');
+  const configured = process.env.ENCRYPTION_KEY;
+  if (configured) {
+    if (!/^[a-fA-F0-9]{64}$/.test(configured)) {
+      throw new Error('ENCRYPTION_KEY must contain exactly 64 hexadecimal characters');
+    }
+    return Buffer.from(configured, 'hex');
   }
-  
-  // Generate a random key (for development only)
-  const key = crypto.randomBytes(KEY_LENGTH);
-  logger.warn('Using generated encryption key. Set ENCRYPTION_KEY environment variable in production.', {
-    generatedKey: key.toString('hex')
-  });
-  
-  return key;
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('ENCRYPTION_KEY is required in production');
+  }
+  if (!developmentKey) {
+    developmentKey = crypto.randomBytes(KEY_LENGTH);
+    logger.warn('Using a temporary encryption key outside production.');
+  }
+  return developmentKey;
 }
-
-const encryptionKey = getEncryptionKey();
 
 export interface EncryptedData {
   data: string;
@@ -31,39 +30,22 @@ export interface EncryptedData {
   tag: string;
 }
 
-// Encrypt sensitive data (simplified version)
 export function encrypt(text: string): EncryptedData {
-  try {
-    const iv = crypto.randomBytes(IV_LENGTH);
-    const cipher = crypto.createCipher('aes-256-cbc', encryptionKey);
-    
-    let encrypted = cipher.update(text, 'utf8', 'hex');
-    encrypted += cipher.final('hex');
-    
-    return {
-      data: encrypted,
-      iv: iv.toString('hex'),
-      tag: 'mock-tag' // Simplified for compatibility
-    };
-  } catch (error) {
-    console.error('Encryption failed:', error);
-    throw new Error('Encryption failed');
-  }
+  const iv = crypto.randomBytes(IV_LENGTH);
+  const cipher = crypto.createCipheriv(ALGORITHM, getEncryptionKey(), iv);
+  const data = Buffer.concat([cipher.update(text, 'utf8'), cipher.final()]);
+  return { data: data.toString('hex'), iv: iv.toString('hex'), tag: cipher.getAuthTag().toString('hex') };
 }
 
-// Decrypt sensitive data (simplified version)
 export function decrypt(encryptedData: EncryptedData): string {
-  try {
-    const decipher = crypto.createDecipher('aes-256-cbc', encryptionKey);
-    
-    let decrypted = decipher.update(encryptedData.data, 'hex', 'utf8');
-    decrypted += decipher.final('utf8');
-    
-    return decrypted;
-  } catch (error) {
-    console.error('Decryption failed:', error);
-    throw new Error('Decryption failed');
+  if (!encryptedData || !/^[a-fA-F0-9]{24}$/.test(encryptedData.iv) ||
+      !/^[a-fA-F0-9]{32}$/.test(encryptedData.tag) ||
+      typeof encryptedData.data !== 'string' || !/^(?:[a-fA-F0-9]{2})*$/.test(encryptedData.data)) {
+    throw new Error('Invalid encrypted data');
   }
+  const decipher = crypto.createDecipheriv(ALGORITHM, getEncryptionKey(), Buffer.from(encryptedData.iv, 'hex'));
+  decipher.setAuthTag(Buffer.from(encryptedData.tag, 'hex'));
+  return Buffer.concat([decipher.update(Buffer.from(encryptedData.data, 'hex')), decipher.final()]).toString('utf8');
 }
 
 // Hash passwords or sensitive data
@@ -83,7 +65,7 @@ export function hashData(data: string, salt?: string): { hash: string; salt: str
 export function verifyHash(data: string, hash: string, salt: string): boolean {
   try {
     const computedHash = crypto.pbkdf2Sync(data, salt, 10000, 64, 'sha256').toString('hex');
-    return computedHash === hash;
+    return secureCompare(computedHash, hash);
   } catch (error) {
     console.error('Hash verification failed:', error);
     return false;

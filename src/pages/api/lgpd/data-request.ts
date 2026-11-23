@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { validateAPIInput } from '../../../middleware/security';
 import { logger } from '../../../utils/logger';
-import { generateUUID } from '../../../utils/encryption';
+import { generateUUID, secureCompare } from '../../../utils/encryption';
+import { ServerStore } from '../../../utils/serverStore';
 
 interface DataRequest {
   id: string;
@@ -16,13 +17,17 @@ interface DataRequest {
   metadata?: Record<string, any>;
 }
 
-// In-memory storage for demonstration (use database in production)
-const dataRequests = new Map<string, DataRequest>();
+const dataRequests = new ServerStore<DataRequest>('data-requests');
+function hasStaffAccess(req: NextApiRequest): boolean {
+  const secret = process.env.API_SECRET_KEY;
+  return Boolean(secret && secureCompare(req.headers.authorization || '', `Bearer ${secret}`));
+}
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  res.setHeader('Cache-Control', 'no-store');
   const forwardedFor = req.headers['x-forwarded-for'];
   const ip = (Array.isArray(forwardedFor) ? forwardedFor[0] : forwardedFor) || req.socket.remoteAddress || 'unknown';
   const userAgent = req.headers['user-agent'] || 'unknown';
@@ -36,9 +41,12 @@ export default async function handler(
         return await handleDataRequestRetrieval(req, res);
       
       case 'PUT':
+        if (!hasStaffAccess(req)) return res.status(401).json({ error: 'Staff authentication required' });
+        if (!req.body || typeof req.body !== 'object' || Array.isArray(req.body)) return res.status(400).json({ error: 'Request body must be a JSON object' });
         return await handleDataRequestUpdate(req, res, ip, userAgent);
       
       default:
+        res.setHeader('Allow', ['GET', 'POST', 'PUT']);
         return res.status(405).json({ error: 'Method not allowed' });
     }
   } catch (error) {
@@ -74,7 +82,7 @@ async function handleDataRequestSubmission(
     });
   }
 
-  const { type, userId, email, description, metadata } = req.body;
+  const { type } = req.body;
 
   // Validate request type
   const validTypes = ['access', 'rectification', 'erasure', 'portability', 'objection'];
@@ -91,16 +99,12 @@ async function handleDataRequestSubmission(
   const dataRequest: DataRequest = {
     id: requestId,
     type,
-    userId,
     email: validation.sanitized.email,
     description: validation.sanitized.description,
     status: 'pending',
     createdAt: now,
     updatedAt: now,
     metadata: {
-      ...metadata,
-      ipAddress: ip,
-      userAgent,
       source: 'api'
     }
   };
@@ -112,7 +116,6 @@ async function handleDataRequestSubmission(
     requestId,
     type,
     email: validation.sanitized.email,
-    userId,
     ip,
     timestamp: now
   });
@@ -124,17 +127,17 @@ async function handleDataRequestSubmission(
     requestId,
     type,
     status: 'pending',
-    estimatedCompletion: getEstimatedCompletion(type),
     reference: `LGPD-${requestId.slice(0, 8).toUpperCase()}`
   });
 
-  // In production, trigger notification to data protection team
-  notifyDataProtectionTeam(dataRequest);
+  // The request is stored locally. No email is sent by this endpoint.
 }
 
 async function handleDataRequestRetrieval(req: NextApiRequest, res: NextApiResponse) {
   const { requestId, email } = req.query;
 
+  if (requestId !== undefined && typeof requestId !== 'string') return res.status(400).json({ error: 'Invalid request ID' });
+  if (email !== undefined && typeof email !== 'string') return res.status(400).json({ error: 'Invalid email' });
   if (requestId) {
     // Get specific request by ID
     const request = dataRequests.get(requestId as string);
@@ -158,6 +161,7 @@ async function handleDataRequestRetrieval(req: NextApiRequest, res: NextApiRespo
       }
     });
   } else if (email) {
+    if (!hasStaffAccess(req)) return res.status(401).json({ error: 'Staff authentication required; use your request ID to check its status' });
     // Get all requests for an email
     const userRequests = Array.from(dataRequests.values())
       .filter(request => request.email === email)
@@ -220,7 +224,6 @@ async function handleDataRequestUpdate(
     completedAt: completedAt || (status === 'completed' ? new Date().toISOString() : request.completedAt),
     metadata: {
       ...request.metadata,
-      ...metadata,
       lastUpdatedBy: 'system',
       lastUpdateIp: ip,
       lastUpdateUserAgent: userAgent
@@ -251,41 +254,4 @@ async function handleDataRequestUpdate(
     }
   });
 
-  // Notify user of status change if completed
-  if (updatedRequest.status === 'completed') {
-    notifyUserOfCompletion(updatedRequest);
-  }
-}
-
-function getEstimatedCompletion(type: string): string {
-  const days = {
-    access: 15,
-    rectification: 15,
-    erasure: 15,
-    portability: 15,
-    objection: 15
-  };
-
-  const completionDate = new Date();
-  completionDate.setDate(completionDate.getDate() + (days[type as keyof typeof days] || 15));
-  
-  return completionDate.toISOString();
-}
-
-function notifyDataProtectionTeam(request: DataRequest): void {
-  // In production, send email/notification to DPO team
-  logger.info('Data protection team notification sent', {
-    requestId: request.id,
-    type: request.type,
-    priority: request.type === 'erasure' ? 'high' : 'normal'
-  });
-}
-
-function notifyUserOfCompletion(request: DataRequest): void {
-  // In production, send completion notification to user
-  logger.info('User completion notification sent', {
-    requestId: request.id,
-    email: request.email,
-    type: request.type
-  });
 }

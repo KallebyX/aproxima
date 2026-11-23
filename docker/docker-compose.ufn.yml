@@ -1,118 +1,33 @@
-version: '3.8'
-
-# ═══════════════════════════════════════════════════════════════
-# Stack: aproxima - Plataforma de Aproximação Acadêmica UFN
-# Ambiente: Produção UFN (app.ufn.edu.br)
-# ═══════════════════════════════════════════════════════════════
-# 
-# MÉTODO: Web Editor com clone em runtime
-# MOTIVO: Portainer BuildKit tem problemas com build direto do GitHub
-# ═══════════════════════════════════════════════════════════════
-
+# Build and publish the image before updating this stack in Portainer.
+# APROXIMA_IMAGE should be an immutable GHCR digest or a full commit tag.
 services:
   app:
-    image: node:18-alpine
+    image: ${APROXIMA_IMAGE:?Set APROXIMA_IMAGE to the tested image digest}
+    pull_policy: never
     container_name: aproxima-app
-    restart: always
-    
+    restart: unless-stopped
     ports:
-      - "${PORT:-3000}:3000"
-      # Porta externa configurável via .env (padrão: 3000)
-    
-    extra_hosts:
-      - "${SITE_URL:-aproxima.app.ufn.edu.br}:${PROXY_IP:-10.21.19.45}"
-      # Permite que o container resolva o domínio público internamente
-    
+      - "${BIND_IP:-10.21.19.45}:${PORT:-3000}:3000"
     environment:
-      - TZ=America/Sao_Paulo
-      - NODE_ENV=production
-      - NEXT_TELEMETRY_DISABLED=1
-      - PORT=3000
-      - HOSTNAME=0.0.0.0
-      # URL base da aplicação (importante para Next.js)
-      - NEXTAUTH_URL=https://${SITE_URL:-aproxima.app.ufn.edu.br}
-      - NEXT_PUBLIC_SITE_URL=https://${SITE_URL:-aproxima.app.ufn.edu.br}
-      # Adicione outras variáveis conforme necessário:
-      # - DATABASE_URL=${DATABASE_URL}
-      # - API_SECRET=${API_SECRET}
-    
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: "1"
+      HOSTNAME: 0.0.0.0
+      PORT: "3000"
+      TZ: America/Sao_Paulo
+      NEXT_PUBLIC_SITE_URL: https://aproxima.app.ufn.edu.br
+      DATA_DIR: /app/data
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?Set the persistent production encryption key}
+      API_SECRET_KEY: ${API_SECRET_KEY:?Set the private staff API key}
+      APP_REVISION: ${APP_REVISION:-unknown}
     volumes:
-      - aproxima-data:/tmp/aproxima
-      # Volume para persistir código clonado e evitar re-clone a cada restart
-    
-    command: >
-      sh -c "
-        echo '🚀 [APROXIMA UFN] Iniciando deploy...' &&
-        apk add --no-cache git wget &&
-        if [ ! -d /tmp/aproxima/.git ]; then
-          echo '📥 Clonando repositório do GitHub...' &&
-          git clone https://github.com/KallebyX/aproxima.git /tmp/aproxima &&
-          cd /tmp/aproxima &&
-          echo '📦 Instalando dependências...' &&
-          npm ci --include=dev --ignore-scripts &&
-          echo '🔨 Fazendo build da aplicação...' &&
-          npm run build &&
-          echo '📁 Preparando estrutura standalone...' &&
-          cd /tmp/aproxima &&
-          rm -rf .next/standalone/public 2>/dev/null || true &&
-          rm -rf .next/standalone/.next/static 2>/dev/null || true &&
-          cp -r public .next/standalone/public &&
-          mkdir -p .next/standalone/.next &&
-          cp -r .next/static .next/standalone/.next/static &&
-          echo '🔍 Verificando estrutura...' &&
-          ls -la .next/standalone/ &&
-          ls -la .next/standalone/public/ &&
-          ls -la .next/standalone/.next/static/ &&
-          echo '✅ Arquivos copiados com sucesso';
-        else
-          echo '✅ Repositório já existe, atualizando...' &&
-          cd /tmp/aproxima &&
-          git pull &&
-          echo '📦 Atualizando dependências...' &&
-          npm ci --include=dev --ignore-scripts &&
-          echo '🔨 Reconstruindo aplicação...' &&
-          npm run build &&
-          echo '📁 Atualizando estrutura standalone...' &&
-          cd /tmp/aproxima &&
-          rm -rf .next/standalone/public 2>/dev/null || true &&
-          rm -rf .next/standalone/.next/static 2>/dev/null || true &&
-          cp -r public .next/standalone/public &&
-          mkdir -p .next/standalone/.next &&
-          cp -r .next/static .next/standalone/.next/static &&
-          echo '🔍 Verificando estrutura...' &&
-          ls -la .next/standalone/ &&
-          ls -la .next/standalone/public/ &&
-          ls -la .next/standalone/.next/static/ &&
-          echo '✅ Arquivos atualizados com sucesso';
-        fi &&
-        echo '🌐 Iniciando servidor Next.js na porta 3000...' &&
-        cd /tmp/aproxima/.next/standalone &&
-        HOSTNAME=0.0.0.0 PORT=3000 node server.js
-      "
-    
+      - aproxima-runtime-data:/app/data
     networks:
       - aproxima-network
-    
-    healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
-      # start_period aumentado para 60s devido ao tempo de clone+build inicial
 
-# ═══════════════════════════════════════════════════════════════
-# VOLUMES PERSISTENTES
-# ═══════════════════════════════════════════════════════════════
 volumes:
-  aproxima-data:
-    # Persiste o código clonado entre restarts do container
-    # Para forçar re-clone: delete o volume no Portainer
+  aproxima-runtime-data:
+    name: aproxima-runtime-data
 
-# ═══════════════════════════════════════════════════════════════
-# REDE ISOLADA
-# ═══════════════════════════════════════════════════════════════
 networks:
   aproxima-network:
-    name: ${APP_NAME:-aproxima}_net
     driver: bridge

@@ -1,5 +1,7 @@
 'use client';
 
+import { Moon, Sun } from 'lucide-react';
+
 import { useState, useEffect } from 'react';
 
 const ThemeSwitcher = () => {
@@ -77,7 +79,7 @@ const ThemeSwitcher = () => {
             ? 'rotate-0 scale-100 drop-shadow-lg' 
             : 'rotate-180 scale-110 drop-shadow-lg'
         } group-hover:scale-125`}>
-          {theme === 'light' ? '🌙' : '☀️'}
+          {theme === 'light' ? <Moon className="h-6 w-6" aria-hidden="true" /> : <Sun className="h-6 w-6" aria-hidden="true" />}
         </span>
         
         {/* Ripple effect on click */}

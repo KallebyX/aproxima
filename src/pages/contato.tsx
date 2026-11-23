@@ -1,5 +1,8 @@
 'use client';
 
+import type { ReactNode } from 'react';
+import { Accessibility, Handshake, Lightbulb, Mail, MailOpen, Phone, Smartphone, Wrench } from 'lucide-react';
+
 import Head from 'next/head';
 import Header from './Header';
 import Footer from '../components/Footer';
@@ -13,7 +16,7 @@ const VLibras = dynamic(() => import('../components/VLibras'), {
 
 interface ContactCardProps {
   type: string;
-  icon: string;
+  icon: ReactNode;
   title: string;
   value: string;
   href: string;
@@ -36,7 +39,7 @@ function ContactCard({ icon, title, value, href, description, gradient, delay, t
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
       }`}
     >
-      <div className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 h-full">
+      <div className="group relative bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-500 overflow-hidden border border-gray-200 h-full">
         {/* Gradient accent */}
         <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${gradient}`} />
 
@@ -59,10 +62,12 @@ function ContactCard({ icon, title, value, href, description, gradient, delay, t
             {description}
           </p>
 
+          <p className="mb-5 break-words text-sm font-medium text-primary-700">{value}</p>
+
           {/* CTA Button */}
           <a
             href={href}
-            className={`group/btn inline-flex items-center justify-center gap-3 bg-gradient-to-r ${gradient} text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-primary-300/50 active:scale-95 hover:scale-105`}
+            className={`group/btn inline-flex items-center justify-center gap-3 bg-gradient-to-r ${gradient} text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-primary-300/50 active:scale-95 hover:shadow-md`}
             aria-label={`Entrar em contato via ${title.toLowerCase()}`}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,7 +91,7 @@ export default function ContactPage() {
   const contactMethods = [
     {
       type: "email",
-      icon: "📧",
+      icon: <Mail className="h-7 w-7" aria-hidden="true" />,
       title: "E-mail Principal",
       value: "rejanecassol@hotmail.com",
       href: "mailto:rejanecassol@hotmail.com",
@@ -96,7 +101,7 @@ export default function ContactPage() {
     },
     {
       type: "accessibility",
-      icon: "♿",
+      icon: <Accessibility className="h-7 w-7" aria-hidden="true" />,
       title: "Suporte de Acessibilidade",
       value: "Relatório de Problemas",
       href: "mailto:rejanecassol@hotmail.com?subject=Relatório de Acessibilidade",
@@ -106,7 +111,7 @@ export default function ContactPage() {
     },
     {
       type: "partnerships",
-      icon: "🤝",
+      icon: <Handshake className="h-7 w-7" aria-hidden="true" />,
       title: "Parcerias",
       value: "Produtos Acessíveis",
       href: "mailto:rejanecassol@hotmail.com?subject=Parceria - Produtos Acessíveis",
@@ -144,11 +149,11 @@ export default function ContactPage() {
               "@type": "ContactPage",
               "name": "Contato - Aproxima",
               "description": "Página de contato da plataforma Aproxima",
-              "url": "https://aproxima-six.vercel.app/contato",
+              "url": "https://aproxima.app.ufn.edu.br/contato",
               "isPartOf": {
                 "@type": "WebSite",
                 "name": "Aproxima - Saúde Inclusiva",
-                "url": "https://aproxima-six.vercel.app"
+                "url": "https://aproxima.app.ufn.edu.br"
               },
               "mainEntity": {
                 "@type": "Organization",
@@ -161,31 +166,31 @@ export default function ContactPage() {
         />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 flex flex-col">
+      <div className="min-h-screen bg-gray-50 flex flex-col">
         <Header />
 
         <main
           role="main"
           id="main-content"
-          className="flex-grow py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
+          className="flex-grow py-10 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8"
           aria-label="Página de contato"
         >
           <div className="max-w-6xl mx-auto">
             {/* Hero Section */}
-            <section className="text-center mb-16 lg:mb-20" aria-labelledby="contact-heading">
+            <section className="text-center mb-10 lg:mb-14" aria-labelledby="contact-heading">
               <div className={`transform transition-all duration-1000 ease-out ${
                 isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
               }`}>
                 {/* Badge */}
                 <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-100 to-indigo-100 text-indigo-700 px-6 py-3 rounded-full font-semibold mb-8 shadow-lg border border-indigo-200">
-                  <span className="text-2xl" role="img" aria-label="Contato">📞</span>
+                  <span className="text-2xl" aria-hidden="true"><Phone className="inline-block h-6 w-6 shrink-0 align-middle" aria-hidden="true" /></span>
                   <span>Fale Conosco</span>
                 </div>
 
                 {/* Title */}
                 <h1
                   id="contact-heading"
-                  className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+                  className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight"
                 >
                   <span className="bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
                     Entre em{' '}
@@ -196,7 +201,7 @@ export default function ContactPage() {
                 </h1>
 
                 {/* Description */}
-                <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                <p className="text-base sm:text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
                   Tem um <strong className="text-primary-600">produto acessível</strong> que pode disponibilizar para nossa plataforma?
                   Encontrou algum problema de acessibilidade? <strong className="text-primary-600">Queremos ouvir você!</strong>
                 </p>
@@ -204,7 +209,7 @@ export default function ContactPage() {
             </section>
 
             {/* Contact Methods */}
-            <section aria-labelledby="contact-methods-heading" className="mb-16 lg:mb-20">
+            <section aria-labelledby="contact-methods-heading" className="mb-10 lg:mb-14">
               <div className={`text-center mb-10 sm:mb-12 transform transition-all duration-700 ${
                 isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
@@ -214,14 +219,14 @@ export default function ContactPage() {
                 >
                   Como Entrar em Contato
                 </h2>
-                <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+                <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
                   Escolha o canal mais adequado para sua necessidade
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8" role="list" aria-label="Métodos de contato">
                 {contactMethods.map((method, index) => (
-                  <div key={index} role="listitem">
+                  <div key={index} role="listitem" className="min-w-0">
                     <ContactCard {...method} />
                   </div>
                 ))}
@@ -229,7 +234,7 @@ export default function ContactPage() {
             </section>
 
             {/* Main Contact Info */}
-            <section className="relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 rounded-3xl p-8 sm:p-12 lg:p-16 text-center mb-16 lg:mb-20" aria-labelledby="main-contact-heading">
+            <section className="relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 rounded-3xl p-8 sm:p-12 lg:p-16 text-center mb-10 lg:mb-14" aria-labelledby="main-contact-heading">
               {/* Decorative elements */}
               <div className="absolute -top-24 -right-24 w-64 h-64 bg-secondary-400/20 rounded-full blur-3xl" />
               <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-accent-400/20 rounded-full blur-3xl" />
@@ -243,7 +248,7 @@ export default function ContactPage() {
                 </h2>
 
                 <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-8 sm:p-10 border border-white/20 max-w-xl mx-auto">
-                  <div className="text-6xl sm:text-7xl mb-6" role="img" aria-label="E-mail">💌</div>
+                  <div className="text-6xl sm:text-7xl mb-6" aria-hidden="true"><MailOpen className="inline-block h-6 w-6 shrink-0 align-middle" aria-hidden="true" /></div>
                   <a
                     href="mailto:rejanecassol@hotmail.com"
                     className="block text-xl xs:text-2xl sm:text-3xl font-bold text-white hover:text-secondary-200 transition-colors break-all focus:outline-none focus-visible:ring-4 focus-visible:ring-white/50 rounded-lg p-2"
@@ -261,7 +266,7 @@ export default function ContactPage() {
             </section>
 
             {/* Collaboration Section */}
-            <section className="bg-white rounded-3xl p-8 sm:p-12 lg:p-16 shadow-xl border border-gray-100" aria-labelledby="collaboration-heading">
+            <section className="bg-white rounded-3xl p-8 sm:p-12 lg:p-16 shadow-xl border border-gray-200" aria-labelledby="collaboration-heading">
               <div className={`transform transition-all duration-700 ${
                 isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
@@ -276,8 +281,8 @@ export default function ContactPage() {
                   {/* Products */}
                   <div className="group">
                     <div className="flex items-center gap-4 mb-5">
-                      <div className="w-14 h-14 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
-                        <span className="text-2xl" role="img" aria-label="Produtos">📱</span>
+                      <div className="w-14 h-14 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:shadow-md transition-all duration-300">
+                        <span className="text-2xl" aria-hidden="true"><Smartphone className="inline-block h-6 w-6 shrink-0 align-middle" aria-hidden="true" /></span>
                       </div>
                       <h3 className="text-xl sm:text-2xl font-bold text-primary-600">
                         Produtos Acessíveis
@@ -303,8 +308,8 @@ export default function ContactPage() {
                   {/* Feedback */}
                   <div className="group">
                     <div className="flex items-center gap-4 mb-5">
-                      <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
-                        <span className="text-2xl" role="img" aria-label="Feedback">🛠️</span>
+                      <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:shadow-md transition-all duration-300">
+                        <span className="text-2xl" aria-hidden="true"><Wrench className="inline-block h-6 w-6 shrink-0 align-middle" aria-hidden="true" /></span>
                       </div>
                       <h3 className="text-xl sm:text-2xl font-bold text-primary-600">
                         Feedback e Melhorias
@@ -317,7 +322,7 @@ export default function ContactPage() {
                       {["Problemas de navegação", "Sugestões de recursos", "Relatos de experiência"].map((item, index) => (
                         <li key={index} className="flex items-center gap-3 text-gray-600">
                           <span className="flex-shrink-0 w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span className="text-blue-500 text-sm">💡</span>
+                            <span className="text-blue-500 text-sm"><Lightbulb className="inline-block h-6 w-6 shrink-0 align-middle" aria-hidden="true" /></span>
                           </span>
                           {item}
                         </li>
@@ -330,7 +335,7 @@ export default function ContactPage() {
                 <div className="text-center mt-12">
                   <a
                     href="mailto:rejanecassol@hotmail.com?subject=Colaboração - Aproxima"
-                    className="group inline-flex items-center gap-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-lg font-semibold px-8 py-4 rounded-2xl hover:from-primary-700 hover:to-primary-800 transition-all duration-300 shadow-xl shadow-primary-500/30 hover:shadow-2xl hover:shadow-primary-500/40 hover:scale-105 active:scale-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-primary-400/50"
+                    className="group inline-flex items-center gap-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-lg font-semibold px-6 py-3 rounded-2xl hover:from-primary-700 hover:to-primary-800 transition-all duration-300 shadow-xl shadow-primary-500/30 hover:shadow-2xl hover:shadow-primary-500/40 hover:shadow-md active:scale-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-primary-400/50"
                     aria-label="Enviar e-mail para colaborar"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

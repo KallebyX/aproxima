@@ -1,5 +1,7 @@
 'use client';
 
+import { ChartNoAxesCombined, Layers, TriangleAlert, Lightbulb, ClipboardCheck, Siren, Zap, RefreshCw, Search, Wrench, Check, CheckCircle2, Target, X } from 'lucide-react';
+
 import { useState, useEffect, useRef } from 'react';
 import { useWCAGCompliance } from '../hooks/useWCAGCompliance';
 import { useHTMLRobustness } from '../hooks/useHTMLRobustness';
@@ -32,7 +34,7 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
     setTimeout(() => {
       dialogRef.current?.focus();
     }, 100);
-    announce('Relatório de conformidade WCAG 2.1 AAA aberto');
+    announce('Verificação automática de acessibilidade aberta');
   };
 
   const closeReport = () => {
@@ -77,29 +79,29 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
 
   const getComplianceLevel = (score: number): { level: string; color: string; description: string } => {
     if (score >= 95) return {
-      level: 'AAA',
+      level: 'Alta',
       color: 'text-green-600 bg-green-50 border-green-200',
-      description: 'Conformidade WCAG 2.1 AAA Completa'
+      description: 'Resultado alto nesta verificação automática'
     };
     if (score >= 85) return {
-      level: 'AA+',
+      level: 'Boa',
       color: 'text-blue-600 bg-blue-50 border-blue-200',
-      description: 'Conformidade WCAG 2.1 AA Superior'
+      description: 'Resultado bom nesta verificação automática'
     };
     if (score >= 70) return {
-      level: 'AA',
+      level: 'Média',
       color: 'text-yellow-600 bg-yellow-50 border-yellow-200',
-      description: 'Conformidade WCAG 2.1 AA'
+      description: 'Alguns pontos precisam de revisão'
     };
     if (score >= 50) return {
-      level: 'A+',
+      level: 'Baixa',
       color: 'text-orange-600 bg-orange-50 border-orange-200',
-      description: 'Conformidade WCAG 2.1 A Superior'
+      description: 'Vários pontos precisam de revisão'
     };
     return {
-      level: 'A',
+      level: 'Revisar',
       color: 'text-red-600 bg-red-50 border-red-200',
-      description: 'Conformidade WCAG 2.1 A Básica'
+      description: 'Revisão de acessibilidade recomendada'
     };
   };
 
@@ -112,10 +114,10 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
   const totalIssues = htmlIssues.length + (compliance?.issues.length || 0);
 
   const tabs = [
-    { id: 'overview', label: 'Visão Geral', icon: '📊' },
-    { id: 'principles', label: '4 Princípios WCAG', icon: '🏗️' },
-    { id: 'issues', label: `Problemas (${totalIssues})`, icon: '⚠️' },
-    { id: 'recommendations', label: 'Recomendações', icon: '💡' }
+    { id: 'overview', label: 'Visão Geral', icon: <ChartNoAxesCombined className="h-5 w-5" aria-hidden="true" /> },
+    { id: 'principles', label: '4 Princípios WCAG', icon: <Layers className="h-5 w-5" aria-hidden="true" /> },
+    { id: 'issues', label: `Problemas (${totalIssues})`, icon: <TriangleAlert className="h-5 w-5" aria-hidden="true" /> },
+    { id: 'recommendations', label: 'Recomendações', icon: <Lightbulb className="h-5 w-5" aria-hidden="true" /> }
   ];
 
   return (
@@ -130,11 +132,11 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
           transition-all duration-200 transform hover:scale-105
           ${className}
         `}
-        title="Abrir relatório de conformidade WCAG 2.1 AAA"
-        aria-label={`Relatório WCAG: Conformidade ${complianceInfo.level} (${overallScore}%). Clique para ver detalhes completos.`}
+        title="Abrir verificação automática de acessibilidade"
+        aria-label={`Verificação automática: indicador ${complianceInfo.level} (${overallScore}%). Clique para ver detalhes completos.`}
       >
         <div className="flex items-center gap-2" aria-hidden="true">
-          <span className="text-xl">📋</span>
+          <ClipboardCheck className="h-6 w-6" aria-hidden="true" />
           <div className="flex flex-col items-center text-xs">
             <span className="font-bold">{complianceInfo.level}</span>
             <span>{overallScore}%</span>
@@ -156,10 +158,10 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
             <header className="p-6 border-b border-gray-200 flex items-center justify-between bg-gradient-to-r from-purple-600 to-blue-600 text-white">
               <div>
                 <h2 id="wcag-report-title" className="text-2xl font-bold">
-                  Relatório de Conformidade WCAG 2.1 AAA
+                  Verificação automática de acessibilidade
                 </h2>
                 <p className="mt-1 opacity-90">
-                  Análise completa de acessibilidade web
+                  Resultados automáticos que complementam a avaliação com usuários
                 </p>
               </div>
               <div className="flex items-center gap-4">
@@ -172,7 +174,7 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
                   className="p-2 text-white hover:text-gray-200"
                   aria-label="Fechar relatório"
                 >
-                  ✕
+                  <X className="h-5 w-5" aria-hidden="true" />
                 </button>
               </div>
             </header>
@@ -235,7 +237,7 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div className="bg-red-50 p-4 rounded-lg border border-red-200">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-red-600 text-xl">🚨</span>
+                        <Siren className="h-5 w-5 text-red-600" aria-hidden="true" />
                         <h4 className="font-bold text-red-800">Críticos</h4>
                       </div>
                       <div className="text-2xl font-bold text-red-600">{criticalIssues.length}</div>
@@ -243,7 +245,7 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
 
                     <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-orange-600 text-xl">⚠️</span>
+                        <TriangleAlert className="h-5 w-5 text-orange-600" aria-hidden="true" />
                         <h4 className="font-bold text-orange-800">Sérios</h4>
                       </div>
                       <div className="text-2xl font-bold text-orange-600">{seriousIssues.length}</div>
@@ -251,7 +253,7 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
 
                     <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-yellow-600 text-xl">⚡</span>
+                        <Zap className="h-5 w-5 text-yellow-600" aria-hidden="true" />
                         <h4 className="font-bold text-yellow-800">Moderados</h4>
                       </div>
                       <div className="text-2xl font-bold text-yellow-600">{moderateIssues.length}</div>
@@ -265,14 +267,14 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
                       disabled={wcagChecking || isValidating}
                       className="px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 disabled:opacity-50 focus:outline-2 focus:outline-purple-600 focus:outline-offset-2"
                     >
-                      {wcagChecking || isValidating ? '🔄 Escaneando...' : '🔍 Escanear Novamente'}
+                      <RefreshCw className={`mr-2 inline h-4 w-4 ${wcagChecking || isValidating ? 'animate-spin' : ''}`} aria-hidden="true" /> {wcagChecking || isValidating ? 'Escaneando...' : 'Escanear novamente'}
                     </button>
                     
                     <button
                       onClick={handleAutoFix}
                       className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 focus:outline-2 focus:outline-green-600 focus:outline-offset-2"
                     >
-                      🔧 Correção Automática
+                      <Wrench className="mr-2 inline h-4 w-4" aria-hidden="true" /> Correção automática
                     </button>
                   </div>
                 </div>
@@ -319,14 +321,14 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
                               ? 'bg-green-100 text-green-800' 
                               : 'bg-yellow-100 text-yellow-800'
                           }`}>
-                            {principle.status === 'compliant' ? '✅ Conforme' : '⚠️ Parcial'}
+                            {principle.status === 'compliant' ? 'Itens de referência' : 'Revisão necessária'}
                           </div>
                         </div>
                         
                         <ul className="grid grid-cols-2 gap-2">
                           {principle.items.map((item, itemIndex) => (
                             <li key={itemIndex} className="flex items-center gap-2 text-sm text-gray-700">
-                              <span className="text-green-500">✓</span>
+                              <Check className="h-4 w-4 text-green-600" aria-hidden="true" />
                               {item}
                             </li>
                           ))}
@@ -342,12 +344,12 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
                 <div id="issues-panel" role="tabpanel" aria-labelledby="issues-tab">
                   {totalIssues === 0 ? (
                     <div className="text-center py-12">
-                      <div className="text-6xl mb-4">🎉</div>
+                      <CheckCircle2 className="mx-auto mb-4 h-12 w-12 text-green-600" aria-hidden="true" />
                       <h3 className="text-2xl font-bold text-green-600 mb-2">
-                        Parabéns! Nenhum problema encontrado
+                        Nenhum problema detectado nesta verificação
                       </h3>
                       <p className="text-gray-600">
-                        Esta página atende totalmente às diretrizes WCAG 2.1 AAA
+                        Uma verificação automática não substitui a avaliação manual de acessibilidade.
                       </p>
                     </div>
                   ) : (
@@ -431,20 +433,20 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
                 <div id="recommendations-panel" role="tabpanel" aria-labelledby="recommendations-tab">
                   <div className="space-y-6">
                     <div className="bg-green-50 p-6 rounded-xl border border-green-200">
-                      <h3 className="text-xl font-bold text-green-800 mb-4">✅ Implementações Concluídas</h3>
+                      <h3 className="text-xl font-bold text-green-800 mb-4"><ClipboardCheck className="mr-2 inline h-5 w-5" aria-hidden="true" /> Recursos disponíveis</h3>
                       <ul className="space-y-2 text-green-700">
-                        <li>✓ Sistema completo de navegação por teclado</li>
-                        <li>✓ Compatibilidade total com leitores de tela</li>
-                        <li>✓ Alto contraste e temas adaptativos</li>
-                        <li>✓ Skip links e landmarks ARIA</li>
-                        <li>✓ Formulários totalmente acessíveis</li>
-                        <li>✓ VLibras integrado para Libras</li>
-                        <li>✓ Validação WCAG 2.1 AAA em tempo real</li>
+                        <li><Check className="mr-2 inline h-4 w-4" aria-hidden="true" /> Navegação por teclado</li>
+                        <li><Check className="mr-2 inline h-4 w-4" aria-hidden="true" /> Recursos para leitores de tela</li>
+                        <li><Check className="mr-2 inline h-4 w-4" aria-hidden="true" /> Alto contraste e temas adaptativos</li>
+                        <li><Check className="mr-2 inline h-4 w-4" aria-hidden="true" /> Skip links e landmarks ARIA</li>
+                        <li><Check className="mr-2 inline h-4 w-4" aria-hidden="true" /> Rótulos e mensagens em formulários</li>
+                        <li><Check className="mr-2 inline h-4 w-4" aria-hidden="true" /> VLibras integrado para Libras</li>
+                        <li><Check className="mr-2 inline h-4 w-4" aria-hidden="true" /> Verificações automáticas de acessibilidade</li>
                       </ul>
                     </div>
 
                     <div className="bg-blue-50 p-6 rounded-xl border border-blue-200">
-                      <h3 className="text-xl font-bold text-blue-800 mb-4">💡 Recomendações Gerais</h3>
+                      <h3 className="text-xl font-bold text-blue-800 mb-4"><Lightbulb className="mr-2 inline h-5 w-5" aria-hidden="true" /> Recomendações gerais</h3>
                       <ul className="space-y-3 text-blue-700">
                         <li>
                           <strong>Testes regulares:</strong> Execute validações de acessibilidade regularmente
@@ -462,12 +464,12 @@ const WCAGComplianceReport: React.FC<WCAGComplianceReportProps> = ({ className =
                     </div>
 
                     <div className="bg-purple-50 p-6 rounded-xl border border-purple-200">
-                      <h3 className="text-xl font-bold text-purple-800 mb-4">🎯 Próximos Passos</h3>
+                      <h3 className="text-xl font-bold text-purple-800 mb-4"><Target className="mr-2 inline h-5 w-5" aria-hidden="true" /> Próximos passos</h3>
                       <ul className="space-y-2 text-purple-700">
                         <li>• Realizar testes com usuários reais</li>
                         <li>• Implementar analytics de acessibilidade</li>
                         <li>• Criar guia de acessibilidade para usuários</li>
-                        <li>• Certificação oficial WCAG 2.1 AAA</li>
+                        <li>• Avaliação manual de conformidade com as WCAG</li>
                       </ul>
                     </div>
                   </div>

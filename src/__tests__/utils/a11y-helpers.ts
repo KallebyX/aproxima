@@ -2,7 +2,8 @@
  * Utility functions for accessibility testing
  */
 import { render, RenderResult } from '@testing-library/react';
-import { axe, AxeResults } from 'jest-axe';
+import { axe } from 'jest-axe';
+type AxeResults = Awaited<ReturnType<typeof axe>>;
 import userEvent from '@testing-library/user-event';
 
 /**

@@ -1,5 +1,7 @@
 'use client';
 
+import { CheckCircle2, CircleAlert, Info, TriangleAlert, X } from 'lucide-react';
+
 import { useEffect, useState } from 'react';
 
 interface FeedbackProps {
@@ -105,15 +107,15 @@ function FeedbackToast({ type, message, onClose }: FeedbackProps) {
   const getIcon = () => {
     switch (type) {
       case 'success':
-        return '✓';
+        return <CheckCircle2 className="h-5 w-5" aria-hidden="true" />;
       case 'error':
-        return '✕';
+        return <CircleAlert className="h-5 w-5" aria-hidden="true" />;
       case 'warning':
-        return '⚠';
+        return <TriangleAlert className="h-5 w-5" aria-hidden="true" />;
       case 'info':
-        return 'ℹ';
+        return <Info className="h-5 w-5" aria-hidden="true" />;
       default:
-        return '•';
+        return <Info className="h-5 w-5" aria-hidden="true" />;
     }
   };
 
@@ -139,7 +141,7 @@ function FeedbackToast({ type, message, onClose }: FeedbackProps) {
           className="ml-2 text-white/80 hover:text-white hover:scale-110 transition-all duration-200 focus:outline-none"
           aria-label="Fechar notificação"
         >
-          <span className="text-sm font-bold" aria-hidden="true">✕</span>
+          <X className="h-4 w-4" aria-hidden="true" />
         </button>
       </div>
     </div>

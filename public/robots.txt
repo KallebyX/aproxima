@@ -51,7 +51,7 @@ User-agent: BLEXBot
 Disallow: /
 
 # Sitemap principal
-Sitemap: https://aproxima.com.br/sitemap.xml
+Sitemap: https://aproxima.app.ufn.edu.br/sitemap.xml
 
 # Host principal (para evitar duplicação)
-Host: aproxima.com.br
+Host: aproxima.app.ufn.edu.br

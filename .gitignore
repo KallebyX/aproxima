@@ -48,3 +48,8 @@ cache-warming-instructions.json
 
 # ZAP security scanner
 .zap
+
+# Local server data and browser verification artifacts
+/.data/
+/test-results/
+/playwright-report/

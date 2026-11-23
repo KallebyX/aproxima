@@ -36,6 +36,18 @@ export interface LogEntry {
   tags?: string[];
 }
 
+
+const privateField = /password|secret|token|authorization|cookie|encryption.?key|generated.?key|smtp.?pass|^email$|^ip$|^ipAddress$|^sessionId$/i;
+function redactContext(value: unknown, seen = new WeakSet<object>()): any {
+  if (!value || typeof value !== 'object') return value;
+  if (seen.has(value)) return '[Circular]';
+  seen.add(value);
+  if (Array.isArray(value)) return value.map(item => redactContext(item, seen));
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [
+    key, privateField.test(key) ? '[REDACTED]' : redactContext(item, seen)
+  ]));
+}
+
 class Logger {
   private isDevelopment: boolean;
   private isProduction: boolean;
@@ -59,7 +71,7 @@ class Logger {
     };
 
     if (context) {
-      entry.context = context;
+      entry.context = redactContext(context);
     }
 
     if (error) {
@@ -134,7 +146,7 @@ class Logger {
   }
 
   private sendToExternalLogger(entry: LogEntry): void {
-        console.log('External logging integration pending...');
+
     // This is where you would send logs to your logging service
     
     // Example: Send critical errors to Sentry

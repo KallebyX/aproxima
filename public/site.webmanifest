@@ -1,145 +1,94 @@
 {
   "name": "Aproxima - Saúde Inclusiva e Acessível",
   "short_name": "Aproxima",
-  "description": "Plataforma enterprise de saúde inclusiva com conformidade WCAG 2.1 AAA, LGPD e OWASP para gestantes e profissionais de saúde",
+  "description": "Orientações e materiais de saúde materna para gestantes e profissionais, com recursos de acessibilidade.",
   "start_url": "/",
   "id": "com.aproxima.health",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
   "background_color": "#2A1B5D",
   "theme_color": "#2A1B5D",
   "orientation": "portrait-primary",
-  "categories": ["health", "medical", "accessibility", "productivity", "business"],
+  "categories": [
+    "health",
+    "medical",
+    "accessibility",
+    "productivity",
+    "business"
+  ],
   "lang": "pt-BR",
   "dir": "ltr",
   "scope": "/",
-  
   "icons": [
     {
       "src": "/favicon.png",
-      "sizes": "16x16",
-      "type": "image/png"
-    },
-    {
-      "src": "/favicon.png", 
-      "sizes": "32x32",
-      "type": "image/png"
-    },
-    {
-      "src": "/favicon.png",
-      "sizes": "48x48",
-      "type": "image/png"
-    },
-    {
-      "src": "/favicon.png",
-      "sizes": "192x192",
+      "sizes": "222x272",
       "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/favicon.png",
-      "sizes": "512x512", 
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/favicon.png",
-      "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "apple touch icon"
+      "purpose": "any"
     }
   ],
-
   "shortcuts": [
     {
       "name": "Área da Gestante",
       "short_name": "Gestante",
       "description": "Acesso rápido à área da gestante",
       "url": "/gestante",
-      "icons": [{ "src": "/favicon.png", "sizes": "96x96", "type": "image/png" }]
+      "icons": [
+        {
+          "src": "/favicon.png",
+          "sizes": "222x272",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
     },
     {
       "name": "Área do Profissional",
-      "short_name": "Profissional", 
+      "short_name": "Profissional",
       "description": "Acesso rápido à área do profissional",
       "url": "/area-do-profissional",
-      "icons": [{ "src": "/favicon.png", "sizes": "96x96", "type": "image/png" }]
+      "icons": [
+        {
+          "src": "/favicon.png",
+          "sizes": "222x272",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
     },
     {
       "name": "Produtos Acessíveis",
       "short_name": "Produtos",
-      "description": "Catálogo de produtos acessíveis", 
+      "description": "Catálogo de produtos acessíveis",
       "url": "/produtos-acessiveis",
-      "icons": [{ "src": "/favicon.png", "sizes": "96x96", "type": "image/png" }]
+      "icons": [
+        {
+          "src": "/favicon.png",
+          "sizes": "222x272",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
     },
     {
       "name": "Central de Privacidade",
       "short_name": "Privacidade",
       "description": "Gerenciar preferências de privacidade",
-      "url": "/central-privacidade", 
-      "icons": [{ "src": "/favicon.png", "sizes": "96x96", "type": "image/png" }]
-    }
-  ],
-
-  "screenshots": [
-    {
-      "src": "/screenshot-mobile.jpg",
-      "sizes": "400x800",
-      "type": "image/jpeg",
-      "form_factor": "narrow",
-      "label": "Tela inicial no mobile"
-    },
-    {
-      "src": "/screenshot-desktop.jpg", 
-      "sizes": "1200x800",
-      "type": "image/jpeg",
-      "form_factor": "wide",
-      "label": "Tela inicial no desktop"
-    }
-  ],
-
-  "related_applications": [],
-  "prefer_related_applications": false,
-  
-  "edge_side_panel": {
-    "preferred_width": 400
-  },
-  
-  "launch_handler": {
-    "client_mode": ["focus-existing", "auto"]
-  },
-
-  "protocol_handlers": [
-    {
-      "protocol": "web+aproxima",
-      "url": "/?handler=%s"
-    }
-  ],
-
-  "file_handlers": [
-    {
-      "action": "/",
-      "accept": {
-        "application/json": [".json"],
-        "text/csv": [".csv"]
-      }
-    }
-  ],
-
-  "share_target": {
-    "action": "/api/share",
-    "method": "POST",
-    "enctype": "multipart/form-data",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url",
-      "files": [
+      "url": "/central-privacidade",
+      "icons": [
         {
-          "name": "files",
-          "accept": ["image/*", "application/pdf"]
+          "src": "/favicon.png",
+          "sizes": "222x272",
+          "type": "image/png",
+          "purpose": "any"
         }
       ]
     }
-  }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
 }

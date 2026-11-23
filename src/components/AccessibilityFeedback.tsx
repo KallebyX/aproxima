@@ -1,5 +1,7 @@
 'use client';
 
+import { Accessibility, Ban, TriangleAlert, Info, RefreshCw, Search, CheckCircle2, Wrench, X } from 'lucide-react';
+
 import { useState, useEffect, useRef } from 'react';
 import { useLiveRegion } from './LiveRegion';
 
@@ -238,9 +240,9 @@ const AccessibilityFeedback: React.FC<AccessibilityFeedbackProps> = ({ className
 
   const getIssueIcon = (type: AccessibilityIssue['type']) => {
     switch (type) {
-      case 'error': return '🚫';
-      case 'warning': return '⚠️';
-      case 'info': return 'ℹ️';
+      case 'error': return <Ban className="h-5 w-5" aria-hidden="true" />;
+      case 'warning': return <TriangleAlert className="h-5 w-5" aria-hidden="true" />;
+      case 'info': return <Info className="h-5 w-5" aria-hidden="true" />;
     }
   };
 
@@ -271,7 +273,7 @@ const AccessibilityFeedback: React.FC<AccessibilityFeedbackProps> = ({ className
         aria-label={`Feedback de acessibilidade: ${errorCount} erros, ${warningCount} avisos`}
       >
         <div className="flex items-center gap-2">
-          <span className="text-xl">♿</span>
+          <Accessibility className="h-6 w-6" aria-hidden="true" />
           {(errorCount > 0 || warningCount > 0) && (
             <div className="flex gap-1">
               {errorCount > 0 && (
@@ -306,7 +308,7 @@ const AccessibilityFeedback: React.FC<AccessibilityFeedbackProps> = ({ className
                   Feedback de Acessibilidade
                 </h2>
                 <p className="text-gray-600 mt-1">
-                  Análise WCAG 2.1 AAA - {issues.length} itens encontrados
+                  Verificação automática de acessibilidade - {issues.length} itens encontrados
                 </p>
               </div>
               <div className="flex gap-2">
@@ -316,14 +318,14 @@ const AccessibilityFeedback: React.FC<AccessibilityFeedbackProps> = ({ className
                   className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
                   aria-label="Escanear novamente"
                 >
-                  {isScanning ? '🔄' : '🔍'} {isScanning ? 'Escaneando...' : 'Escanear'}
+                  {isScanning ? <RefreshCw className="mr-2 inline h-4 w-4 animate-spin" aria-hidden="true" /> : <Search className="mr-2 inline h-4 w-4" aria-hidden="true" />} {isScanning ? 'Escaneando...' : 'Escanear'}
                 </button>
                 <button
                   onClick={closeDialog}
                   className="p-2 text-gray-500 hover:text-gray-700"
                   aria-label="Fechar painel"
                 >
-                  ✕
+                  <X className="h-5 w-5" aria-hidden="true" />
                 </button>
               </div>
             </header>
@@ -333,18 +335,18 @@ const AccessibilityFeedback: React.FC<AccessibilityFeedbackProps> = ({ className
               {isScanning ? (
                 <div className="flex items-center justify-center py-12">
                   <div className="text-center">
-                    <div className="animate-spin text-4xl mb-4">🔄</div>
+                    <RefreshCw className="mx-auto mb-4 h-10 w-10 animate-spin" aria-hidden="true" />
                     <p className="text-gray-600">Escaneando página...</p>
                   </div>
                 </div>
               ) : issues.length === 0 ? (
                 <div className="text-center py-12">
-                  <div className="text-6xl mb-4">✅</div>
+                  <CheckCircle2 className="mx-auto mb-4 h-12 w-12 text-green-600" aria-hidden="true" />
                   <h3 className="text-xl font-bold text-green-600 mb-2">
                     Parabéns! Nenhum problema encontrado
                   </h3>
                   <p className="text-gray-600">
-                    Esta página parece seguir as diretrizes WCAG 2.1 AAA
+                    Esta verificação automática não encontrou problemas. A avaliação manual continua necessária.
                   </p>
                 </div>
               ) : (
@@ -353,8 +355,8 @@ const AccessibilityFeedback: React.FC<AccessibilityFeedbackProps> = ({ className
                   <div className="bg-gray-50 p-4 rounded-lg border">
                     <h3 className="font-bold mb-2">Resumo</h3>
                     <div className="flex gap-4 text-sm">
-                      <span className="text-red-600">🚫 {errorCount} Erros</span>
-                      <span className="text-yellow-600">⚠️ {warningCount} Avisos</span>
+                      <span className="text-red-600"><Ban className="mr-1 inline h-4 w-4" aria-hidden="true" /> {errorCount} Erros</span>
+                      <span className="text-yellow-600"><TriangleAlert className="mr-1 inline h-4 w-4" aria-hidden="true" /> {warningCount} Avisos</span>
                       {lastScanTime && (
                         <span className="text-gray-500">
                           Última verificação: {lastScanTime.toLocaleTimeString()}
@@ -395,7 +397,7 @@ const AccessibilityFeedback: React.FC<AccessibilityFeedbackProps> = ({ className
                               className="ml-4 px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700"
                               title="Corrigir automaticamente"
                             >
-                              🔧 Corrigir
+                              <Wrench className="mr-1 inline h-4 w-4" aria-hidden="true" /> Corrigir
                             </button>
                           )}
                         </div>

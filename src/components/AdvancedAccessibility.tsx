@@ -1,5 +1,7 @@
 'use client';
 
+import { Eye, Hand, RotateCcw } from 'lucide-react';
+
 import { useAccessibility } from '../hooks/useAccessibility';
 import { useAccessibilityNotification, AccessibilityNotification } from './AccessibilityNotification';
 
@@ -59,14 +61,14 @@ const AdvancedAccessibility = ({ className = '' }: AccessibilityProps) => {
       <div className="flex justify-between items-center mb-4 lg:mb-6">
         <div className="flex items-center gap-2">
           <div className="w-1 h-4 lg:h-6 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full" />
-          <span className="text-base lg:text-lg font-semibold text-gray-700">Configurações Detalhadas</span>
+          <span className="text-base lg:text-lg font-semibold text-gray-700">Ajustes de acessibilidade</span>
         </div>
         <button
           onClick={handleResetSettings}
           className="text-xs lg:text-sm font-medium text-blue-600 hover:text-blue-800 px-3 py-1.5 lg:px-4 lg:py-2 rounded-lg hover:bg-blue-50 focus:ring-2 focus:ring-blue-500/30 focus:outline-none transition-all duration-200 border border-blue-200/50"
           aria-label="Restaurar configurações padrão de acessibilidade"
         >
-          ↺ Restaurar Padrões
+          <RotateCcw className="mr-2 inline h-4 w-4" aria-hidden="true" /> Restaurar padrões
         </button>
       </div>
       
@@ -76,7 +78,7 @@ const AdvancedAccessibility = ({ className = '' }: AccessibilityProps) => {
         <div className="space-y-3 lg:space-y-4">
           <div className="flex items-center gap-3 mb-4 lg:mb-6">
             <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
-              <span className="text-white text-base lg:text-lg">👁️</span>
+              <Eye className="h-5 w-5 text-white" aria-hidden="true" />
             </div>
             <h3 className="text-lg lg:text-xl font-bold text-gray-900">
               Configurações Visuais
@@ -185,10 +187,10 @@ const AdvancedAccessibility = ({ className = '' }: AccessibilityProps) => {
         <div className="space-y-3 lg:space-y-4">
           <div className="flex items-center gap-3 mb-4 lg:mb-6">
             <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center shadow-lg">
-              <span className="text-white text-base lg:text-lg">🤚</span>
+              <Hand className="h-5 w-5 text-white" aria-hidden="true" />
             </div>
             <h3 className="text-lg lg:text-xl font-bold text-gray-900">
-              Configurações Motoras & Outras
+              Movimento e interação
             </h3>
           </div>
           

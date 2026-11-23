@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { validateAPIInput } from '../../../middleware/security';
 import { logger } from '../../../utils/logger';
-import { encryptForStorage, decryptFromStorage } from '../../../utils/encryption';
+import { ServerStore } from '../../../utils/serverStore';
 
 interface ConsentData {
   userId?: string;
@@ -18,13 +18,13 @@ interface ConsentData {
   version: string;
 }
 
-// In-memory storage for demonstration (use database in production)
-const consentStorage = new Map<string, string>();
+const consentStorage = new ServerStore<ConsentData>('consents');
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  res.setHeader('Cache-Control', 'no-store');
   const forwardedFor = req.headers['x-forwarded-for'];
   const ip = (Array.isArray(forwardedFor) ? forwardedFor[0] : forwardedFor) || req.socket.remoteAddress || 'unknown';
   const userAgent = req.headers['user-agent'] || 'unknown';
@@ -44,6 +44,7 @@ export default async function handler(
         return await handleConsentWithdrawal(req, res, ip, userAgent);
       
       default:
+        res.setHeader('Allow', ['GET', 'POST', 'PUT', 'DELETE']);
         return res.status(405).json({ error: 'Method not allowed' });
     }
   } catch (error) {
@@ -75,10 +76,14 @@ async function handleConsentSubmission(
     });
   }
 
-  const { sessionId, cookies, userId } = req.body;
+  const { sessionId, cookies } = req.body;
+  if (!cookies || typeof cookies !== 'object' || Array.isArray(cookies) ||
+      ['analytics', 'marketing', 'personalization'].some(key =>
+        cookies[key] !== undefined && typeof cookies[key] !== 'boolean')) {
+    return res.status(400).json({ error: 'Cookie preferences must contain boolean values' });
+  }
 
   const consentData: ConsentData = {
-    userId,
     sessionId: validation.sanitized.sessionId,
     cookies: {
       necessary: true, // Always required
@@ -93,8 +98,7 @@ async function handleConsentSubmission(
   };
 
   // Encrypt and store consent
-  const encryptedConsent = encryptForStorage(consentData);
-  consentStorage.set(consentData.sessionId, encryptedConsent);
+  consentStorage.set(consentData.sessionId, consentData);
 
   // Log consent for audit trail
   logger.info('LGPD consent recorded', {
@@ -117,7 +121,7 @@ async function handleConsentSubmission(
 async function handleConsentRetrieval(req: NextApiRequest, res: NextApiResponse) {
   const { sessionId, userId } = req.query;
 
-  if (!sessionId && !userId) {
+  if ((!sessionId && !userId) || (sessionId !== undefined && typeof sessionId !== 'string') || (userId !== undefined && typeof userId !== 'string')) {
     return res.status(400).json({ 
       error: 'Session ID or User ID required' 
     });
@@ -133,7 +137,7 @@ async function handleConsentRetrieval(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const consentData = decryptFromStorage<ConsentData>(encryptedData);
+    const consentData = encryptedData;
     
     res.status(200).json({
       success: true,
@@ -168,7 +172,12 @@ async function handleConsentUpdate(
     });
   }
 
-  const { sessionId, cookies, userId } = req.body;
+  const { sessionId, cookies } = req.body;
+  if (!cookies || typeof cookies !== 'object' || Array.isArray(cookies) ||
+      ['analytics', 'marketing', 'personalization'].some(key =>
+        cookies[key] !== undefined && typeof cookies[key] !== 'boolean')) {
+    return res.status(400).json({ error: 'Cookie preferences must contain boolean values' });
+  }
   const identifier = validation.sanitized.sessionId;
 
   const existingData = consentStorage.get(identifier);
@@ -179,7 +188,7 @@ async function handleConsentUpdate(
   }
 
   try {
-    const existingConsent = decryptFromStorage<ConsentData>(existingData);
+    const existingConsent = existingData;
     
     const updatedConsent: ConsentData = {
       ...existingConsent,
@@ -194,8 +203,7 @@ async function handleConsentUpdate(
       userAgent
     };
 
-    const encryptedConsent = encryptForStorage(updatedConsent);
-    consentStorage.set(identifier, encryptedConsent);
+    consentStorage.set(identifier, updatedConsent);
 
     // Log consent update for audit trail
     logger.info('LGPD consent updated', {
@@ -229,7 +237,7 @@ async function handleConsentWithdrawal(
 ) {
   const { sessionId, userId } = req.query;
 
-  if (!sessionId && !userId) {
+  if ((!sessionId && !userId) || (sessionId !== undefined && typeof sessionId !== 'string') || (userId !== undefined && typeof userId !== 'string')) {
     return res.status(400).json({ 
       error: 'Session ID or User ID required' 
     });
@@ -245,7 +253,7 @@ async function handleConsentWithdrawal(
   }
 
   try {
-    const existingConsent = decryptFromStorage<ConsentData>(existingData);
+    const existingConsent = existingData;
 
     // Create withdrawal record
     const withdrawalRecord: ConsentData = {
@@ -261,8 +269,7 @@ async function handleConsentWithdrawal(
       userAgent
     };
 
-    const encryptedConsent = encryptForStorage(withdrawalRecord);
-    consentStorage.set(identifier, encryptedConsent);
+    consentStorage.set(identifier, withdrawalRecord);
 
     // Log consent withdrawal for audit trail
     logger.info('LGPD consent withdrawn', {

@@ -1,5 +1,7 @@
 'use client';
 
+import { CheckCircle2, Info, TriangleAlert, X } from 'lucide-react';
+
 import { useState, useEffect } from 'react';
 
 interface AccessibilityNotificationProps {
@@ -35,9 +37,9 @@ export const AccessibilityNotification = ({
   };
 
   const typeIcons = {
-    success: '✓',
-    info: 'ℹ',
-    warning: '⚠'
+    success: <CheckCircle2 className="h-5 w-5" aria-hidden="true" />,
+    info: <Info className="h-5 w-5" aria-hidden="true" />,
+    warning: <TriangleAlert className="h-5 w-5" aria-hidden="true" />
   };
 
   return (
@@ -63,7 +65,7 @@ export const AccessibilityNotification = ({
         className="ml-2 text-lg hover:opacity-70 transition-opacity"
         aria-label="Fechar notificação"
       >
-        ×
+        <X className="h-4 w-4" aria-hidden="true" />
       </button>
     </div>
   );

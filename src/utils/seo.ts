@@ -54,18 +54,18 @@ export interface SEOData {
 export const defaultSEO: NextSeoProps = {
   titleTemplate: '%s | Aproxima - Saúde Inclusiva',
   defaultTitle: 'Aproxima - Saúde Inclusiva e Acessível',
-  description: 'Plataforma de saúde inclusiva com foco em acessibilidade e cuidado humanizado para gestantes e profissionais de saúde. Conformidade WCAG 2.1 AAA.',
-  canonical: 'https://aproxima.com.br',
+  description: 'Plataforma de saúde inclusiva com foco em acessibilidade e cuidado humanizado para gestantes e profissionais de saúde. Recursos de acessibilidade para diferentes necessidades.',
+  canonical: 'https://aproxima.app.ufn.edu.br',
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: 'https://aproxima.com.br',
+    url: 'https://aproxima.app.ufn.edu.br',
     siteName: 'Aproxima',
     title: 'Aproxima - Saúde Inclusiva e Acessível',
     description: 'Plataforma de saúde inclusiva com foco em acessibilidade e cuidado humanizado para gestantes e profissionais de saúde.',
     images: [
       {
-        url: 'https://aproxima.com.br/favicon.png',
+        url: 'https://aproxima.app.ufn.edu.br/favicon.png',
         width: 1200,
         height: 630,
         alt: 'Aproxima - Saúde Inclusiva',
@@ -149,11 +149,11 @@ export const defaultSEO: NextSeoProps = {
 export const generatePageSEO = (data: SEOData): NextSeoProps => ({
   title: data.title,
   description: data.description,
-  canonical: data.canonical || `https://aproxima.com.br`,
+  canonical: data.canonical || `https://aproxima.app.ufn.edu.br`,
   openGraph: {
     title: data.title,
     description: data.description,
-    url: data.canonical || `https://aproxima.com.br`,
+    url: data.canonical || `https://aproxima.app.ufn.edu.br`,
     type: data.ogType || 'website',
     images: data.ogImage ? [
       {
@@ -177,8 +177,8 @@ export const organizationSchema = {
   '@type': 'Organization',
   name: 'Aproxima - Saúde Inclusiva',
   description: 'Plataforma de saúde inclusiva com foco em acessibilidade e cuidado humanizado para gestantes e profissionais de saúde.',
-  url: 'https://aproxima.com.br',
-  logo: 'https://aproxima.com.br/favicon.png',
+  url: 'https://aproxima.app.ufn.edu.br',
+  logo: 'https://aproxima.app.ufn.edu.br/favicon.png',
   foundingDate: '2024',
   contactPoint: {
     '@type': 'ContactPoint',
@@ -192,7 +192,7 @@ export const organizationSchema = {
     addressLocality: 'Brasil'
   },
   sameAs: [
-    'https://aproxima.com.br'
+    'https://aproxima.app.ufn.edu.br'
   ],
   offers: {
     '@type': 'Offer',
@@ -204,7 +204,7 @@ export const organizationSchema = {
     accessibilityControl: ['fullKeyboardControl', 'fullMouseControl', 'fullTouchControl'],
     accessibilityFeature: ['highContrastDisplay', 'largePrint', 'signLanguage', 'audioDescription'],
     accessibilityHazard: 'none',
-    accessibilitySummary: 'Site 100% acessível com conformidade WCAG 2.1 AAA'
+    accessibilitySummary: 'Recursos de acessibilidade para apoiar diferentes formas de navegação'
   }
 };
 
@@ -212,13 +212,13 @@ export const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'Website',
   name: 'Aproxima - Saúde Inclusiva',
-  url: 'https://aproxima.com.br',
+  url: 'https://aproxima.app.ufn.edu.br',
   description: 'Plataforma de saúde inclusiva com foco em acessibilidade e cuidado humanizado.',
   inLanguage: 'pt-BR',
   publisher: organizationSchema,
   potentialAction: {
     '@type': 'SearchAction',
-    target: 'https://aproxima.com.br/search?q={search_term_string}',
+    target: 'https://aproxima.app.ufn.edu.br/search?q={search_term_string}',
     'query-input': 'required name=search_term_string'
   }
 };

@@ -1,22 +1,23 @@
+import PublicDocumentLayout from '../components/PublicDocumentLayout';
 import React from 'react';
 import Link from 'next/link';
 
 const PrivacyPolicy: React.FC = () => {
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <PublicDocumentLayout title="Política de Privacidade"><div className="p-5 sm:p-8 lg:p-10">
       <h1 className="text-3xl font-bold text-gray-900 mb-8">Política de Privacidade</h1>
-      
+
       <div className="prose max-w-none">
         <p className="text-gray-600 mb-6">
-          <strong>Última atualização:</strong> {new Date().toLocaleDateString('pt-BR')}
+          <strong>Última atualização:</strong> 02/10/2025
         </p>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Introdução</h2>
           <p className="text-gray-700 mb-4">
-            A Aproxima está comprometida com a proteção de seus dados pessoais e transparência no 
-            tratamento das informações coletadas. Esta Política de Privacidade descreve como coletamos, 
-            usamos, armazenamos e protegemos suas informações pessoais em conformidade com a Lei Geral 
+            A Aproxima está comprometida com a proteção de seus dados pessoais e transparência no
+            tratamento das informações coletadas. Esta Política de Privacidade descreve como coletamos,
+            usamos, armazenamos e protegemos suas informações pessoais em conformidade com a Lei Geral
             de Proteção de Dados (LGPD - Lei 13.709/2018) e outras legislações aplicáveis.
           </p>
         </section>
@@ -34,7 +35,7 @@ const PrivacyPolicy: React.FC = () => {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">3. Dados Pessoais Coletados</h2>
-          
+
           <h3 className="text-lg font-medium text-gray-900 mb-3">3.1 Dados fornecidos voluntariamente</h3>
           <ul className="list-disc list-inside text-gray-700 mb-4 space-y-1">
             <li>Nome completo</li>
@@ -56,7 +57,7 @@ const PrivacyPolicy: React.FC = () => {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. Finalidades do Tratamento</h2>
-          
+
           <div className="space-y-4">
             <div className="border border-gray-200 rounded-lg p-4">
               <h3 className="font-medium text-gray-900 mb-2">4.1 Prestação de Serviços</h3>
@@ -102,9 +103,9 @@ const PrivacyPolicy: React.FC = () => {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. Compartilhamento de Dados</h2>
-          
+
           <p className="text-gray-700 mb-4">
-            Não vendemos, alugamos ou comercializamos seus dados pessoais. Podemos compartilhar 
+            Não vendemos, alugamos ou comercializamos seus dados pessoais. Podemos compartilhar
             informações nas seguintes situações:
           </p>
 
@@ -126,7 +127,7 @@ const PrivacyPolicy: React.FC = () => {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Cookies e Tecnologias Similares</h2>
-          
+
           <p className="text-gray-700 mb-4">
             Utilizamos cookies para melhorar sua experiência em nosso site. Os cookies são categorizados como:
           </p>
@@ -162,14 +163,14 @@ const PrivacyPolicy: React.FC = () => {
           </div>
 
           <p className="text-gray-700">
-            Você pode gerenciar suas preferências de cookies através do banner de consentimento 
+            Você pode gerenciar suas preferências de cookies através do banner de consentimento
             ou nas configurações do seu navegador.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Seus Direitos</h2>
-          
+
           <p className="text-gray-700 mb-4">
             Em conformidade com a LGPD, você possui os seguintes direitos:
           </p>
@@ -221,7 +222,7 @@ const PrivacyPolicy: React.FC = () => {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Segurança dos Dados</h2>
-          
+
           <p className="text-gray-700 mb-4">
             Implementamos medidas técnicas e organizacionais apropriadas para proteger seus dados pessoais:
           </p>
@@ -238,9 +239,9 @@ const PrivacyPolicy: React.FC = () => {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Retenção de Dados</h2>
-          
+
           <p className="text-gray-700 mb-4">
-            Mantemos seus dados pessoais apenas pelo tempo necessário para cumprir as finalidades 
+            Mantemos seus dados pessoais apenas pelo tempo necessário para cumprir as finalidades
             para as quais foram coletados:
           </p>
 
@@ -254,9 +255,9 @@ const PrivacyPolicy: React.FC = () => {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">10. Transferência Internacional</h2>
-          
+
           <p className="text-gray-700 mb-4">
-            Alguns de nossos prestadores de serviços podem estar localizados fora do Brasil. 
+            Alguns de nossos prestadores de serviços podem estar localizados fora do Brasil.
             Garantimos que essas transferências sejam realizadas com adequado nível de proteção:
           </p>
 
@@ -270,33 +271,33 @@ const PrivacyPolicy: React.FC = () => {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">11. Menores de Idade</h2>
-          
+
           <p className="text-gray-700">
-            Nossos serviços não são direcionados a menores de 18 anos. Não coletamos intencionalmente 
-            dados pessoais de menores sem o consentimento dos pais ou responsáveis legais. Se tomarmos 
-            conhecimento de que coletamos dados de um menor sem consentimento adequado, tomaremos medidas 
+            Nossos serviços não são direcionados a menores de 18 anos. Não coletamos intencionalmente
+            dados pessoais de menores sem o consentimento dos pais ou responsáveis legais. Se tomarmos
+            conhecimento de que coletamos dados de um menor sem consentimento adequado, tomaremos medidas
             para remover essas informações.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">12. Alterações na Política</h2>
-          
+
           <p className="text-gray-700">
-            Esta Política de Privacidade pode ser atualizada periodicamente. Notificaremos sobre 
-            alterações significativas através do site ou por email. A data da última atualização 
+            Esta Política de Privacidade pode ser atualizada periodicamente. Notificaremos sobre
+            alterações significativas através do site ou por email. A data da última atualização
             está indicada no início deste documento.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">13. Contato</h2>
-          
+
           <div className="bg-blue-50 p-4 rounded-lg">
             <p className="text-gray-700 mb-4">
               Para exercer seus direitos ou esclarecer dúvidas sobre esta Política de Privacidade:
             </p>
-            
+
             <div className="space-y-2">
               <p className="text-gray-700"><strong>Email:</strong> privacidade@aproxima.com.br</p>
               <p className="text-gray-700"><strong>Encarregado de Dados:</strong> dpo@aproxima.com.br</p>
@@ -307,16 +308,16 @@ const PrivacyPolicy: React.FC = () => {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">14. Autoridade Nacional de Proteção de Dados (ANPD)</h2>
-          
+
           <p className="text-gray-700">
-            Você também pode apresentar reclamações à ANPD sobre o tratamento de seus dados pessoais. 
+            Você também pode apresentar reclamações à ANPD sobre o tratamento de seus dados pessoais.
             Mais informações em: <a href="https://www.gov.br/anpd/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
             www.gov.br/anpd/
             </a>
           </p>
         </section>
       </div>
-    </div>
+    </div></PublicDocumentLayout>
   );
 };
 

@@ -187,7 +187,7 @@ test.describe('Cross-browser Compatibility', () => {
           const entries = list.getEntries();
           const results = entries.map(entry => ({
             name: entry.name,
-            value: entry.value || entry.duration
+            value: ('value' in entry && typeof entry.value === 'number') ? entry.value : entry.duration
           }));
           resolve(results);
         }).observe({ entryTypes: ['measure', 'navigation'] });

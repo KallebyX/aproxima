@@ -1,26 +1,28 @@
+import PublicDocumentLayout from '../components/PublicDocumentLayout';
+import { Eye, MousePointer2, Palette, Smartphone, Timer, Type } from 'lucide-react';
 import React from 'react';
 import Link from 'next/link';
 
 const AccessibilityStatement: React.FC = () => {
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <PublicDocumentLayout title="Declaração de Acessibilidade"><div className="p-5 sm:p-8 lg:p-10">
       <h1 className="text-3xl font-bold text-gray-900 mb-8">Declaração de Acessibilidade</h1>
-      
+
       <div className="prose max-w-none">
         <p className="text-gray-600 mb-6">
-          <strong>Última atualização:</strong> {new Date().toLocaleDateString('pt-BR')}
+          <strong>Última atualização:</strong> 02/10/2025
         </p>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Nosso Compromisso com a Acessibilidade</h2>
           <p className="text-gray-700 mb-4">
-            A Aproxima está comprometida em garantir que nosso site seja acessível a todas as pessoas, 
-            incluindo aquelas com deficiências. Acreditamos que a tecnologia deve ser inclusiva e 
+            A Aproxima está comprometida em garantir que nosso site seja acessível a todas as pessoas,
+            incluindo aquelas com deficiências. Acreditamos que a tecnologia deve ser inclusiva e
             trabalhamos continuamente para melhorar a experiência de todos os usuários.
           </p>
           <p className="text-gray-700">
-            Esta declaração reflete nossos esforços para cumprir as diretrizes de acessibilidade 
-            estabelecidas nas Diretrizes de Acessibilidade para Conteúdo Web (WCAG) 2.1 nível AA 
+            Esta declaração reflete nossos esforços para cumprir as diretrizes de acessibilidade
+            estabelecidas nas Diretrizes de Acessibilidade para Conteúdo Web (WCAG) 2.1 nível AA
             e na Lei Brasileira de Inclusão (Lei 13.146/2015).
           </p>
         </section>
@@ -41,10 +43,10 @@ const AccessibilityStatement: React.FC = () => {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Recursos de Acessibilidade Implementados</h2>
-          
+
           <div className="grid md:grid-cols-2 gap-6 mb-6">
             <div className="border border-gray-200 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 mb-3">🖱️ Navegação por Teclado</h3>
+              <h3 className="font-medium text-gray-900 mb-3"><MousePointer2 className="inline-block h-6 w-6 shrink-0 align-middle" aria-hidden="true" /> Navegação por Teclado</h3>
               <ul className="text-sm text-gray-700 space-y-1">
                 <li>• Navegação completa por Tab</li>
                 <li>• Indicadores visuais de foco</li>
@@ -54,7 +56,7 @@ const AccessibilityStatement: React.FC = () => {
             </div>
 
             <div className="border border-gray-200 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 mb-3">👁️ Suporte a Leitores de Tela</h3>
+              <h3 className="font-medium text-gray-900 mb-3"><Eye className="inline-block h-6 w-6 shrink-0 align-middle" aria-hidden="true" /> Suporte a Leitores de Tela</h3>
               <ul className="text-sm text-gray-700 space-y-1">
                 <li>• Estrutura semântica apropriada</li>
                 <li>• Textos alternativos para imagens</li>
@@ -64,7 +66,7 @@ const AccessibilityStatement: React.FC = () => {
             </div>
 
             <div className="border border-gray-200 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 mb-3">🎨 Contraste e Cores</h3>
+              <h3 className="font-medium text-gray-900 mb-3"><Palette className="inline-block h-6 w-6 shrink-0 align-middle" aria-hidden="true" /> Contraste e Cores</h3>
               <ul className="text-sm text-gray-700 space-y-1">
                 <li>• Contraste mínimo de 4.5:1</li>
                 <li>• Informação não dependente apenas de cor</li>
@@ -74,7 +76,7 @@ const AccessibilityStatement: React.FC = () => {
             </div>
 
             <div className="border border-gray-200 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 mb-3">📱 Design Responsivo</h3>
+              <h3 className="font-medium text-gray-900 mb-3"><Smartphone className="inline-block h-6 w-6 shrink-0 align-middle" aria-hidden="true" /> Design Responsivo</h3>
               <ul className="text-sm text-gray-700 space-y-1">
                 <li>• Adaptação a diferentes dispositivos</li>
                 <li>• Orientação de tela flexível</li>
@@ -84,7 +86,7 @@ const AccessibilityStatement: React.FC = () => {
             </div>
 
             <div className="border border-gray-200 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 mb-3">⏱️ Controle de Tempo</h3>
+              <h3 className="font-medium text-gray-900 mb-3"><Timer className="inline-block h-6 w-6 shrink-0 align-middle" aria-hidden="true" /> Controle de Tempo</h3>
               <ul className="text-sm text-gray-700 space-y-1">
                 <li>• Sem limites de tempo desnecessários</li>
                 <li>• Pausar/parar conteúdo em movimento</li>
@@ -94,7 +96,7 @@ const AccessibilityStatement: React.FC = () => {
             </div>
 
             <div className="border border-gray-200 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 mb-3">🔤 Recursos de Texto</h3>
+              <h3 className="font-medium text-gray-900 mb-3"><Type className="inline-block h-6 w-6 shrink-0 align-middle" aria-hidden="true" /> Recursos de Texto</h3>
               <ul className="text-sm text-gray-700 space-y-1">
                 <li>• Fontes legíveis e escaláveis</li>
                 <li>• Espaçamento adequado entre linhas</li>
@@ -109,8 +111,8 @@ const AccessibilityStatement: React.FC = () => {
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Integração VLibras</h2>
           <div className="bg-blue-50 p-4 rounded-lg">
             <p className="text-gray-700 mb-3">
-              Nosso site inclui o VLibras, uma suíte de ferramentas gratuitas que traduz conteúdos 
-              digitais (texto, áudio e vídeo) para Língua Brasileira de Sinais (LIBRAS), tornando-os 
+              Nosso site inclui o VLibras, uma suíte de ferramentas gratuitas que traduz conteúdos
+              digitais (texto, áudio e vídeo) para Língua Brasileira de Sinais (LIBRAS), tornando-os
               acessíveis para pessoas surdas.
             </p>
             <ul className="text-sm text-gray-700 space-y-1">
@@ -127,7 +129,7 @@ const AccessibilityStatement: React.FC = () => {
           <p className="text-gray-700 mb-4">
             Nosso site foi testado e é compatível com as seguintes tecnologias assistivas:
           </p>
-          
+
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <h3 className="font-medium text-gray-900 mb-2">Leitores de Tela</h3>
@@ -156,7 +158,7 @@ const AccessibilityStatement: React.FC = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Limitações Conhecidas</h2>
           <p className="text-gray-700 mb-4">
-            Embora nos esforcemos para manter o mais alto nível de acessibilidade, podem existir 
+            Embora nos esforcemos para manter o mais alto nível de acessibilidade, podem existir
             algumas limitações. Estamos trabalhando continuamente para resolver os seguintes itens:
           </p>
           <ul className="list-disc list-inside text-gray-700 space-y-1">
@@ -183,10 +185,10 @@ const AccessibilityStatement: React.FC = () => {
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Feedback e Suporte</h2>
           <div className="bg-green-50 p-4 rounded-lg">
             <p className="text-gray-700 mb-4">
-              Sua opinião é fundamental para melhorarmos continuamente a acessibilidade do nosso site. 
+              Sua opinião é fundamental para melhorarmos continuamente a acessibilidade do nosso site.
               Se você encontrar barreiras de acessibilidade ou tiver sugestões de melhoria, entre em contato:
             </p>
-            
+
             <div className="space-y-2">
               <p className="text-gray-700"><strong>Email de Acessibilidade:</strong> acessibilidade@aproxima.com.br</p>
               <p className="text-gray-700"><strong>Telefone:</strong> [A ser definido]</p>
@@ -201,18 +203,18 @@ const AccessibilityStatement: React.FC = () => {
           <p className="text-gray-700 mb-4">
             A acessibilidade é um processo contínuo. Nosso cronograma de melhorias inclui:
           </p>
-          
+
           <div className="space-y-4">
             <div className="border-l-4 border-blue-500 pl-4">
               <h3 className="font-medium text-gray-900">Mensal</h3>
               <p className="text-sm text-gray-700">Revisão de feedback dos usuários e correções prioritárias</p>
             </div>
-            
+
             <div className="border-l-4 border-green-500 pl-4">
               <h3 className="font-medium text-gray-900">Trimestral</h3>
               <p className="text-sm text-gray-700">Auditoria completa de acessibilidade e testes com usuários</p>
             </div>
-            
+
             <div className="border-l-4 border-purple-500 pl-4">
               <h3 className="font-medium text-gray-900">Anual</h3>
               <p className="text-sm text-gray-700">Avaliação por especialista externo e atualização desta declaração</p>
@@ -223,7 +225,7 @@ const AccessibilityStatement: React.FC = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Alternativas de Acesso</h2>
           <p className="text-gray-700 mb-4">
-            Caso encontre dificuldades para acessar qualquer conteúdo ou funcionalidade, 
+            Caso encontre dificuldades para acessar qualquer conteúdo ou funcionalidade,
             oferecemos as seguintes alternativas:
           </p>
           <ul className="list-disc list-inside text-gray-700 space-y-1">
@@ -238,13 +240,13 @@ const AccessibilityStatement: React.FC = () => {
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Data da Avaliação</h2>
           <div className="bg-gray-50 p-4 rounded-lg">
             <p className="text-gray-700 mb-2">
-              <strong>Última avaliação de acessibilidade:</strong> {new Date().toLocaleDateString('pt-BR')}
+              <strong>Última avaliação de acessibilidade:</strong> A confirmar pela equipe
             </p>
             <p className="text-gray-700 mb-2">
               <strong>Método de avaliação:</strong> Combinação de avaliação automatizada e manual
             </p>
             <p className="text-gray-700">
-              <strong>Próxima avaliação programada:</strong> {new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toLocaleDateString('pt-BR')}
+              <strong>Próxima avaliação programada:</strong> A confirmar pela equipe
             </p>
           </div>
         </section>
@@ -264,12 +266,12 @@ const AccessibilityStatement: React.FC = () => {
 
         <div className="text-center py-8 border-t border-gray-200">
           <p className="text-sm text-gray-500">
-            Esta declaração de acessibilidade foi criada em {new Date().toLocaleDateString('pt-BR')} e 
+            Esta declaração de acessibilidade foi criada em 02/10/2025 e
             é atualizada conforme melhorias são implementadas.
           </p>
         </div>
       </div>
-    </div>
+    </div></PublicDocumentLayout>
   );
 };
 

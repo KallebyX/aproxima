@@ -8,12 +8,7 @@ import KeyboardNavigation from '../components/KeyboardNavigation';
 import AccessibilityToggle from '../components/AccessibilityToggle';
 import { FeedbackContainer } from '../components/FeedbackSystem';
 import { LiveRegionManager } from '../components/LiveRegion';
-import PerformanceDashboard, { usePerformanceDashboard } from '../components/PerformanceDashboard';
-import { useCSSOptimization } from '../utils/criticalCSS';
 
-// Import optimizers (they initialize automatically)
-import '../utils/intelligentPreloader';
-import '../utils/imageOptimizer';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -23,8 +18,6 @@ const inter = Inter({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-  const { isVisible, setIsVisible } = usePerformanceDashboard();
-  const { isOptimized } = useCSSOptimization();
 
   useEffect(() => {
     // Initialize global live regions for screen reader announcements
@@ -32,18 +25,12 @@ export default function App({ Component, pageProps }: AppProps) {
     liveRegionManager.init();
     
     // Announce page load
-    setTimeout(() => {
+    const announcement = setTimeout(() => {
       liveRegionManager.announce('Aplicação carregada. Use Tab para navegar ou F6 para pular entre seções principais.', 'status');
     }, 1000);
 
-    // Add performance dashboard hint for developers
-    if (process.env.NODE_ENV === 'development') {
-      console.log('🚀 APROXIMA Performance Dashboard: Press Ctrl+Shift+P to toggle');
-      console.log(`🎨 CSS Optimization: ${isOptimized ? 'Active' : 'Loading...'}`);
-      console.log('🖼️ Image Optimizer: Active');
-      console.log('🔮 Intelligent Preloader: Active');
-    }
-  }, [isOptimized]);
+    return () => clearTimeout(announcement);
+  }, []);
 
   return (
     <>
@@ -57,13 +44,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <AccessibilityToggle />
           <FeedbackContainer />
           
-          {/* Performance Dashboard - Development Only */}
-          {process.env.NODE_ENV === 'development' && (
-            <PerformanceDashboard 
-              isVisible={isVisible} 
-              onClose={() => setIsVisible(false)} 
-            />
-          )}
+
         </div>
       </KeyboardNavigation>
     </>

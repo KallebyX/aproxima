@@ -1,33 +1,36 @@
-# Build stage
-FROM node:18-alpine AS builder
+FROM node:24-bookworm-slim AS builder
 WORKDIR /app
 
-# Copiar package files e instalar dependências
-COPY package*.json ./
+ENV NEXT_TELEMETRY_DISABLED=1
+
+COPY package.json package-lock.json ./
 RUN npm ci --include=dev --ignore-scripts
 
-# Copiar código e buildar
 COPY . .
 RUN npm run build
 
-# Production stage
-FROM node:18-alpine AS runner
+FROM node:24-bookworm-slim AS runner
 WORKDIR /app
+ARG VCS_REF=unknown
+LABEL org.opencontainers.image.source="https://github.com/KallebyX/aproxima" \
+    org.opencontainers.image.revision=$VCS_REF
 
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production \
+    NEXT_TELEMETRY_DISABLED=1 \
+    HOSTNAME=0.0.0.0 \
+    PORT=3000 \
+    DATA_DIR=/app/data
 
-# Criar usuário não-root
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs
+# Next.js standalone includes only the dependencies needed at runtime.
+COPY --from=builder --chown=node:node /app/.next/standalone ./
+COPY --from=builder --chown=node:node /app/.next/static ./.next/static
+COPY --from=builder --chown=node:node /app/public ./public
+RUN mkdir -p /app/.next/cache /app/data && chown -R node:node /app/.next/cache /app/data
 
-# Copiar apenas o necessário
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+USER node
+EXPOSE 3000
 
-USER nextjs
-
-EXPOSE 3010
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD node -e "fetch('http://127.0.0.1:' + (process.env.PORT || '3000') + '/api/health', {signal: AbortSignal.timeout(5000)}).then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
 
 CMD ["node", "server.js"]

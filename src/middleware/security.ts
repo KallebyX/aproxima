@@ -238,6 +238,9 @@ export function validateAPIInput(data: any, schema: Record<string, keyof typeof 
 } {
   const errors: string[] = [];
   const sanitized: Record<string, string> = {};
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    return { isValid: false, errors: ['Request body must be a JSON object'], sanitized };
+  }
   
   for (const [field, type] of Object.entries(schema)) {
     const value = data[field];

@@ -1770,3 +1770,34 @@ a.button,
     --border-color: #ffffff;
   }
 }
+/* Shared interface foundations: restrained surfaces, readable text and clear actions. */
+.aproxima-container { width: min(100% - 2.5rem, 72rem); margin-inline: auto; }
+.aproxima-header { background: #352145; border-bottom: 1px solid rgba(255,255,255,.09); box-shadow: 0 2px 12px rgba(33,20,45,.06); }
+.aproxima-footer { background: #30203e; }
+.aproxima-home { background: #faf8fb; }
+.aproxima-hero { background: linear-gradient(110deg, #f8f3fa 0%, #f0e9f5 100%); border-bottom: 1px solid #e9e3ee; }
+.aproxima-eyebrow { display: flex; align-items: center; gap: .5rem; color: #76558e; font-size: .7rem; font-weight: 650; line-height: 1.5; letter-spacing: .1em; text-transform: uppercase; }
+.aproxima-icon { display: inline-flex; flex: none; width: 3rem; height: 3rem; align-items: center; justify-content: center; border-radius: .9rem; background: #f0eaf6; color: #795497; }
+.aproxima-button { display: inline-flex; min-height: 3rem; align-items: center; justify-content: center; gap: .65rem; border: 1px solid transparent; border-radius: .75rem; padding: .8rem 1.2rem; font-size: .875rem; font-weight: 600; line-height: 1.5; transition: background-color .18s, border-color .18s; }
+.aproxima-button-primary { background: #68448a; color: #fff; }
+.aproxima-button-primary:hover { background: #51336e; }
+.aproxima-button-secondary { background: rgba(255,255,255,.75); border-color: #d7c9e0; color: #59416e; }
+.aproxima-button-secondary:hover { background: #fff; border-color: #a88cbc; }
+.aproxima-start-panel { border: 1px solid #e5daed; border-radius: 1.25rem; padding: 1.5rem; background: rgba(255,255,255,.8); box-shadow: 0 8px 32px rgba(65,42,81,.04); }
+.aproxima-start-link { display: flex; align-items: center; gap: .85rem; padding: 1rem .8rem; border: 1px solid #eee8f2; border-radius: .8rem; background: white; color: #76558e; transition: border-color .18s, background-color .18s; }
+.aproxima-start-link:hover { border-color: #c7aed8; background: #fcfaff; }
+.aproxima-start-link > svg { flex-shrink: 0; }
+.aproxima-start-link > span { flex: 1; min-width: 0; }
+.aproxima-start-link strong { display: block; color: #3b2b49; font-size: .875rem; font-weight: 600; line-height: 1.5; }
+.aproxima-start-link small { display: block; margin-top: .2rem; color: #786b82; font-size: .75rem; line-height: 1.65; }
+.aproxima-area-card { display: flex; height: 100%; flex-direction: column; align-items: flex-start; border: 1px solid #e7e0ed; border-radius: 1rem; padding: 1.5rem; background: #fff; transition: border-color .18s, box-shadow .18s; }
+.aproxima-area-card:hover { border-color: #cbb4dc; box-shadow: 0 5px 16px rgba(65,42,81,.06); }
+.aproxima-area-rose .aproxima-icon { background: #f9edf1; color: #a55c7b; }
+.aproxima-area-teal .aproxima-icon { background: #ebf3f1; color: #46786e; }
+.aproxima-area-slate .aproxima-icon { background: #edf0f5; color: #66758b; }
+.aproxima-header a:focus-visible, .aproxima-header button:focus-visible, .aproxima-footer a:focus-visible { outline: 2px solid #e8c9fb; outline-offset: 4px; }
+.aproxima-home main a:focus-visible { outline: 3px solid #9c78b9; outline-offset: 4px; }
+@media (min-width: 640px) { .aproxima-container { width: min(100% - 4rem, 72rem); } .aproxima-start-panel { padding: 1.75rem; } }
+@media (prefers-reduced-motion: reduce) { .aproxima-home *, .aproxima-header * { scroll-behavior: auto; transition: none; } }
+.high-contrast .aproxima-home, .high-contrast .aproxima-hero, .high-contrast .aproxima-start-panel, .high-contrast .aproxima-area-card, .high-contrast .aproxima-start-link, .high-contrast .aproxima-header, .high-contrast .aproxima-footer { background: #000; color: #fff; }
+.high-contrast .aproxima-home h1, .high-contrast .aproxima-home h2, .high-contrast .aproxima-home h3, .high-contrast .aproxima-home p, .high-contrast .aproxima-home strong, .high-contrast .aproxima-home small { color: #fff; }

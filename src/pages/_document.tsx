@@ -25,12 +25,8 @@ export default function Document() {
         <meta name="bingbot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
         
         {/* Canonical URL */}
-        <link rel="canonical" href="https://aproxima.com.br" />
         
         {/* Hreflang para SEO internacional */}
-        <link rel="alternate" hrefLang="pt-BR" href="https://aproxima.com.br" />
-        <link rel="alternate" hrefLang="pt" href="https://aproxima.com.br" />
-        <link rel="alternate" hrefLang="x-default" href="https://aproxima.com.br" />
         
         {/* Accessibility e UX meta tags */}
         <meta name="color-scheme" content="light dark" />
@@ -71,8 +67,8 @@ export default function Document() {
               "@type": "Organization",
               "name": "Aproxima - Saúde Inclusiva",
               "description": "Plataforma de saúde inclusiva com foco em acessibilidade e cuidado humanizado para gestantes e profissionais de saúde.",
-              "url": "https://aproxima.com.br",
-              "logo": "https://aproxima.com.br/favicon.png",
+              "url": "https://aproxima.app.ufn.edu.br",
+              "logo": "https://aproxima.app.ufn.edu.br/favicon.png",
               "foundingDate": "2024",
               "contactPoint": {
                 "@type": "ContactPoint",
@@ -86,7 +82,7 @@ export default function Document() {
                 "addressLocality": "Brasil"
               },
               "sameAs": [
-                "https://aproxima.com.br"
+                "https://aproxima.app.ufn.edu.br"
               ],
               "offers": {
                 "@type": "Offer",
@@ -98,7 +94,7 @@ export default function Document() {
                 "accessibilityControl": ["fullKeyboardControl", "fullMouseControl", "fullTouchControl"],
                 "accessibilityFeature": ["highContrastDisplay", "largePrint", "signLanguage", "audioDescription"],
                 "accessibilityHazard": "none",
-                "accessibilitySummary": "Site 100% acessível com conformidade WCAG 2.1 AAA"
+                "accessibilitySummary": "Recursos de acessibilidade para apoiar diferentes formas de navegação"
               }
             })
           }}
@@ -128,7 +124,7 @@ export default function Document() {
             __html: `
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw-advanced.js')
+                  navigator.serviceWorker.register('/sw-advanced.js', { updateViaCache: 'none' })
                     .then(function(registration) {
                       console.log('✅ SW registered successfully:', registration.scope);
                       

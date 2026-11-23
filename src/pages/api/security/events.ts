@@ -14,6 +14,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method !== 'POST') {
+    res.setHeader('Allow', ['POST']);
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
@@ -33,7 +34,11 @@ export default async function handler(
       });
     }
 
-    const { type, severity, description, metadata } = req.body as SecurityEventData;
+    const { type, severity, description } = validation.sanitized;
+    if (!['vulnerability', 'attack', 'anomaly', 'compliance'].includes(type) ||
+        !['low', 'medium', 'high', 'critical'].includes(severity)) {
+      return res.status(400).json({ error: 'Invalid event type or severity' });
+    }
 
     const forwardedFor = req.headers['x-forwarded-for'];
     const clientIp = Array.isArray(forwardedFor) ? forwardedFor[0] : forwardedFor;
@@ -43,7 +48,6 @@ export default async function handler(
       type,
       severity,
       description,
-      metadata,
       timestamp: new Date().toISOString(),
       userAgent: req.headers['user-agent'],
       ip: clientIp || req.socket.remoteAddress,
