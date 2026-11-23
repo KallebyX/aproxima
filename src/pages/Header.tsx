@@ -164,6 +164,8 @@ export default function Header() {
         {/* Mobile Navigation */}
         <div
           id="mobile-menu"
+          hidden={!isMobileMenuOpen}
+          aria-hidden={!isMobileMenuOpen}
           className={`lg:hidden overflow-hidden transition-all duration-500 ease-out ${
             isMobileMenuOpen
               ? 'max-h-[600px] opacity-100 pb-5'

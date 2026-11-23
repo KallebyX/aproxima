@@ -128,7 +128,7 @@ export default function Document() {
             __html: `
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw-advanced.js')
+                  navigator.serviceWorker.register('/sw-advanced.js', { updateViaCache: 'none' })
                     .then(function(registration) {
                       console.log('✅ SW registered successfully:', registration.scope);
                       

@@ -3,12 +3,21 @@
  */
 import { createMocks } from 'node-mocks-http';
 import handler from '../pages/api/accessibility/settings';
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
 
 describe('/api/accessibility/settings', () => {
+  let dataDir: string;
   beforeEach(() => {
+    dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'aproxima-settings-'));
+    process.env.DATA_DIR = dataDir;
+    process.env.ENCRYPTION_KEY = '21'.repeat(32);
     // Reset any stored settings between tests
     jest.clearAllMocks();
   });
+
+  afterEach(() => fs.rmSync(dataDir, { recursive: true, force: true }));
 
   describe('GET requests', () => {
     it('returns default accessibility settings', async () => {
@@ -98,7 +107,7 @@ describe('/api/accessibility/settings', () => {
         headers: {
           'x-user-id': 'test-user',
         },
-        body: 'invalid-json',
+        body: 'invalid-json' as any,
       });
 
       await handler(req, res);

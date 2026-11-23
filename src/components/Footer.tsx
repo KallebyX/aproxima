@@ -1,9 +1,13 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  // Static pages may outlive the year in which they were built. Keep SSR and
+  // the first client render identical, then show the current year.
+  const [currentYear, setCurrentYear] = useState<number | null>(null);
+  useEffect(() => setCurrentYear(new Date().getFullYear()), []);
 
   const quickLinks = [
     { href: '/gestante', label: 'Área da Gestante' },

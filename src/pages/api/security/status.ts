@@ -27,21 +27,11 @@ export default async function handler(
         timestamp: new Date().toISOString(),
         status: 'operational',
         security_features: {
-          rate_limiting: 'active',
           input_validation: 'active',
-          security_headers: 'active',
-          content_security_policy: 'active',
-          vulnerability_scanning: 'active',
-          access_logging: 'active'
+          application_logging: 'active',
+          vulnerability_scanning: 'not_configured'
         },
-        compliance: {
-          owasp_top_10: 'implemented',
-          lgpd: 'pending',
-          wcag_aa: 'implemented',
-          security_headers: 'implemented'
-        },
-        last_security_scan: process.env.LAST_SECURITY_SCAN || 'never',
-        threat_level: 'low'
+        last_security_scan: process.env.LAST_SECURITY_SCAN || null
       };
 
       // Check rate limiting status
@@ -71,25 +61,12 @@ export default async function handler(
 
       const { endpoint, action } = req.body as SecurityCheckRequest;
 
-      // Simulate security check
+      // Input validation does not constitute a security audit of an endpoint.
       const securityCheck = {
-        endpoint: endpoint || 'unknown',
-        action: action || 'unknown',
-        security_status: 'passed',
-        checks_performed: [
-          'input_validation',
-          'rate_limiting',
-          'authentication',
-          'authorization',
-          'xss_protection',
-          'sql_injection_protection'
-        ],
-        risk_level: 'low',
-        recommendations: [
-          'Continue monitoring for anomalies',
-          'Ensure regular security updates',
-          'Maintain access logs'
-        ],
+        endpoint: validation.sanitized.endpoint,
+        action: validation.sanitized.action,
+        security_status: 'not_assessed',
+        checks_performed: ['input_validation'],
         timestamp: new Date().toISOString()
       };
 

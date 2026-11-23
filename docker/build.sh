@@ -1,26 +1,9 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
-echo "🐳 Building Docker Image"
-echo "======================="
+PROJECT_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+IMAGE="${APROXIMA_IMAGE:-aproxima:local}"
 
-cd /workspaces/aproxima
-docker build -f docker/Dockerfile -t aproxima:latest .
-
-echo ""
-echo "✅ Build concluído!"
-echo ""
-echo "Próximos passos:"
-echo "================"
-echo ""
-echo "1. Ver imagem criada:"
-echo "   docker images | grep aproxima"
-echo ""
-echo "2. Testar localmente:"
-echo "   docker run -d -p 3010:3000 --name aproxima-test aproxima:latest"
-echo "   curl http://localhost:3010/api/health"
-echo ""
-echo "3. Deploy no Portainer:"
-echo "   - Use docker-compose.portainer.yml"
-echo "   - A imagem 'aproxima:latest' já está disponível"
-echo ""
+docker build --file "$PROJECT_ROOT/docker/Dockerfile" --tag "$IMAGE" "$PROJECT_ROOT"
+printf 'Image built: %s\n' "$IMAGE"
+printf 'Local verification: docker compose -f %s/docker/docker-compose.yml up -d\n' "$PROJECT_ROOT"

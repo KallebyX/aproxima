@@ -1,39 +1,23 @@
-version: '3.8'
-
 services:
-  aproxima:
-    image: node:18-alpine
-    container_name: aproxima
-    network_mode: host
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: aproxima:local
+    container_name: aproxima-local
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${PORT:-3010}:3000"
     environment:
       NODE_ENV: production
-      PORT: 3010
+      NEXT_TELEMETRY_DISABLED: "1"
+      HOSTNAME: 0.0.0.0
+      PORT: "3000"
+      TZ: America/Sao_Paulo
+      DATA_DIR: /app/data
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?Generate an ENCRYPTION_KEY before starting}
     volumes:
-      - app_data:/tmp/aproxima
-    command: >
-      sh -c "
-        apk add --no-cache git &&
-        if [ ! -d /tmp/aproxima/.git ]; then
-          echo '📥 Clonando repositório...' &&
-          git clone https://github.com/KallebyX/aproxima.git /tmp/aproxima &&
-          cd /tmp/aproxima &&
-          npm ci --include=dev --ignore-scripts &&
-          npm run build;
-        else
-          echo '✅ Repositório já existe, atualizando...' &&
-          cd /tmp/aproxima &&
-          git pull;
-        fi &&
-        echo '� Preparando arquivos...' &&
-        cd /tmp/aproxima &&
-        cp -r public .next/standalone/ &&
-        mkdir -p .next/standalone/.next &&
-        cp -r .next/static .next/standalone/.next/ &&
-        echo '🚀 Iniciando aplicação na porta 3010...' &&
-        cd .next/standalone &&
-        HOSTNAME=0.0.0.0 PORT=3010 node server.js
-      "
-    restart: unless-stopped # Reinicia o container se ele parar
+      - aproxima-local-data:/app/data
 
 volumes:
-  app_data: # Define o volume para persistir o código
+  aproxima-local-data:

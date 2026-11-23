@@ -1,4 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { ServerStore } from '../../../utils/serverStore';
+import { randomUUID } from 'crypto';
+const feedbackStorage = new ServerStore<FeedbackData & { createdAt: string }>('feedback');
 
 interface FeedbackData {
   type: 'bug' | 'suggestion' | 'accessibility_issue' | 'general';
@@ -52,7 +55,10 @@ export default function handler(
     const feedback: FeedbackData = req.body;
 
     // Validate required fields
-    if (!feedback.type || !feedback.title || !feedback.description) {
+    if (!feedback || typeof feedback !== 'object' || Array.isArray(feedback) ||
+        typeof feedback.title !== 'string' || !feedback.title.trim() || feedback.title.length > 200 ||
+        typeof feedback.description !== 'string' || !feedback.description.trim() || feedback.description.length > 5000 ||
+        !feedback.type) {
       return res.status(400).json({
         success: false,
         error: {
@@ -76,45 +82,24 @@ export default function handler(
       });
     }
 
-    // Generate feedback ID
-    const feedbackId = `${feedback.type}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-
-    // Determine response time based on priority and type
-    let estimatedResponse = '3-5 business days';
-    
-    if (feedback.type === 'accessibility_issue') {
-      estimatedResponse = feedback.priority === 'critical' ? '4-8 hours' : '1-2 business days';
-    } else if (feedback.priority === 'critical') {
-      estimatedResponse = '8-24 hours';
-    } else if (feedback.priority === 'high') {
-      estimatedResponse = '1-2 business days';
+    if (feedback.priority && !['low', 'medium', 'high', 'critical'].includes(feedback.priority)) {
+      return res.status(400).json({ success: false, error: { code: 'INVALID_PRIORITY', message: 'Invalid priority', timestamp: new Date().toISOString() } });
     }
-
-    // In a real application, save to database and send notifications
-    console.log('Feedback received:', {
-      id: feedbackId,
-      ...feedback,
-      timestamp: new Date().toISOString(),
-      userAgent: req.headers['user-agent'],
-      ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+    const feedbackId = randomUUID();
+    feedbackStorage.set(feedbackId, {
+      type: feedback.type,
+      priority: feedback.priority || 'medium',
+      title: feedback.title.trim(),
+      description: feedback.description.trim(),
+      createdAt: new Date().toISOString(),
     });
-
-    // Special handling for accessibility issues
-    if (feedback.type === 'accessibility_issue') {
-      console.log('🚨 ACCESSIBILITY ISSUE REPORTED:', {
-        id: feedbackId,
-        priority: feedback.priority,
-        wcagViolation: feedback.accessibility?.wcagViolation,
-        impactLevel: feedback.accessibility?.impactLevel,
-      });
-    }
 
     res.status(201).json({
       success: true,
       data: {
         id: feedbackId,
         message: 'Feedback received successfully. Thank you for helping us improve accessibility!',
-        estimatedResponse,
+        estimatedResponse: 'Não há prazo automático de resposta.',
       },
     });
 

@@ -20,46 +20,16 @@ describe('/api/health', () => {
     expect(data).toHaveProperty('version');
     expect(data).toHaveProperty('uptime');
     expect(data).toHaveProperty('services');
-    expect(data).toHaveProperty('accessibility');
+    expect(data).not.toHaveProperty('accessibility');
   });
 
-  it('returns accessibility compliance information', async () => {
-    const { req, res } = createMocks({
-      method: 'GET',
-    });
-
+  it('reports actual application and storage checks without claiming external audits', async () => {
+    const { req, res } = createMocks({ method: 'GET' });
     await handler(req, res);
-
     const data = JSON.parse(res._getData());
-    
-    expect(data.accessibility).toHaveProperty('wcag_compliance', 'AAA');
-    expect(data.accessibility).toHaveProperty('tested_screen_readers');
-    expect(data.accessibility).toHaveProperty('last_audit');
-    
-    // Should include major screen readers
-    expect(data.accessibility.tested_screen_readers).toContain('NVDA');
-    expect(data.accessibility.tested_screen_readers).toContain('JAWS');
-    expect(data.accessibility.tested_screen_readers).toContain('VoiceOver');
-  });
-
-  it('returns service status information', async () => {
-    const { req, res } = createMocks({
-      method: 'GET',
-    });
-
-    await handler(req, res);
-
-    const data = JSON.parse(res._getData());
-    
-    expect(data.services).toHaveProperty('database');
-    expect(data.services).toHaveProperty('cache');
-    expect(data.services).toHaveProperty('external');
-    
-    // Services should have valid status
-    const validStatuses = ['healthy', 'unhealthy'];
-    expect(validStatuses).toContain(data.services.database);
-    expect(validStatuses).toContain(data.services.cache);
-    expect(validStatuses).toContain(data.services.external);
+    expect(data.services).toEqual({ application: 'healthy', storage: 'healthy' });
+    expect(data.accessibility).toBeUndefined();
+    expect(data.services.database).toBeUndefined();
   });
 
   it('rejects non-GET requests', async () => {

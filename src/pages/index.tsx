@@ -109,7 +109,7 @@ function FeatureCard({ icon, title, description, delay }: FeatureCardProps) {
   }, [delay]);
 
   return (
-    <article
+    <div
       className={`group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-6 sm:p-8 border border-gray-100 overflow-hidden transform ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
@@ -132,7 +132,7 @@ function FeatureCard({ icon, title, description, delay }: FeatureCardProps) {
           {description}
         </p>
       </div>
-    </article>
+    </div>
   );
 }
 

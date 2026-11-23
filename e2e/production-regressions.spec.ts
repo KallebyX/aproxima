@@ -1,0 +1,34 @@
+import { test, expect } from '@playwright/test';
+
+test('opens and navigates with legacy browser storage corrupted', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.addInitScript(() => {
+    localStorage.setItem('preloader-behavior-patterns', '{invalid');
+    localStorage.setItem('preloader-route-predictions', 'null');
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await expect(page.getByRole('button', { name: 'Abrir menu de navegação' })).toBeVisible();
+  await page.getByRole('button', { name: 'Abrir menu de navegação' }).click();
+  await page.locator('#mobile-menu a[href="/gestante"]').click();
+  await expect(page).toHaveURL(/\/gestante$/);
+  await page.reload();
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test('privacy center opens without prompts and looks up only a private protocol', async ({ page }) => {
+  const id = 'd388fdd3-9454-4464-afdf-2eb29fbcfe23';
+  const dialogs: string[] = [];
+  page.on('dialog', async dialog => { dialogs.push(dialog.type()); await dialog.dismiss(); });
+  await page.route('**/api/lgpd/data-request?requestId=*', route => route.fulfill({ json: { success: true, request: { id, type: 'access', status: 'pending', createdAt: '2026-11-23T12:00:00.000Z', reference: 'LGPD-TEST' } } }));
+  await page.goto('/central-privacidade');
+  await expect(page.getByRole('heading', { name: 'Central de Privacidade' })).toBeVisible();
+  await page.getByRole('button', { name: 'Solicitações de dados', exact: true }).click();
+  await page.getByLabel('ID da solicitação', { exact: true }).fill(id);
+  await page.getByRole('button', { name: 'Consultar', exact: true }).click();
+  await expect(page.getByText('Referência: LGPD-TEST')).toBeVisible();
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('aproxima-data-request-ids'))).toContain(id);
+  expect(dialogs).toEqual([]);
+});

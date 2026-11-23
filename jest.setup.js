@@ -1,10 +1,14 @@
 // Import Jest matchers for DOM nodes
-import '@testing-library/jest-dom'
-import 'jest-axe/extend-expect'
+if (typeof window !== 'undefined') {
+  require('@testing-library/jest-dom');
+  require('jest-axe/extend-expect');
+}
 
 // Global test setup
-const { getComputedStyle } = window
-window.getComputedStyle = (elt) => getComputedStyle(elt)
+if (typeof window !== 'undefined') {
+  const { getComputedStyle } = window
+  window.getComputedStyle = (elt) => getComputedStyle(elt)
+}
 
 // Mock next/router
 jest.mock('next/router', () => ({
@@ -33,7 +37,7 @@ jest.mock('next/router', () => ({
 // Mock next/image
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props) => {
+  default: ({ priority, fill, ...props }) => {
     // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
     return <img {...props} />
   },
@@ -56,7 +60,7 @@ global.ResizeObserver = class ResizeObserver {
 }
 
 // Mock matchMedia
-Object.defineProperty(window, 'matchMedia', {
+if (typeof window !== 'undefined') Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({
     matches: false,

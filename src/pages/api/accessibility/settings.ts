@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { ServerStore } from '../../../utils/serverStore';
 
 interface AccessibilitySettings {
   highContrast: boolean;
@@ -20,32 +21,23 @@ interface AccessibilityResponse {
   };
 }
 
-// In-memory storage for demo (in production, use database)
-const userSettings: Record<string, AccessibilitySettings> = {};
+// Preferences for identified clients persist in the encrypted data volume.
+const userSettings = new ServerStore<AccessibilitySettings>('accessibility-settings');
+const defaults: AccessibilitySettings = { highContrast: false, largeText: false, reducedMotion: false, screenReader: false, keyboardNavigation: true, focusIndicator: true, announcements: true };
 
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<AccessibilityResponse>
 ) {
   const { method } = req;
-  const userId = req.headers['x-user-id'] as string || 'anonymous';
+  res.setHeader('Cache-Control', 'no-store');
+  const userId = typeof req.headers['x-user-id'] === 'string' ? req.headers['x-user-id'] : 'anonymous';
 
   try {
     switch (method) {
       case 'GET':
         // Get user accessibility settings
-        const settings = userSettings[userId] || {
-          highContrast: false,
-          largeText: false,
-          reduceMotion: false,
-          screenReader: false,
-          keyboardNavigation: false,
-          colorBlind: false,
-          focusIndicators: true,
-          altText: true,
-          autoplay: false,
-          timeout: 0
-        };
+        const settings = userSettings.get(userId) || defaults;
 
         res.status(200).json({
           success: true,
@@ -58,7 +50,7 @@ export default function handler(
         // Update user accessibility settings
         const { body } = req;
         
-        if (!body || typeof body !== 'object') {
+        if (!body || typeof body !== 'object' || Array.isArray(body)) {
           return res.status(400).json({
             success: false,
             error: {
@@ -84,7 +76,7 @@ export default function handler(
           key => !allowedKeys.includes(key)
         );
 
-        if (invalidKeys.length > 0) {
+        if (invalidKeys.length > 0 || Object.values(body).some(value => typeof value !== 'boolean')) {
           return res.status(400).json({
             success: false,
             error: {
@@ -96,7 +88,7 @@ export default function handler(
         }
 
         // Update settings
-        const currentSettings = userSettings[userId] || {
+        const currentSettings = userSettings.get(userId) || {
           highContrast: false,
           largeText: false,
           reducedMotion: false,
@@ -107,7 +99,7 @@ export default function handler(
         };
 
         const updatedSettings = { ...currentSettings, ...body };
-        userSettings[userId] = updatedSettings;
+        if (userId !== 'anonymous') userSettings.set(userId, updatedSettings);
 
         res.status(200).json({
           success: true,
@@ -127,7 +119,7 @@ export default function handler(
           announcements: true,
         };
 
-        userSettings[userId] = defaultSettings;
+        if (userId !== 'anonymous') userSettings.set(userId, defaultSettings);
 
         res.status(200).json({
           success: true,
