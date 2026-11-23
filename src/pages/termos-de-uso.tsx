@@ -254,8 +254,8 @@ const TermsOfService: React.FC = () => {
             </p>
 
             <div className="space-y-2">
-              <p className="text-gray-700"><strong>Email:</strong> contato@aproxima.com.br</p>
-              <p className="text-gray-700"><strong>Jurídico:</strong> juridico@aproxima.com.br</p>
+              <p className="text-gray-700"><strong>Email:</strong> rejanecassol@hotmail.com</p>
+
               <p className="text-gray-700"><strong>Formulário de Contato:</strong> <Link href="/contato" className="text-blue-600 hover:underline">Acesse aqui</Link></p>
             </div>
           </div>

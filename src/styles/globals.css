@@ -1773,7 +1773,7 @@ a.button,
 /* Shared interface foundations: restrained surfaces, readable text and clear actions. */
 .aproxima-container { width: min(100% - 2.5rem, 72rem); margin-inline: auto; }
 .aproxima-header { background: #352145; border-bottom: 1px solid rgba(255,255,255,.09); box-shadow: 0 2px 12px rgba(33,20,45,.06); }
-.aproxima-footer { background: #30203e; }
+.aproxima-footer { background: #30203e; padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px)); }
 .aproxima-home { background: #faf8fb; }
 .aproxima-hero { background: linear-gradient(110deg, #f8f3fa 0%, #f0e9f5 100%); border-bottom: 1px solid #e9e3ee; }
 .aproxima-eyebrow { display: flex; align-items: center; gap: .5rem; color: #76558e; font-size: .7rem; font-weight: 650; line-height: 1.5; letter-spacing: .1em; text-transform: uppercase; }

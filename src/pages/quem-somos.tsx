@@ -291,7 +291,7 @@ export default function AboutPage() {
                 </a>
                 <a
                   href="/area-do-profissional"
-                  className="inline-flex items-center gap-2 bg-secondary-500 text-primary-600 font-semibold px-6 py-3 rounded-xl hover:bg-secondary-600 transition-all duration-300 focus:ring-4 focus:ring-secondary-300/50 focus:outline-none"
+                  className="inline-flex items-center gap-2 bg-white text-primary-800 font-semibold px-6 py-3 rounded-xl hover:bg-primary-50 transition-all duration-300 focus:ring-4 focus:ring-white/50 focus:outline-none"
                   aria-label="Acessar área do profissional"
                 >
                   <span className="text-xl" aria-hidden="true"><Stethoscope className="inline-block h-6 w-6 shrink-0 align-middle" aria-hidden="true" /></span>
