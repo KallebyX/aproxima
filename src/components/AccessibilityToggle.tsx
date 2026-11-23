@@ -51,7 +51,7 @@ export default function AccessibilityToggle() {
 
   return (
     <>
-      <div className="fixed right-3 sm:right-4 lg:right-6 top-1/2 -translate-y-1/2 z-40">
+      <div className="fixed left-3 sm:left-4 lg:left-6 bottom-6 z-40">
         <div className="relative group">
           {!showAccessibility && (
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/30 to-purple-400/30 animate-ping" />
@@ -103,7 +103,7 @@ export default function AccessibilityToggle() {
       {showAccessibility && (
         <div 
           ref={accessibilityRef}
-          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 lg:p-6"
+          className="fixed inset-0 z-[10001] flex items-center justify-center p-2 sm:p-4 lg:p-6"
           role="dialog"
           aria-modal="true"
           aria-labelledby="accessibility-title"
